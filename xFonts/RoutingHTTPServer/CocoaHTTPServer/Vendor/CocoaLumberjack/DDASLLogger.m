@@ -45,6 +45,8 @@ static DDASLLogger *sharedInstance;
 	return sharedInstance;
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 - (id)init
 {
 	if (sharedInstance != nil)
@@ -90,6 +92,7 @@ static DDASLLogger *sharedInstance;
 		asl_log(client, NULL, aslLogLevel, "%s", msg);
 	}
 }
+#pragma GCC diagnostic pop
 
 - (NSString *)loggerName
 {

@@ -15,7 +15,8 @@
 #warning This file must be compiled with ARC. Use -fobjc-arc flag (or convert project to ARC).
 #endif
 
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 @implementation DispatchQueueLogFormatter
 {
 	int32_t atomicLoggerCount;
@@ -247,5 +248,6 @@
 {
 	OSAtomicDecrement32(&atomicLoggerCount);
 }
+#pragma GCC diagnostic pop
 
 @end
