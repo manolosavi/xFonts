@@ -6,10 +6,14 @@
 //  Copyright © 2017 manolo. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
+@import CoreText;
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
+@property (nonatomic, strong) IBOutlet UITableView *tableView;
+
+@property (nonatomic, strong) NSArray *allFonts;
+@property (nonatomic, strong) NSMutableArray *selectedFonts;
 
 @end
-

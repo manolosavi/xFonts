@@ -6,7 +6,7 @@
 //  Copyright © 2017 manolo. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+@import UIKit;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
