@@ -884,7 +884,8 @@ static NSMutableArray *recentNonces;
 	
 	return [[request url] relativeString];
 }
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunreachable-code"
 /**
  * This method is called after a full HTTP request has been received.
  * The current request is in the HTTPMessage request variable.
@@ -999,7 +1000,7 @@ static NSMutableArray *recentNonces;
 	
 	[self sendResponseHeadersAndBody];
 }
-
+#pragma GCC diagnostic pop
 /**
  * Prepares a single-range response.
  * 

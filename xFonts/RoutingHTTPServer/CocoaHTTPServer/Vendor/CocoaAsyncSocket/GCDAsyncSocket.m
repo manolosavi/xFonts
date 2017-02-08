@@ -5846,7 +5846,8 @@ enum GCDAsyncSocketConfig
 	}});
 	
 }
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated"
 - (void)maybeStartTLS
 {
 	// We can't start TLS until:
@@ -6723,7 +6724,8 @@ static OSStatus SSLWriteFunction(SSLConnectionRef connection, const void *data, 
 		[cfstreamThread start];
 	});
 }
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wundeclared-selector"
 + (void)cfstreamThread { @autoreleasepool
 {
 	[[NSThread currentThread] setName:GCDAsyncSocketThreadName];
@@ -6742,7 +6744,7 @@ static OSStatus SSLWriteFunction(SSLConnectionRef connection, const void *data, 
 	
 	LogInfo(@"CFStreamThread: Stopped");
 }}
-
+#pragma GCC diagnostic pop
 + (void)scheduleCFStreams:(GCDAsyncSocket *)asyncSocket
 {
 	LogTrace();
@@ -7261,7 +7263,7 @@ static void CFWriteStreamCallback (CFWriteStreamRef stream, CFStreamEventType ty
 	
 	return YES;
 }
-
+#pragma GCC diagnostic pop
 /**
  * Questions? Have you read the header file?
 **/

@@ -809,7 +809,8 @@ static DDTTYLogger *sharedInstance;
 {
 	return sharedInstance;
 }
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdeprecated"
 - (id)init
 {
 	if (sharedInstance != nil)
@@ -855,7 +856,7 @@ static DDTTYLogger *sharedInstance;
 	}
 	return self;
 }
-
+#pragma GCC diagnostic pop
 - (void)loadDefaultColorProfiles
 {
 	[self setForegroundColor:MakeColor(214,  57,  30) backgroundColor:nil forFlag:LOG_FLAG_ERROR];

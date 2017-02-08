@@ -41,7 +41,8 @@
 		// TODO: Log
 	}
 }
-
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wundeclared-selector"
 - (NSObject<HTTPResponse> *)httpResponseForMethod:(NSString *)method URI:(NSString *)path {
 	NSURL *url = [request url];
 	NSString *query = nil;
@@ -72,7 +73,7 @@
 	}
 	return staticResponse;
 }
-
+#pragma GCC diagnostic pop
 - (void)responseHasAvailableData:(NSObject<HTTPResponse> *)sender {
 	HTTPResponseProxy *proxy = (HTTPResponseProxy *)httpResponse;
 	if (proxy.response == sender) {
