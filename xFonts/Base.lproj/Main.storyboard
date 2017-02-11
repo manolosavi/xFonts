@@ -29,7 +29,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dQH-Rq-Gjt" id="9Ma-zb-jRm">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -49,6 +49,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="xFonts" id="aYp-7O-vDv">
+                        <barButtonItem key="leftBarButtonItem" title="None" id="0T2-0p-yH2">
+                            <connections>
+                                <action selector="invertSelection:" destination="BYZ-38-t0r" id="Ln1-ez-6GF"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Install" id="3fh-rb-2vi">
                             <connections>
                                 <action selector="openInstallProfilePage:" destination="BYZ-38-t0r" id="dmS-zJ-ZD1"/>
@@ -56,6 +61,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="installButton" destination="3fh-rb-2vi" id="dIb-4X-jPm"/>
+                        <outlet property="selectButton" destination="0T2-0p-yH2" id="SHh-qQ-13z"/>
                         <outlet property="tableView" destination="Ltc-ll-2Mg" id="TiQ-wv-WgN"/>
                     </connections>
                 </viewController>
@@ -82,4 +89,5 @@
             <point key="canvasLocation" x="32.799999999999997" y="38.23088455772114"/>
         </scene>
     </scenes>
+    <color key="tintColor" red="0.41770491803278703" green="0.27999999999999997" blue="0.69999999999999996" alpha="1" colorSpace="calibratedRGB"/>
 </document>

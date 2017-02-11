@@ -38,12 +38,12 @@
 		9309F3781E4917B2002F2AB7 /* RouteResponse.m in Sources */ = {isa = PBXBuildFile; fileRef = 9309F34C1E4917B2002F2AB7 /* RouteResponse.m */; };
 		9309F3791E4917B2002F2AB7 /* RoutingConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9309F34E1E4917B2002F2AB7 /* RoutingConnection.m */; };
 		9309F37A1E4917B2002F2AB7 /* RoutingHTTPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9309F3501E4917B2002F2AB7 /* RoutingHTTPServer.m */; };
+		93320FD61E4EACCC0045C38C /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 93320FD51E4EACCB0045C38C /* index.html */; };
 		93AE4C6D1E42C44B00D19E41 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93AE4C6C1E42C44B00D19E41 /* main.m */; };
 		93AE4C701E42C44B00D19E41 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93AE4C6F1E42C44B00D19E41 /* AppDelegate.m */; };
 		93AE4C731E42C44B00D19E41 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93AE4C721E42C44B00D19E41 /* ViewController.m */; };
 		93AE4C761E42C44B00D19E41 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93AE4C741E42C44B00D19E41 /* Main.storyboard */; };
 		93AE4C781E42C44B00D19E41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93AE4C771E42C44B00D19E41 /* Assets.xcassets */; };
-		93AE4C7B1E42C44B00D19E41 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93AE4C791E42C44B00D19E41 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -111,6 +111,7 @@
 		9309F34E1E4917B2002F2AB7 /* RoutingConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutingConnection.m; sourceTree = "<group>"; };
 		9309F34F1E4917B2002F2AB7 /* RoutingHTTPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutingHTTPServer.h; sourceTree = "<group>"; };
 		9309F3501E4917B2002F2AB7 /* RoutingHTTPServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutingHTTPServer.m; sourceTree = "<group>"; };
+		93320FD51E4EACCB0045C38C /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		93AE4C681E42C44B00D19E41 /* xFonts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xFonts.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93AE4C6C1E42C44B00D19E41 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		93AE4C6E1E42C44B00D19E41 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -119,7 +120,6 @@
 		93AE4C721E42C44B00D19E41 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		93AE4C751E42C44B00D19E41 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		93AE4C771E42C44B00D19E41 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		93AE4C7A1E42C44B00D19E41 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		93AE4C7C1E42C44B00D19E41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -303,7 +303,7 @@
 				93AE4C721E42C44B00D19E41 /* ViewController.m */,
 				93AE4C741E42C44B00D19E41 /* Main.storyboard */,
 				93AE4C771E42C44B00D19E41 /* Assets.xcassets */,
-				93AE4C791E42C44B00D19E41 /* LaunchScreen.storyboard */,
+				93320FD51E4EACCB0045C38C /* index.html */,
 				93AE4C7C1E42C44B00D19E41 /* Info.plist */,
 				93AE4C6B1E42C44B00D19E41 /* Supporting Files */,
 			);
@@ -327,6 +327,7 @@
 			buildPhases = (
 				93AE4C641E42C44B00D19E41 /* Sources */,
 				93AE4C651E42C44B00D19E41 /* Frameworks */,
+				9392FDAB1E497CDB00960DE3 /* Export Sketch Assets */,
 				93AE4C661E42C44B00D19E41 /* Resources */,
 			);
 			buildRules = (
@@ -378,13 +379,30 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93AE4C7B1E42C44B00D19E41 /* LaunchScreen.storyboard in Resources */,
+				93320FD61E4EACCC0045C38C /* index.html in Resources */,
 				93AE4C781E42C44B00D19E41 /* Assets.xcassets in Resources */,
 				93AE4C761E42C44B00D19E41 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9392FDAB1E497CDB00960DE3 /* Export Sketch Assets */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Export Sketch Assets";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#sketchtool export artboards \"$PROJECT_DIR\"/\"xFonts/xFonts\\ Icon.sketch\" --output=\"$PROJECT_DIR\"/\"$PROJECT_NAME\"/Images.xcassets/AppIcon.appiconset --formats=\"png\"";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		93AE4C641E42C44B00D19E41 /* Sources */ = {
@@ -437,14 +455,6 @@
 				93AE4C751E42C44B00D19E41 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		93AE4C791E42C44B00D19E41 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				93AE4C7A1E42C44B00D19E41 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -547,6 +557,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.manolosavi.xFonts;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -559,6 +570,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.manolosavi.xFonts;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
