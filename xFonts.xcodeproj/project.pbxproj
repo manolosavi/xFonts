@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9303A3F71E5511A600922B1E /* PresentationBlurAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9303A3F61E5511A600922B1E /* PresentationBlurAnimator.m */; };
+		9303A3FA1E5511AF00922B1E /* DismissBlurAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9303A3F91E5511AF00922B1E /* DismissBlurAnimator.m */; };
+		9303A3FD1E5512AA00922B1E /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9303A3FC1E5512AA00922B1E /* HelpViewController.m */; };
 		9309F3511E4917B2002F2AB7 /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9309F2FB1E4917B1002F2AB7 /* DDData.m */; };
 		9309F3521E4917B2002F2AB7 /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 9309F2FD1E4917B1002F2AB7 /* DDNumber.m */; };
 		9309F3531E4917B2002F2AB7 /* DDRange.m in Sources */ = {isa = PBXBuildFile; fileRef = 9309F2FF1E4917B1002F2AB7 /* DDRange.m */; };
@@ -47,6 +50,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9303A3F51E5511A600922B1E /* PresentationBlurAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentationBlurAnimator.h; sourceTree = "<group>"; };
+		9303A3F61E5511A600922B1E /* PresentationBlurAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentationBlurAnimator.m; sourceTree = "<group>"; };
+		9303A3F81E5511AF00922B1E /* DismissBlurAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DismissBlurAnimator.h; sourceTree = "<group>"; };
+		9303A3F91E5511AF00922B1E /* DismissBlurAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DismissBlurAnimator.m; sourceTree = "<group>"; };
+		9303A3FB1E5512AA00922B1E /* HelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
+		9303A3FC1E5512AA00922B1E /* HelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
 		9309F2FA1E4917B1002F2AB7 /* DDData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDData.h; sourceTree = "<group>"; };
 		9309F2FB1E4917B1002F2AB7 /* DDData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDData.m; sourceTree = "<group>"; };
 		9309F2FC1E4917B1002F2AB7 /* DDNumber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDNumber.h; sourceTree = "<group>"; };
@@ -297,10 +306,16 @@
 			isa = PBXGroup;
 			children = (
 				9309F2F61E4917B1002F2AB7 /* RoutingHTTPServer */,
+				9303A3F51E5511A600922B1E /* PresentationBlurAnimator.h */,
+				9303A3F61E5511A600922B1E /* PresentationBlurAnimator.m */,
+				9303A3F81E5511AF00922B1E /* DismissBlurAnimator.h */,
+				9303A3F91E5511AF00922B1E /* DismissBlurAnimator.m */,
 				93AE4C6E1E42C44B00D19E41 /* AppDelegate.h */,
 				93AE4C6F1E42C44B00D19E41 /* AppDelegate.m */,
 				93AE4C711E42C44B00D19E41 /* ViewController.h */,
 				93AE4C721E42C44B00D19E41 /* ViewController.m */,
+				9303A3FB1E5512AA00922B1E /* HelpViewController.h */,
+				9303A3FC1E5512AA00922B1E /* HelpViewController.m */,
 				93AE4C741E42C44B00D19E41 /* Main.storyboard */,
 				93AE4C771E42C44B00D19E41 /* Assets.xcassets */,
 				93320FD51E4EACCB0045C38C /* index.html */,
@@ -345,7 +360,7 @@
 		93AE4C601E42C44B00D19E41 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = manolo;
 				TargetAttributes = {
 					93AE4C671E42C44B00D19E41 = {
@@ -416,6 +431,7 @@
 				9309F36B1E4917B2002F2AB7 /* DDAbstractDatabaseLogger.m in Sources */,
 				9309F35A1E4917B2002F2AB7 /* MultipartMessageHeaderField.m in Sources */,
 				9309F3781E4917B2002F2AB7 /* RouteResponse.m in Sources */,
+				9303A3FD1E5512AA00922B1E /* HelpViewController.m in Sources */,
 				9309F3561E4917B2002F2AB7 /* HTTPMessage.m in Sources */,
 				9309F35B1E4917B2002F2AB7 /* HTTPAsyncFileResponse.m in Sources */,
 				9309F35F1E4917B2002F2AB7 /* HTTPFileResponse.m in Sources */,
@@ -429,6 +445,7 @@
 				93AE4C701E42C44B00D19E41 /* AppDelegate.m in Sources */,
 				9309F3761E4917B2002F2AB7 /* Route.m in Sources */,
 				9309F3711E4917B2002F2AB7 /* DispatchQueueLogFormatter.m in Sources */,
+				9303A3F71E5511A600922B1E /* PresentationBlurAnimator.m in Sources */,
 				9309F35E1E4917B2002F2AB7 /* HTTPErrorResponse.m in Sources */,
 				9309F35D1E4917B2002F2AB7 /* HTTPDynamicFileResponse.m in Sources */,
 				9309F35C1E4917B2002F2AB7 /* HTTPDataResponse.m in Sources */,
@@ -436,6 +453,7 @@
 				9309F3571E4917B2002F2AB7 /* HTTPServer.m in Sources */,
 				9309F3551E4917B2002F2AB7 /* HTTPConnection.m in Sources */,
 				9309F3541E4917B2002F2AB7 /* HTTPAuthenticationRequest.m in Sources */,
+				9303A3FA1E5511AF00922B1E /* DismissBlurAnimator.m in Sources */,
 				9309F3791E4917B2002F2AB7 /* RoutingConnection.m in Sources */,
 				9309F3771E4917B2002F2AB7 /* RouteRequest.m in Sources */,
 				9309F36D1E4917B2002F2AB7 /* DDFileLogger.m in Sources */,
@@ -464,6 +482,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -511,6 +530,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";

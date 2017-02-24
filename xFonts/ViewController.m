@@ -28,6 +28,8 @@
 	
 	[_selectButton setPossibleTitles:[NSSet setWithObjects: @"None", @"All", nil]];
 	
+	_noFontsView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern"]];
+	
 	[self startHTTPServer];
 	[self loadFonts];
 }
@@ -77,7 +79,23 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	tableView.hidden = _allFonts.count == 0;
+	if (_allFonts.count == 0) {
+		tableView.hidden = true;
+		_installButton.enabled = false;
+		_selectButton.enabled = false;
+		[self.view addSubview:_noFontsView];
+		_noFontsView.translatesAutoresizingMaskIntoConstraints = false;
+		
+		NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:_noFontsView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_noFontsView.superview attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
+		NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:_noFontsView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_noFontsView.superview attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
+		NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:_noFontsView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_noFontsView.superview attribute:NSLayoutAttributeWidth multiplier:1 constant:0];
+		NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:_noFontsView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_noFontsView.superview attribute:NSLayoutAttributeHeight multiplier:1 constant:0];
+		[_noFontsView.superview addConstraints:@[centerX, centerY, widthConstraint, heightConstraint]];
+		
+	} else {
+		tableView.hidden = false;
+		[_noFontsView removeFromSuperview];
+	}
 	return _allFonts.count;
 }
 
@@ -121,6 +139,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
 		UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"Delete Font" message:@"Are you sure you want to delete this font? This cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
+		alertVC.view.tintColor = self.view.tintColor;
 		
 		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
 		UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
@@ -184,6 +203,7 @@
 }
 
 - (void)saveFontsProfile:(void(^)())completion {
+	NSInteger count = 0;
 	NSString *fonts = @"";
 	for (int i=0; i<_allFonts.count; i++) {
 		if ([_selectedFonts[i] isEqual:@0]) {
@@ -198,9 +218,12 @@
 		NSString *font = [[[NSData alloc] initWithContentsOfURL:url] base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
 			
 		fonts = [fonts stringByAppendingString:[NSString stringWithFormat:@"<dict><key>PayloadType</key><string>com.apple.font</string><key>PayloadVersion</key><integer>1</integer><key>PayloadIdentifier</key><string>%@</string><key>PayloadUUID</key><string>%@</string><key>Name</key><string>%@</string><key>Font</key><data>%@</data></dict>", name, [[NSUUID UUID] UUIDString], name, font]];
+		
+		count++;
 	}
+	NSString *title = [NSString stringWithFormat:@"%ld font%@", (long)count, (count>1?@"s":@"")];
 	
-	NSString *profile = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict><key>PayloadType</key><string>Configuration</string><key>PayloadVersion</key><integer>1</integer><key>PayloadDisplayName</key><string>xFonts</string><key>PayloadIdentifier</key><string>xFonts</string><key>PayloadUUID</key><string>%@</string><key>PayloadContent</key><array>%@</array></dict></plist>", [[NSUUID UUID] UUIDString], fonts];
+	NSString *profile = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict><key>PayloadType</key><string>Configuration</string><key>PayloadVersion</key><integer>1</integer><key>PayloadDisplayName</key><string>xFonts (%@)</string><key>PayloadIdentifier</key><string>xFonts %@</string><key>PayloadUUID</key><string>%@</string><key>PayloadContent</key><array>%@</array></dict></plist>", title, NSUUID.UUID.UUIDString, NSUUID.UUID.UUIDString, fonts];
 	
 	[self saveString:profile toFile:@"/xFonts.mobileconfig"];
 	completion();
@@ -237,5 +260,29 @@
 	}
 	return true;
 }
+
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	if ([segue.identifier isEqualToString:@"HelpSegue"]) {
+		UIViewController *vc = segue.destinationViewController;
+		vc.transitioningDelegate = self;
+	}
+}
+
+
+#pragma mark - Custom Blur Transition
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+	return [PresentationBlurAnimator new];
+}
+
+- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
+	return [DismissBlurAnimator new];
+}
+
+
+
+
 
 @end
