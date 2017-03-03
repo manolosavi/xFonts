@@ -11,5 +11,7 @@
 @interface HelpViewController : UIViewController
 
 @property (nonatomic, weak) IBOutlet UIVisualEffectView *blurView;
+@property (nonatomic, weak) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, weak) IBOutlet UIImageView *imageView;
 
 @end

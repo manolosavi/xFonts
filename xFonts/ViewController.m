@@ -21,7 +21,10 @@
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
+//	Set self as observer for the "reloadFonts" notification to reload the TableView data when the application
+//	comes back to the foreground or is opened via the "Copy to xFonts" option in another app
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFonts) name:@"reloadFonts" object:nil];
+	
 	
 	_selectedFonts = [NSMutableArray array];
 	fullSelection = true;
@@ -34,6 +37,9 @@
 	[self loadFonts];
 }
 
+/**
+ Ennumerates through all files in the Documents directory to look for fonts to show on the TableView.
+ */
 - (void)loadFonts {
 	NSString *file;
 	NSMutableArray *tempFonts = [NSMutableArray array];
@@ -43,6 +49,7 @@
 			NSString *fontName = [[file lastPathComponent] stringByReplacingOccurrencesOfString:@".otf" withString:@""];
 			[fontName stringByReplacingOccurrencesOfString:@".ttf" withString:@""];
 			
+//			Registers the font for use, this way we can show each row with its respective font as a preview.
 			NSData *fontData = [[NSData alloc] initWithContentsOfURL:[self urlForFile:file]];
 			CFErrorRef error;
 			CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef)fontData);
@@ -72,20 +79,20 @@
 	[super didReceiveMemoryWarning];
 }
 
-#pragma mark - UITableView Delegate
+/**
+ Called when the TableView reloads, depending on the shouldShow parameter, the noFontsView will be added or removed.
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-	return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (_allFonts.count == 0) {
-		tableView.hidden = true;
+ @param shouldShow true when the TableView is empty
+ */
+- (void)showNoFontsView:(BOOL)shouldShow {
+	if (shouldShow) {
+		_tableView.hidden = true;
 		_installButton.enabled = false;
 		_selectButton.enabled = false;
 		[self.view addSubview:_noFontsView];
 		_noFontsView.translatesAutoresizingMaskIntoConstraints = false;
 		
+//		Constraints to make noFontsView the same size as it's superview
 		NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:_noFontsView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_noFontsView.superview attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
 		NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:_noFontsView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_noFontsView.superview attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
 		NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:_noFontsView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_noFontsView.superview attribute:NSLayoutAttributeWidth multiplier:1 constant:0];
@@ -93,9 +100,19 @@
 		[_noFontsView.superview addConstraints:@[centerX, centerY, widthConstraint, heightConstraint]];
 		
 	} else {
-		tableView.hidden = false;
+		_tableView.hidden = false;
 		[_noFontsView removeFromSuperview];
 	}
+}
+
+#pragma mark - UITableView Delegate
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+	return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	[self showNoFontsView:_allFonts.count == 0];
 	return _allFonts.count;
 }
 
@@ -118,8 +135,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+//	Selects/deselects the tapped row
 	_selectedFonts[indexPath.row] = [_selectedFonts[indexPath.row] isEqual:@1] ? @0 : @1;
 	
+//	Changes the selectButton's title depending on whether or not all rows are selected
 	fullSelection = ![_selectedFonts containsObject:@0];
 	if (fullSelection) {
 		_selectButton.title = @"None";
@@ -127,6 +146,7 @@
 		_selectButton.title = @"All";
 	}
 	
+//	Enable the installButton only when there's at least one font selected
 	_installButton.enabled = [_selectedFonts containsObject:@1];
 	
 	[tableView reloadData];
@@ -141,6 +161,7 @@
 		UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"Delete Font" message:@"Are you sure you want to delete this font? This cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
 		alertVC.view.tintColor = self.view.tintColor;
 		
+//		Show alert to warn about the deletion of the font. Delete the font if the user confirms.
 		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
 		UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
 			NSDictionary *dict = _allFonts[indexPath.row];
@@ -162,6 +183,12 @@
 	}
 }
 
+/**
+ Will select all or none of the fonts, depending on how many fonts there were selected already.
+ If at least one font wasn't selected, all fonts will be selected. Otherwise no fonts will be selected.
+
+ @param sender is selectButton
+ */
 - (IBAction)invertSelection:(id)sender {
 	for (int i=0; i<_selectedFonts.count; i++) {
 		_selectedFonts[i] = fullSelection ? @0 : @1;
@@ -177,6 +204,9 @@
 	[_tableView reloadData];
 }
 
+/**
+ Starts the HTTP Server and sets the response to the root directory to allow the install of profiles.
+ */
 - (void)startHTTPServer {
 	http = [[RoutingHTTPServer alloc] init];
 	[http setPort:3333];
@@ -184,8 +214,10 @@
 	[http setDocumentRoot:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true) objectAtIndex:0]];
 	
 	[http handleMethod:@"GET" withPath:@"/" block:^(RouteRequest *request, RouteResponse *response) {
+//		This is what the server will respond with when going to the root directory.
 		[response setHeader:@"Content-Type" value:@"text/html"];
 		
+//		Get the html file from the main bundle, send it as the response string.
 		NSString *path = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
 		NSString *html = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 		
@@ -202,11 +234,17 @@
 	}];
 }
 
+/**
+ Goes through the list of fonts and adds all the selected ones to the profile, then saves the completed profile to the Documents directory.
+
+ @param completion this block is called when the profile has completed saving to disk
+ */
 - (void)saveFontsProfile:(void(^)())completion {
 	NSInteger count = 0;
 	NSString *fonts = @"";
 	for (int i=0; i<_allFonts.count; i++) {
 		if ([_selectedFonts[i] isEqual:@0]) {
+//			Skip fonts that aren't selected
 			continue;
 		}
 		NSDictionary *dict = _allFonts[i];
@@ -229,16 +267,34 @@
 	completion();
 }
 
+/**
+ Returns an NSURL [in Documents directory] for the file passed on the parameter.
+
+ @param fileName whose NSURL you need
+ @return NSURL to the file
+ */
 - (NSURL*)urlForFile:(NSString*)fileName {
 	NSURL *directory = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
 	return [directory URLByAppendingPathComponent:fileName];
 }
 
+/**
+ Returns an NSString with the path [in Documents directory] for the file passed on the parameter.
+
+ @param fileName whose path you need
+ @return path to the file
+ */
 - (NSString*)pathForFile:(NSString*)fileName {
 	NSString *filePath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true).firstObject;
 	return [filePath stringByAppendingString:fileName];
 }
 
+/**
+ Saves the string "str" to disk on the "fileName" path.
+
+ @param str file to save as a string
+ @param fileName path to where the file should be saved
+ */
 - (void)saveString:(NSString*)str toFile:(NSString*)fileName {
 	NSString *fileAtPath = [self pathForFile:fileName];
 	if (![[NSFileManager defaultManager] fileExistsAtPath:fileAtPath]) {
@@ -247,6 +303,12 @@
 	[[str dataUsingEncoding:NSUTF8StringEncoding] writeToFile:fileAtPath atomically:true];
 }
 
+/**
+ Removes the file at the "fileName" path.
+
+ @param fileName path to file you want to delete
+ @return true if the file was deleted, false if it couldn't be deleted
+ */
 - (BOOL)removeFile:(NSString*)fileName {
 	if (![[fileName substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"/"]) {
 		fileName = [@"/" stringByAppendingString:fileName];
@@ -266,10 +328,10 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	if ([segue.identifier isEqualToString:@"HelpSegue"]) {
 		UIViewController *vc = segue.destinationViewController;
+//		Set the transitioning delegate to allow for the custom animators
 		vc.transitioningDelegate = self;
 	}
 }
-
 
 #pragma mark - Custom Blur Transition
 
@@ -280,9 +342,5 @@
 - (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
 	return [DismissBlurAnimator new];
 }
-
-
-
-
 
 @end
