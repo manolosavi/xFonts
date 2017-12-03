@@ -239,7 +239,7 @@
 
  @param completion this block is called when the profile has completed saving to disk
  */
-- (void)saveFontsProfile:(void(^)())completion {
+- (void)saveFontsProfile:(void(^)(void))completion {
 	NSInteger count = 0;
 	NSString *fonts = @"";
 	for (int i=0; i<_allFonts.count; i++) {
