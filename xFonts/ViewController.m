@@ -333,6 +333,11 @@
 
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray <NSURL *>*)urls API_AVAILABLE(ios(11.0))
 {
+	// NOTE: This is called after the selected files are downloaded and the picker view is dismissed.
+	
+	// TODO: copy the security scoped URLs into the app
+	// https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/DocumentPickerProgrammingGuide/AccessingDocuments/AccessingDocuments.html#//apple_ref/doc/uid/TP40014451-CH2-SW9
+	
 	DebugLog(@"%s urls = %@", __PRETTY_FUNCTION__, urls);
 }
 
