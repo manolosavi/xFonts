@@ -47,7 +47,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="xFonts" id="aYp-7O-vDv">
-                        <barButtonItem key="leftBarButtonItem" title="Add" id="0T2-0p-yH2"/>
+                        <barButtonItem key="leftBarButtonItem" title="Add" id="0T2-0p-yH2">
+                            <connections>
+                                <action selector="addFonts:" destination="BYZ-38-t0r" id="MKV-pe-LBN"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Install" id="3fh-rb-2vi">
                             <connections>
                                 <action selector="openInstallProfilePage:" destination="BYZ-38-t0r" id="dmS-zJ-ZD1"/>

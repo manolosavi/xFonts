@@ -11,7 +11,9 @@
 #import "ViewController.h"
 #import "RoutingHTTPServer.h"
 
-@interface ViewController () <SFSafariViewControllerDelegate>
+#import "DebugLog.h"
+
+@interface ViewController () <SFSafariViewControllerDelegate, UIDocumentPickerDelegate>
 
 @property (nonatomic, strong) RoutingHTTPServer *http;
 
@@ -70,7 +72,7 @@
 					if (!CTFontManagerRegisterGraphicsFont(fontRef, &error)) {
 						CFStringRef errorDescription = CFErrorCopyDescription(error);
 						if (CFErrorGetCode(error) != 105) {
-							NSLog(@"Failed to load font: %@", errorDescription);
+							ReleaseLog(@"%s Failed to load font: %@", __PRETTY_FUNCTION__, errorDescription);
 						}
 						CFRelease(errorDescription);
 					}
@@ -97,6 +99,32 @@
 
 - (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning];
+}
+
+#pragma mark - Actions
+
+- (IBAction)openInstallProfilePage:(id)sender {
+	[self saveFontsProfile:^{
+		NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://localhost:3333/"]];
+		
+		SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL:URL];
+		viewController.delegate = self;
+		[self presentViewController:viewController animated:YES completion:^{
+			// TODO: something here?
+		}];
+		//[[UIApplication sharedApplication] openURL:URL options:@{} completionHandler:nil];
+	}];
+}
+
+- (IBAction)addFonts:(id)sender {
+	NSArray<NSString *> *allowedUTIs = @[ @"public.truetype-font" , @"public.opentype-font"];
+	UIDocumentPickerViewController *viewController = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:allowedUTIs inMode:UIDocumentPickerModeImport];
+	viewController.allowsMultipleSelection = YES;
+	viewController.delegate = self;
+	
+	[self presentViewController:viewController animated:YES completion:^{
+		// TODO: something here?
+	}];
 }
 
 /**
@@ -206,18 +234,6 @@
 	[self.http start:nil];
 }
 
-- (IBAction)openInstallProfilePage:(id)sender {
-	[self saveFontsProfile:^{
-		NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://localhost:3333/"]];
-		
-		SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL:URL];
-		viewController.delegate = self;
-		[self presentViewController:viewController animated:YES completion:^{
-			// TODO: something here?
-		}];
-		//[[UIApplication sharedApplication] openURL:URL options:@{} completionHandler:nil];
-	}];
-}
 
 /**
  Goes through the list of fonts and adds all the selected ones to the profile, then saves the completed profile to the Documents directory.
@@ -297,7 +313,7 @@
 	
 	NSError *error;
 	if (![[NSFileManager defaultManager] removeItemAtPath:fileAtPath error:&error]) {
-		NSLog(@"Could not delete file: %@", [error localizedDescription]);
+		ReleaseLog(@"%s Could not delete file: %@", __PRETTY_FUNCTION__, [error localizedDescription]);
 		return false;
 	}
 	return true;
@@ -312,6 +328,19 @@
 //		vc.transitioningDelegate = self;
 //	}
 //}
+
+#pragma mark - UIDocumentPickerDelegate
+
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray <NSURL *>*)urls API_AVAILABLE(ios(11.0))
+{
+	DebugLog(@"%s urls = %@", __PRETTY_FUNCTION__, urls);
+}
+
+// called if the user dismisses the document picker without selecting a document (using the Cancel button)
+- (void)documentPickerWasCancelled:(UIDocumentPickerViewController *)controller
+{
+	DebugLog(@"%s called", __PRETTY_FUNCTION__);
+}
 
 #pragma mark - SFSafariViewControllerDelegate
 

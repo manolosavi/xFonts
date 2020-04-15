@@ -121,7 +121,7 @@
 		9309F34F1E4917B2002F2AB7 /* RoutingHTTPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutingHTTPServer.h; sourceTree = "<group>"; };
 		9309F3501E4917B2002F2AB7 /* RoutingHTTPServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutingHTTPServer.m; sourceTree = "<group>"; };
 		93320FD51E4EACCB0045C38C /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		93AE4C681E42C44B00D19E41 /* xFonts.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = xFonts.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		93AE4C681E42C44B00D19E41 /* xFonts 2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "xFonts 2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		93AE4C6C1E42C44B00D19E41 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		93AE4C6E1E42C44B00D19E41 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		93AE4C6F1E42C44B00D19E41 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -298,7 +298,7 @@
 		93AE4C691E42C44B00D19E41 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				93AE4C681E42C44B00D19E41 /* xFonts.app */,
+				93AE4C681E42C44B00D19E41 /* xFonts 2.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -352,7 +352,7 @@
 			);
 			name = xFonts;
 			productName = xFonts;
-			productReference = 93AE4C681E42C44B00D19E41 /* xFonts.app */;
+			productReference = 93AE4C681E42C44B00D19E41 /* xFonts 2.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -588,9 +588,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = RYQWBTQRPT;
 				INFOPLIST_FILE = xFonts/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.iconfactory.xFonts;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "xFonts 2";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -602,9 +604,11 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEVELOPMENT_TEAM = RYQWBTQRPT;
 				INFOPLIST_FILE = xFonts/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.iconfactory.xFonts;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "xFonts 2";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
