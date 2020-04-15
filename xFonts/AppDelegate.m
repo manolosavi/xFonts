@@ -49,7 +49,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
 //	Post "reloadFonts" notification when becoming active
-	[[NSNotificationCenter defaultCenter] postNotificationName:@"reloadFonts" object:nil];
+//	[[NSNotificationCenter defaultCenter] postNotificationName:@"reloadFonts" object:nil];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

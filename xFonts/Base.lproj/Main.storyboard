@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12113" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ojk-Bn-Ctu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ojk-Bn-Ctu">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12078"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -16,18 +16,18 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ltc-ll-2Mg">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="dQH-Rq-Gjt">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dQH-Rq-Gjt" id="9Ma-zb-jRm">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -47,11 +47,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="xFonts" id="aYp-7O-vDv">
-                        <barButtonItem key="leftBarButtonItem" title="None" id="0T2-0p-yH2">
-                            <connections>
-                                <action selector="invertSelection:" destination="BYZ-38-t0r" id="Ln1-ez-6GF"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="Add" id="0T2-0p-yH2"/>
                         <barButtonItem key="rightBarButtonItem" title="Install" id="3fh-rb-2vi">
                             <connections>
                                 <action selector="openInstallProfilePage:" destination="BYZ-38-t0r" id="dmS-zJ-ZD1"/>
@@ -59,9 +55,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addButton" destination="0T2-0p-yH2" id="C2y-zh-Pzp"/>
                         <outlet property="installButton" destination="3fh-rb-2vi" id="dIb-4X-jPm"/>
-                        <outlet property="noFontsView" destination="dvG-dT-8Hs" id="MWR-0z-WJZ"/>
-                        <outlet property="selectButton" destination="0T2-0p-yH2" id="SHh-qQ-13z"/>
                         <outlet property="tableView" destination="Ltc-ll-2Mg" id="TiQ-wv-WgN"/>
                     </connections>
                 </viewController>
@@ -88,12 +83,6 @@
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Oh-G0-Agk">
                             <rect key="frame" x="85" y="261.5" width="78" height="30"/>
                             <state key="normal" title="Need help?"/>
-                            <connections>
-                                <segue destination="K9y-4B-IUk" kind="presentation" identifier="HelpSegue" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="yWA-0h-zLu">
-                                    <segue key="commit" inheritsFrom="parent" id="6pz-ky-WGz"/>
-                                    <segue key="preview" inheritsFrom="commit" id="qne-ph-7xO"/>
-                                </segue>
-                            </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Remember that your fonts must be in .otf or .ttf format." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WHh-eN-ceo">
                             <rect key="frame" x="11" y="205.5" width="226.5" height="36"/>
@@ -121,99 +110,13 @@
             </objects>
             <point key="canvasLocation" x="972" y="38.23088455772114"/>
         </scene>
-        <!--Help View Controller-->
-        <scene sceneID="xAt-vE-Kix">
-            <objects>
-                <viewController id="K9y-4B-IUk" customClass="HelpViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="IjR-Jj-FbN"/>
-                        <viewControllerLayoutGuide type="bottom" id="ews-pT-e8R"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Brk-Au-jg6">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZRT-Lz-Dl1">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="cVO-IO-FJB">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WtE-Ze-h0A">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                            <subviews>
-                                                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="01o-GV-ZdL">
-                                                    <rect key="frame" x="0.0" y="0.0" width="611" height="600"/>
-                                                    <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="itunes" translatesAutoresizingMaskIntoConstraints="NO" id="GkU-FI-njb">
-                                                            <rect key="frame" x="0.0" y="100" width="611" height="400"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" secondItem="GkU-FI-njb" secondAttribute="height" multiplier="344:225" id="VJv-vS-8dY"/>
-                                                                <constraint firstAttribute="height" relation="lessThanOrEqual" constant="823" id="XRW-jc-zX1"/>
-                                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="270" id="npx-Xf-Fja"/>
-                                                            </constraints>
-                                                        </imageView>
-                                                    </subviews>
-                                                    <constraints>
-                                                        <constraint firstItem="GkU-FI-njb" firstAttribute="leading" secondItem="01o-GV-ZdL" secondAttribute="leading" id="Eka-uI-ClT"/>
-                                                        <constraint firstAttribute="trailing" secondItem="GkU-FI-njb" secondAttribute="trailing" id="mzU-It-WJF"/>
-                                                        <constraint firstItem="GkU-FI-njb" firstAttribute="top" secondItem="01o-GV-ZdL" secondAttribute="top" constant="100" id="u5y-lV-gB4"/>
-                                                        <constraint firstItem="GkU-FI-njb" firstAttribute="centerY" secondItem="01o-GV-ZdL" secondAttribute="centerY" id="ycZ-c7-q8r"/>
-                                                    </constraints>
-                                                </view>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="01o-GV-ZdL" firstAttribute="top" secondItem="WtE-Ze-h0A" secondAttribute="top" id="JzG-vc-2yF"/>
-                                                <constraint firstAttribute="trailing" secondItem="01o-GV-ZdL" secondAttribute="trailing" id="Q1d-aB-DJ4"/>
-                                                <constraint firstAttribute="bottom" secondItem="01o-GV-ZdL" secondAttribute="bottom" id="bsY-xw-Ke1"/>
-                                                <constraint firstItem="01o-GV-ZdL" firstAttribute="leading" secondItem="WtE-Ze-h0A" secondAttribute="leading" id="d5F-u2-ZuE"/>
-                                            </constraints>
-                                            <connections>
-                                                <outletCollection property="gestureRecognizers" destination="eZp-IF-z0C" appends="YES" id="VP8-It-Oy9"/>
-                                            </connections>
-                                        </scrollView>
-                                    </subviews>
-                                    <gestureRecognizers/>
-                                    <constraints>
-                                        <constraint firstAttribute="trailing" secondItem="WtE-Ze-h0A" secondAttribute="trailing" id="LNa-M8-7pg"/>
-                                        <constraint firstAttribute="bottom" secondItem="GkU-FI-njb" secondAttribute="bottom" priority="999" constant="100" id="TGM-34-Z4A"/>
-                                        <constraint firstItem="WtE-Ze-h0A" firstAttribute="top" secondItem="cVO-IO-FJB" secondAttribute="top" id="aKJ-gF-i5T"/>
-                                        <constraint firstAttribute="bottom" secondItem="WtE-Ze-h0A" secondAttribute="bottom" id="baC-bc-ie1"/>
-                                        <constraint firstItem="WtE-Ze-h0A" firstAttribute="leading" secondItem="cVO-IO-FJB" secondAttribute="leading" id="xyb-xj-pXw"/>
-                                    </constraints>
-                                </view>
-                                <blurEffect style="light"/>
-                            </visualEffectView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstItem="ZRT-Lz-Dl1" firstAttribute="width" secondItem="Brk-Au-jg6" secondAttribute="width" id="I4p-bN-h8t"/>
-                            <constraint firstItem="ZRT-Lz-Dl1" firstAttribute="centerY" secondItem="Brk-Au-jg6" secondAttribute="centerY" id="KPX-1b-gYY"/>
-                            <constraint firstItem="ZRT-Lz-Dl1" firstAttribute="height" secondItem="Brk-Au-jg6" secondAttribute="height" id="OoM-2T-NVO"/>
-                            <constraint firstItem="ZRT-Lz-Dl1" firstAttribute="centerX" secondItem="Brk-Au-jg6" secondAttribute="centerX" id="rtU-d5-mBH"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="blurView" destination="ZRT-Lz-Dl1" id="JEd-bQ-vc5"/>
-                        <outlet property="imageView" destination="GkU-FI-njb" id="zkz-zv-PJq"/>
-                        <outlet property="scrollView" destination="WtE-Ze-h0A" id="Jjl-jg-nGY"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bEQ-Yr-3ya" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="eZp-IF-z0C">
-                    <connections>
-                        <action selector="didTapBackground:" destination="K9y-4B-IUk" id="zJj-C8-ex8"/>
-                    </connections>
-                </tapGestureRecognizer>
-            </objects>
-            <point key="canvasLocation" x="1773.5999999999999" y="31.934032983508249"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Jb0-Lg-0iR">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ojk-Bn-Ctu" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6P9-P3-wLF">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -226,11 +129,5 @@
             <point key="canvasLocation" x="32.799999999999997" y="38.23088455772114"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="itunes" width="1260" height="823"/>
-    </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="yWA-0h-zLu"/>
-    </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.41770491803278703" green="0.27999999999999997" blue="0.69999999999999996" alpha="1" colorSpace="calibratedRGB"/>
 </document>
