@@ -109,6 +109,8 @@
 		
 		SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL:URL];
 		viewController.delegate = self;
+		viewController.preferredControlTintColor = self.view.tintColor;
+		viewController.modalPresentationStyle = UIModalPresentationPageSheet;
 		[self presentViewController:viewController animated:YES completion:^{
 			// TODO: something here?
 		}];
