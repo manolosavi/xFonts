@@ -147,6 +147,7 @@
 - (IBAction)addFonts:(id)sender {
 	NSArray<NSString *> *allowedUTIs = @[ @"public.truetype-font" , @"public.opentype-font"];
 	UIDocumentPickerViewController *viewController = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:allowedUTIs inMode:UIDocumentPickerModeImport];
+	viewController.view.tintColor = self.view.tintColor;
 	viewController.allowsMultipleSelection = YES;
 	viewController.delegate = self;
 	
