@@ -132,5 +132,5 @@
             <point key="canvasLocation" x="32.799999999999997" y="38.23088455772114"/>
         </scene>
     </scenes>
-    <color key="tintColor" red="0.41770491803278703" green="0.27999999999999997" blue="0.69999999999999996" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" name="appTint"/>
 </document>

@@ -131,7 +131,7 @@
 			[self startHTTPServer];
 			
 			NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://localhost:3333/"]];
-			
+
 			SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL:URL];
 			viewController.delegate = self;
 			viewController.preferredControlTintColor = self.view.tintColor;

@@ -5,54 +5,82 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 		
 	<style type="text/css">
+	* {
+		border: 0px;
+		margin: 0px;
+		padding: 0px;
+		text-decoration: none;
+		color: red;
+		font: 18px -apple-system, Helvetica Neue;
+		box-sizing: border-box;
+	}
+	
+	h1 {
+		font-size: 26px;
+		font-weight: 800;
+		margin: 30px auto;
+		text-align: center;
+	}
+	
+	p {
+		padding-bottom: 10px;
+		font-weight: 400;
+	}
+	
+	a {
+		color: red;
+		display: inline-block;
+		padding: 5px;
+		width: 100%;
+		border: 2px solid red;
+		border-radius: 5px;
+		text-align: center;
+		font-weight: 600;
+	}
+	
+	body {
+		padding: 0 20px;
+		background-color: clear;
+	}
+	
+	h1, p {
+		max-width: 960px;
+	}
+	
+	@media (prefers-color-scheme: light) {
 		* {
-			border: 0px;
-			margin: 0px;
-			padding: 0px;
-			text-decoration: none;
-			color: #000;
-			font: 18px -apple-system, Helvetica Neue;
-			box-sizing: border-box;
+			color: #7f7f7f;
 		}
-		
-		h1 {
-			font-size: 26px;
-			font-weight: 800;
-			margin: 30px auto;
-		}
-		
-		h2, h2 a {
-			font-variant: small-caps;
-			font-size: 20px;
-			font-weight: 700;
-		}
-		
-		p {
-			padding-bottom: 10px;
-			font-weight: 400;
-		}
-		
-		a {
-			color: #6B47B3;
-			text-decoration: underline;
-		}
-		
 		body {
-			padding: 0 20px;
-			background: #f0f1f2;
+			background-color: white;
 		}
-		
-		h1, p {
-			max-width: 960px;
+		a {
+			color: #6B47B2;
+			border-color: #6B47B2;
 		}
+	}
+	
+	@media (prefers-color-scheme: dark) {
+		* {
+			color: #7f7f7f;
+		}
+		body {
+			background-color: black;
+		}
+		a {
+			color: #6B47B2;
+			border-color: #6B47B2;
+		}
+	}
+
 	</style>
 	
 	<title>xFonts - Install Profile</title>
 </head>
-<body>
+<body bgcolor="clear">
 	<h1>xFonts - Install Profile</h1>
 	
 	<p>After installing the profile, all the fonts you selected will be available for you to use in apps like Pages, Numbers, Keynote, and more.</p>
-	<h2>Tap <a href="/xFonts.mobileconfig">here</a> to install your fonts.</h2>
+	<a href="/xFonts.mobileconfig">Install Fonts</a>
 </body>
 </html>
