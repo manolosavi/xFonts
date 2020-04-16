@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		44A20B042447DC4100BF15DA /* FontInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A20B032447DC4100BF15DA /* FontInfo.m */; };
 		9303A3F71E5511A600922B1E /* PresentationBlurAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9303A3F61E5511A600922B1E /* PresentationBlurAnimator.m */; };
 		9303A3FA1E5511AF00922B1E /* DismissBlurAnimator.m in Sources */ = {isa = PBXBuildFile; fileRef = 9303A3F91E5511AF00922B1E /* DismissBlurAnimator.m */; };
 		9303A3FD1E5512AA00922B1E /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9303A3FC1E5512AA00922B1E /* HelpViewController.m */; };
@@ -50,6 +51,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		44A20B022447DC4100BF15DA /* FontInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FontInfo.h; sourceTree = "<group>"; };
+		44A20B032447DC4100BF15DA /* FontInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FontInfo.m; sourceTree = "<group>"; };
 		9303A3F51E5511A600922B1E /* PresentationBlurAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PresentationBlurAnimator.h; sourceTree = "<group>"; };
 		9303A3F61E5511A600922B1E /* PresentationBlurAnimator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PresentationBlurAnimator.m; sourceTree = "<group>"; };
 		9303A3F81E5511AF00922B1E /* DismissBlurAnimator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DismissBlurAnimator.h; sourceTree = "<group>"; };
@@ -322,6 +325,8 @@
 				93320FD51E4EACCB0045C38C /* index.html */,
 				93AE4C7C1E42C44B00D19E41 /* Info.plist */,
 				93AE4C6B1E42C44B00D19E41 /* Supporting Files */,
+				44A20B022447DC4100BF15DA /* FontInfo.h */,
+				44A20B032447DC4100BF15DA /* FontInfo.m */,
 			);
 			path = xFonts;
 			sourceTree = "<group>";
@@ -435,6 +440,7 @@
 				9303A3FD1E5512AA00922B1E /* HelpViewController.m in Sources */,
 				9309F3561E4917B2002F2AB7 /* HTTPMessage.m in Sources */,
 				9309F35B1E4917B2002F2AB7 /* HTTPAsyncFileResponse.m in Sources */,
+				44A20B042447DC4100BF15DA /* FontInfo.m in Sources */,
 				9309F35F1E4917B2002F2AB7 /* HTTPFileResponse.m in Sources */,
 				9309F3731E4917B2002F2AB7 /* HTTPResponseProxy.m in Sources */,
 				9309F36C1E4917B2002F2AB7 /* DDASLLogger.m in Sources */,

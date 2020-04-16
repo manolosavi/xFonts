@@ -9,20 +9,10 @@
 @import UIKit;
 @import CoreText;
 
-#import "PresentationBlurAnimator.h"
-#import "DismissBlurAnimator.h"
+//#import "PresentationBlurAnimator.h"
+//#import "DismissBlurAnimator.h"
 
-@interface FontInfo : NSObject
-
-@property (nonatomic, strong) NSString *filePath;
-@property (nonatomic, strong) NSString *displayName;
-@property (nonatomic, strong) NSString *postscriptName;
-
-@end
-
-@implementation FontInfo
-
-@end
+#import "FontInfo.h"
 
 @interface ViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIViewControllerTransitioningDelegate>
 
@@ -31,6 +21,5 @@
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *addButton;
 
 @property (nonatomic, strong) NSArray<FontInfo *> *fonts;
-//@property (nonatomic, strong) NSMutableArray *selectedFonts;
 
 @end

@@ -21,6 +21,10 @@
 
 @implementation ViewController
 
+- (void)dealloc {
+	
+}
+
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
@@ -35,66 +39,76 @@
 	//[_selectButton setPossibleTitles:[NSSet setWithObjects: @"None", @"All", nil]];
 	
 	//_noFontsView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern"]];
+	[NSNotificationCenter.defaultCenter addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 	
-	[self startHTTPServer];
 	[self loadFonts];
 }
+
+// TODO: add importFonts to copy files from Documents/Inbox to top-level folder if they don't already exist
 
 /**
  Ennumerates through all files in the Documents directory to look for fonts to show on the TableView.
  */
 - (void)loadFonts {
-	NSString *file;
+//	NSString *file;
 	NSMutableArray *loadedFonts = [NSMutableArray array];
-	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]];
-	while ((file = [dirEnum nextObject])) {
-		NSString *filePath = file;
-		NSString *fileName = file.lastPathComponent;
-		NSString *fileExtension = fileName.pathExtension;
-		
-		NSString *fontName = nil;
-		if ([fileExtension isEqual:@"otf"]) {
-			fontName = [fileName stringByReplacingOccurrencesOfString:@".otf" withString:@""];
-		}
-		else if ([fileExtension isEqual:@"ttf"]) {
-			fontName = [fileName stringByReplacingOccurrencesOfString:@".ttf" withString:@""];
-		}
-		
-		if (fontName) {
-			NSString *postscriptName = nil;
-			// Registers the font for use, this way we can show each row with its respective font as a preview.
-			NSData *fontData = [[NSData alloc] initWithContentsOfURL:[self urlForFile:file]];
-			CFErrorRef error;
-			CGDataProviderRef providerRef = CGDataProviderCreateWithCFData((CFDataRef)fontData);
-			if (providerRef) {
-				CGFontRef fontRef = CGFontCreateWithDataProvider(providerRef);
-				if (fontRef) {
-					if (!CTFontManagerRegisterGraphicsFont(fontRef, &error)) {
-						CFStringRef errorDescription = CFErrorCopyDescription(error);
-						if (CFErrorGetCode(error) != 105) {
-							ReleaseLog(@"%s Failed to load font: %@", __PRETTY_FUNCTION__, errorDescription);
-						}
-						CFRelease(errorDescription);
-					}
-					else {
-						postscriptName = (NSString *)CFBridgingRelease(CGFontCopyPostScriptName(fontRef));
-					}
-					CFRelease(fontRef);
-				}
-				CFRelease(providerRef);
+//	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]];
+//	while ((file = [dirEnum nextObject])) {
+	NSError *error = nil;
+	NSArray<NSURL *> *URLs = [NSFileManager.defaultManager contentsOfDirectoryAtURL:FontInfo.storageURL includingPropertiesForKeys:nil options:(NSDirectoryEnumerationSkipsSubdirectoryDescendants) error:&error];
+	if (! URLs) {
+		ReleaseLog(@"%s error = %@", __PRETTY_FUNCTION__, error);
+	}
+	else {
+		for (NSURL *URL in URLs) {
+			NSString *fileName = URL.lastPathComponent;
+			NSString *fileExtension = fileName.pathExtension;
+			
+			NSString *fontName = nil;
+			if ([fileExtension isEqual:@"otf"]) {
+				fontName = [fileName stringByReplacingOccurrencesOfString:@".otf" withString:@""];
+			}
+			else if ([fileExtension isEqual:@"ttf"]) {
+				fontName = [fileName stringByReplacingOccurrencesOfString:@".ttf" withString:@""];
 			}
 			
-			FontInfo *fontInfo = [FontInfo new];
-			fontInfo.filePath = filePath;
-			fontInfo.postscriptName = postscriptName;
-			fontInfo.displayName = fontName;
-			
-			[loadedFonts addObject:fontInfo];
+			if (fontName) {
+				NSString *postscriptName = nil;
+				NSString *displayName = nil;
+				// Registers the font for use, this way we can show each row with its respective font as a preview.
+//				NSData *fontData = [[NSData alloc] initWithContentsOfURL:[self urlForFile:filePath]];
+				NSData *fontData = [[NSData alloc] initWithContentsOfURL:URL];
+				if (fontData) {
+					CFErrorRef errorRef;
+					CGDataProviderRef providerRef = CGDataProviderCreateWithCFData((CFDataRef)fontData);
+					if (providerRef) {
+						CGFontRef fontRef = CGFontCreateWithDataProvider(providerRef);
+						if (fontRef) {
+							if (! CTFontManagerRegisterGraphicsFont(fontRef, &errorRef)) {
+								CFStringRef errorDescription = CFErrorCopyDescription(errorRef);
+								if (CFErrorGetCode(errorRef) != 105) {
+									ReleaseLog(@"%s Failed to load font: %@", __PRETTY_FUNCTION__, errorDescription);
+								}
+								CFRelease(errorDescription);
+							}
+							else {
+								postscriptName = (NSString *)CFBridgingRelease(CGFontCopyPostScriptName(fontRef));
+								displayName = (NSString *)CFBridgingRelease(CGFontCopyFullName(fontRef));
+							}
+							CFRelease(fontRef);
+						}
+						CFRelease(providerRef);
+					}
+					
+					FontInfo *fontInfo = [[FontInfo alloc] initWithFileURL:URL displayName:displayName postscriptName:postscriptName];
+					[loadedFonts addObject:fontInfo];
+				}
+			}
 		}
+		self.fonts = [loadedFonts copy];
+		
+		[_tableView reloadData];
 	}
-	self.fonts = [loadedFonts copy];
-	
-	[_tableView reloadData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -103,18 +117,30 @@
 
 #pragma mark - Actions
 
-- (IBAction)openInstallProfilePage:(id)sender {
-	[self saveFontsProfile:^{
-		NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://localhost:3333/"]];
-		
-		SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL:URL];
-		viewController.delegate = self;
-		viewController.preferredControlTintColor = self.view.tintColor;
-		viewController.modalPresentationStyle = UIModalPresentationPageSheet;
-		[self presentViewController:viewController animated:YES completion:^{
-			// TODO: something here?
-		}];
-		//[[UIApplication sharedApplication] openURL:URL options:@{} completionHandler:nil];
+- (IBAction)installProfile:(id)sender {
+	[self saveFontsProfile:^(NSError *error) {
+		if (error) {
+			NSString *message = [NSString stringWithFormat:@"The mobile configuration profile could not be created.\n\nThe error was '%@'", error.localizedDescription];
+			UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Install Error" message:message preferredStyle:UIAlertControllerStyleAlert];
+			alertController.view.tintColor = self.view.tintColor;
+			[alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+			
+			[self presentViewController:alertController animated:YES completion:nil];
+		}
+		else {
+			[self startHTTPServer];
+			
+			NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://localhost:3333/"]];
+			
+			SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL:URL];
+			viewController.delegate = self;
+			viewController.preferredControlTintColor = self.view.tintColor;
+			viewController.modalPresentationStyle = UIModalPresentationPageSheet;
+			[self presentViewController:viewController animated:YES completion:^{
+				// TODO: something here?
+			}];
+			//[[UIApplication sharedApplication] openURL:URL options:@{} completionHandler:nil];
+		}
 	}];
 }
 
@@ -155,7 +181,7 @@
 //	}
 //}
 
-#pragma mark - UITableView Delegate
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	return 1;
@@ -181,23 +207,25 @@
 	return cell;
 }
 
+#pragma mark - UITableViewDelegate
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-	return true;
+	return YES;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
-		UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"Delete Font" message:@"Are you sure you want to delete this font? This cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
-		alertVC.view.tintColor = self.view.tintColor;
+		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Delete Font" message:@"Are you sure you want to delete this font? There is no undo." preferredStyle:UIAlertControllerStyleAlert];
+		alertController.view.tintColor = self.view.tintColor;
 		
 		// Show alert to warn about the deletion of the font. Delete the font if the user confirms.
 		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
 		UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
 			FontInfo *fontInfo = self.fonts[indexPath.row];
-			if ([self removeFile:fontInfo.filePath]) {
+			if ([fontInfo removeFile]) {
 				NSMutableArray *newFonts = [self.fonts mutableCopy];
 				[newFonts removeObjectAtIndex:indexPath.row];
 				self.fonts = [newFonts copy];
@@ -206,12 +234,14 @@
 			}
 		}];
 		
-		[alertVC addAction:cancelAction];
-		[alertVC addAction:deleteAction];
+		[alertController addAction:cancelAction];
+		[alertController addAction:deleteAction];
 		
-		[self presentViewController:alertVC animated:true completion:nil];
+		[self presentViewController:alertController animated:YES completion:nil];
 	}
 }
+
+#pragma mark - Utility
 
 /**
  Starts the HTTP Server and sets the response to the root directory to allow the install of profiles.
@@ -220,13 +250,13 @@
 	self.http = [RoutingHTTPServer new];
 	[self.http setPort:3333];
 	[self.http setDefaultHeader:@"Content-Type" value:@"application/x-apple-aspen-config"];
-	[self.http setDocumentRoot:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true) objectAtIndex:0]];
+	[self.http setDocumentRoot:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
 	
 	[self.http handleMethod:@"GET" withPath:@"/" block:^(RouteRequest *request, RouteResponse *response) {
-//		This is what the server will respond with when going to the root directory.
+		// This is what the server will respond with when going to the root directory.
 		[response setHeader:@"Content-Type" value:@"text/html"];
 		
-//		Get the html file from the main bundle, send it as the response string.
+		// Get the html file from the main bundle, send it as the response string.
 		NSString *path = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
 		NSString *html = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
 		
@@ -236,22 +266,61 @@
 	[self.http start:nil];
 }
 
+- (void)stopHTTPServer {
+	[self.http stop];
+}
+
+static NSString *const profilePayloadTemplate =
+@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+"<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">"
+"<plist version=\"1.0\">"
+"<dict>"
+"<key>PayloadType</key>"
+"<string>Configuration</string>"
+"<key>PayloadVersion</key>"
+"<integer>1</integer>"
+"<key>PayloadDisplayName</key>"
+"<string>xFonts (%@)</string>"
+"<key>PayloadIdentifier</key>"
+"<string>xFonts %@</string>"
+"<key>PayloadUUID</key>"
+"<string>%@</string>"
+"<key>PayloadContent</key>"
+"<array>%@</array>"
+"</dict>"
+"</plist>";
+
+static NSString *const fontPayloadTemplate =
+	@"<dict>\n"
+	"	<key>PayloadType</key>\n"
+	"	<string>com.apple.font</string>\n"
+	"	<key>PayloadVersion</key>\n"
+	"	<integer>1</integer>\n"
+	"	<key>PayloadIdentifier</key>\n"
+	"	<string>%@</string>\n"
+	"	<key>PayloadUUID</key>\n"
+	"	<string>%@</string>\n"
+	"	<key>Name</key>\n"
+	"	<string>%@</string>\n"
+	"	<key>Font</key>\n"
+	"	<data>%@</data>\n"
+	"</dict>";
 
 /**
  Goes through the list of fonts and adds all the selected ones to the profile, then saves the completed profile to the Documents directory.
 
  @param completion this block is called when the profile has completed saving to disk
  */
-- (void)saveFontsProfile:(void(^)(void))completion {
+- (void)saveFontsProfile:(void(^)(NSError *error))completion {
 	NSInteger count = 0;
 	NSString *fonts = @"";
 	for (int i=0; i<self.fonts.count; i++) {
 		FontInfo *fontInfo = self.fonts[i];
 
-		NSURL *url = [self urlForFile:fontInfo.filePath];
+		//NSURL *url = [self urlForFile:fontInfo.filePath];
 		
 		NSString *UUIDString = NSUUID.UUID.UUIDString;
-		NSString *font = [[[NSData alloc] initWithContentsOfURL:url] base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+		NSString *font = [[[NSData alloc] initWithContentsOfURL:fontInfo.fileURL] base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
 		
 		fonts = [fonts stringByAppendingString:[NSString stringWithFormat:@"<dict><key>PayloadType</key><string>com.apple.font</string><key>PayloadVersion</key><integer>1</integer><key>PayloadIdentifier</key><string>%@</string><key>PayloadUUID</key><string>%@</string><key>Name</key><string>%@</string><key>Font</key><data>%@</data></dict>", fontInfo.displayName, UUIDString, fontInfo.displayName, font]];
 		
@@ -261,8 +330,18 @@
 	
 	NSString *profile = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict><key>PayloadType</key><string>Configuration</string><key>PayloadVersion</key><integer>1</integer><key>PayloadDisplayName</key><string>xFonts (%@)</string><key>PayloadIdentifier</key><string>xFonts %@</string><key>PayloadUUID</key><string>%@</string><key>PayloadContent</key><array>%@</array></dict></plist>", title, NSUUID.UUID.UUIDString, NSUUID.UUID.UUIDString, fonts];
 	
-	[self saveString:profile toFile:@"/xFonts.mobileconfig"];
-	completion();
+	NSURL *URL = [FontInfo.storageURL URLByAppendingPathComponent:@"xFonts.mobileconfig"];
+	// URL = [NSURL fileURLWithPath:@"/"]; // to generate an error
+	
+	NSError *error;
+	if (! [profile writeToURL:URL atomically:YES encoding:NSUTF8StringEncoding error:&error]) {
+		ReleaseLog(@"%s error = %@", __PRETTY_FUNCTION__, error);
+	}
+	else {
+		error = nil;
+	}
+	
+	completion(error);
 }
 
 /**
@@ -271,10 +350,10 @@
  @param fileName whose NSURL you need
  @return NSURL to the file
  */
-- (NSURL*)urlForFile:(NSString*)fileName {
-	NSURL *directory = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
-	return [directory URLByAppendingPathComponent:fileName];
-}
+//- (NSURL*)urlForFile:(NSString*)fileName {
+//	NSURL *directory = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
+//	return [directory URLByAppendingPathComponent:fileName];
+//}
 
 /**
  Returns an NSString with the path [in Documents directory] for the file passed on the parameter.
@@ -282,10 +361,10 @@
  @param fileName whose path you need
  @return path to the file
  */
-- (NSString*)pathForFile:(NSString*)fileName {
-	NSString *filePath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true).firstObject;
-	return [filePath stringByAppendingString:fileName];
-}
+//- (NSString*)pathForFile:(NSString*)fileName {
+//	NSString *filePath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
+//	return [filePath stringByAppendingString:fileName];
+//}
 
 /**
  Saves the string "str" to disk on the "fileName" path.
@@ -293,13 +372,13 @@
  @param str file to save as a string
  @param fileName path to where the file should be saved
  */
-- (void)saveString:(NSString*)str toFile:(NSString*)fileName {
-	NSString *fileAtPath = [self pathForFile:fileName];
-	if (![[NSFileManager defaultManager] fileExistsAtPath:fileAtPath]) {
-		[[NSFileManager defaultManager] createFileAtPath:fileAtPath contents:nil attributes:nil];
-	}
-	[[str dataUsingEncoding:NSUTF8StringEncoding] writeToFile:fileAtPath atomically:true];
-}
+//- (void)saveString:(NSString*)str toFile:(NSString*)fileName {
+//	NSString *fileAtPath = [self pathForFile:fileName];
+//	if (![[NSFileManager defaultManager] fileExistsAtPath:fileAtPath]) {
+//		[[NSFileManager defaultManager] createFileAtPath:fileAtPath contents:nil attributes:nil];
+//	}
+//	[[str dataUsingEncoding:NSUTF8StringEncoding] writeToFile:fileAtPath atomically:YES];
+//}
 
 /**
  Removes the file at the "fileName" path.
@@ -307,21 +386,21 @@
  @param fileName path to file you want to delete
  @return true if the file was deleted, false if it couldn't be deleted
  */
-- (BOOL)removeFile:(NSString*)fileName {
-	if (![[fileName substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"/"]) {
-		fileName = [@"/" stringByAppendingString:fileName];
-	}
-	NSString *fileAtPath = [self pathForFile:fileName];
-	
-	NSError *error;
-	if (![[NSFileManager defaultManager] removeItemAtPath:fileAtPath error:&error]) {
-		ReleaseLog(@"%s Could not delete file: %@", __PRETTY_FUNCTION__, [error localizedDescription]);
-		return false;
-	}
-	return true;
-}
+//- (BOOL)removeFile:(NSString*)fileName {
+//	if (![[fileName substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"/"]) {
+//		fileName = [@"/" stringByAppendingString:fileName];
+//	}
+//	NSString *fileAtPath = [self pathForFile:fileName];
+//
+//	NSError *error;
+//	if (![[NSFileManager defaultManager] removeItemAtPath:fileAtPath error:&error]) {
+//		ReleaseLog(@"%s Could not delete file: %@", __PRETTY_FUNCTION__, [error localizedDescription]);
+//		return false;
+//	}
+//	return true;
+//}
 
-#pragma mark - Navigation
+//#pragma mark - Navigation
 
 //- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 //	if ([segue.identifier isEqualToString:@"HelpSegue"]) {
@@ -331,16 +410,32 @@
 //	}
 //}
 
+#pragma mark - Notifications
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+	[self dismissViewControllerAnimated:YES completion:^{
+		[self stopHTTPServer];
+	}];
+}
+
 #pragma mark - UIDocumentPickerDelegate
 
-- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray <NSURL *>*)urls API_AVAILABLE(ios(11.0))
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray <NSURL *>*)URLs
 {
 	// NOTE: This is called after the selected files are downloaded and the picker view is dismissed.
 	
 	// TODO: copy the security scoped URLs into the app
 	// https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/DocumentPickerProgrammingGuide/AccessingDocuments/AccessingDocuments.html#//apple_ref/doc/uid/TP40014451-CH2-SW9
 	
-	DebugLog(@"%s urls = %@", __PRETTY_FUNCTION__, urls);
+	DebugLog(@"%s urls = %@", __PRETTY_FUNCTION__, URLs);
+	for (NSURL *URL in URLs) {
+		if ([URL startAccessingSecurityScopedResource]) {
+			
+			[URL stopAccessingSecurityScopedResource];
+		}
+		
+		
+	}
 }
 
 // called if the user dismisses the document picker without selecting a document (using the Cancel button)
@@ -354,7 +449,7 @@
 - (void)safariViewControllerDidFinish:(SFSafariViewController *)controller
 {
 	[self dismissViewControllerAnimated:YES completion:^{
-		// TODO: something here?
+		[self stopHTTPServer];
 	}];
 }
 
