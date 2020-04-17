@@ -447,16 +447,17 @@ static NSString *const fontPayloadTemplate =
 	
 	DebugLog(@"%s urls = %@", __PRETTY_FUNCTION__, URLs);
 	for (NSURL *sourceURL in URLs) {
-		if ([sourceURL startAccessingSecurityScopedResource]) {
-			NSString *fileName = sourceURL.lastPathComponent;
-			NSURL *destinationURL = [FontInfo.storageURL URLByAppendingPathComponent:fileName];
-			NSFileManager *fileManager = NSFileManager.defaultManager;
-			NSError *error;
-			if (! [fileManager fileExistsAtPath:destinationURL.path]) {
-				if (! [fileManager copyItemAtURL:sourceURL toURL:destinationURL error:&error]) {
-					ReleaseLog(@"%s error = %@", __PRETTY_FUNCTION__, error);
-				}
+		BOOL accessingResource = [sourceURL startAccessingSecurityScopedResource];
+		NSString *fileName = sourceURL.lastPathComponent;
+		NSURL *destinationURL = [FontInfo.storageURL URLByAppendingPathComponent:fileName];
+		NSFileManager *fileManager = NSFileManager.defaultManager;
+		NSError *error;
+		if (! [fileManager fileExistsAtPath:destinationURL.path]) {
+			if (! [fileManager copyItemAtURL:sourceURL toURL:destinationURL error:&error]) {
+				ReleaseLog(@"%s error = %@", __PRETTY_FUNCTION__, error);
 			}
+		}
+		if (accessingResource) {
 			[sourceURL stopAccessingSecurityScopedResource];
 		}
 	}
