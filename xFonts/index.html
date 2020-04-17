@@ -16,26 +16,41 @@
 	}
 	
 	h1 {
-		font-size: 26px;
-		font-weight: 800;
-		margin: 30px auto;
+		font-size: 20px;
+		font-weight: 700;
+		margin: 20px auto;
+		margin-top: 40px;
 		text-align: center;
 	}
 	
 	p {
-		padding-bottom: 10px;
 		font-weight: 400;
 	}
 	
 	a {
 		color: red;
+		font-weight: 600;
+	}
+
+	a.button {
+		color: white;
+		background-color: red;
 		display: inline-block;
-		padding: 5px;
+		padding: 10px;
+		margin: 20px 0;
 		width: 100%;
-		border: 2px solid red;
 		border-radius: 5px;
 		text-align: center;
 		font-weight: 600;
+	}
+	
+
+	strong {
+		font-weight: 600;
+	}
+	
+	em {
+		font-style: italic;
 	}
 	
 	body {
@@ -54,9 +69,15 @@
 		body {
 			background-color: white;
 		}
+		h1 {
+			color: black;
+		}
 		a {
 			color: #6B47B2;
-			border-color: #6B47B2;
+		}
+		a.button {
+			color: white;
+			background-color: #6B47B2;
 		}
 	}
 	
@@ -67,9 +88,15 @@
 		body {
 			background-color: black;
 		}
+		h1 {
+			color: white;
+		}
 		a {
 			color: #6B47B2;
-			border-color: #6B47B2;
+		}
+		a.button {
+			color: white;
+			background-color: #6B47B2;
 		}
 	}
 
@@ -80,9 +107,8 @@
 <body bgcolor="clear">
 	<h1>Fonts Ready to Download</h1>
 	
-	<p>A configuration profile with your fonts is ready to download to Settings. When prompted, tap <strong>Allow</strogn>.</p>
-	<a href="/xFonts.mobileconfig">Download Fonts</a>
-	<p>Experiment:</p>
-	<a href="app-settings:root=General&path=ManagedConfigurationList">Open Settings</a>
+	<p>A configuration profile with your fonts is ready to download into Settings. Tap the button below to begin, then tap <strong>Allow</strong> when prompted.</p>
+	<a class="button" href="/xFonts.mobileconfig">Download Fonts</a>
+	<p>After seeing the confirmation alert, open the <em>Settings</em> app and navigate to <strong>General</strong> > <strong>Profile</strong> to install the profile and make the fonts available in other apps like Pages, Numbers, and <a href="https://tot.rocks">Tot</a>.</p>
 </body>
 </html>

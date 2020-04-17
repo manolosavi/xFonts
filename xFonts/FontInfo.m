@@ -39,6 +39,11 @@
 	return self;
 }
 
+- (NSUInteger)hash
+{
+	return self.fileURL.hash;
+}
+
 - (BOOL)removeFile
 {
 	BOOL result = YES;

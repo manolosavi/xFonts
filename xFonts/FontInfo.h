@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithFileURL:(NSURL *)fileURL displayName:(NSString *)displayName postscriptName:(NSString *)postscriptName;
 
+@property (readonly) NSUInteger hash;
+
 @property (nonatomic, readonly) NSURL *fileURL;
 @property (nonatomic, readonly) NSString *displayName;
 @property (nonatomic, readonly) NSString *postscriptName;

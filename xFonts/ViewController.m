@@ -84,6 +84,7 @@
 				
 				NSString *postscriptName = nil;
 				NSString *displayName = nil;
+				NSString *copyrightName = nil;
 				// Registers the font for use, this way we can show each row with its respective font as a preview.
 //				NSData *fontData = [[NSData alloc] initWithContentsOfURL:[self urlForFile:filePath]];
 				NSData *fontData = [[NSData alloc] initWithContentsOfURL:URL];
@@ -92,36 +93,41 @@
 					if (providerRef) {
 						CGFontRef fontRef = CGFontCreateWithDataProvider(providerRef);
 						if (fontRef) {
-//							CTFontManagerUnregisterGraphicsFont(fontRef, NULL);
-//							if (! CTFontManagerRegisterGraphicsFont(fontRef, &errorRef)) {
-//								CFStringRef errorDescription = CFErrorCopyDescription(errorRef);
-//								if (CFErrorGetCode(errorRef) != 105) {
-//									ReleaseLog(@"%s Failed to load font: %@", __PRETTY_FUNCTION__, errorDescription);
-//								}
-//								CFRelease(errorDescription);
-//							}
-//							//else {
-//							{
-								postscriptName = (NSString *)CFBridgingRelease(CGFontCopyPostScriptName(fontRef));
-								displayName = (NSString *)CFBridgingRelease(CGFontCopyFullName(fontRef));
-//							}
-							CFRelease(fontRef);
+							postscriptName = CFBridgingRelease(CGFontCopyPostScriptName(fontRef));
+							displayName = CFBridgingRelease(CGFontCopyFullName(fontRef));
+							
+							// Also:
+							//	CG_EXTERN size_t CGFontGetNumberOfGlyphs(CGFontRef cg_nullable font)
+							// kCTFontDescriptionNameKey
+							// https://stackoverflow.com/questions/53359789/get-meta-info-from-uifont-or-cgfont-ios-swift
+							CTFontRef textFontRef = CTFontCreateWithGraphicsFont(fontRef, 0, NULL, NULL);
+							if (textFontRef) {
+								copyrightName = CFBridgingRelease(CTFontCopyName(textFontRef, kCTFontCopyrightNameKey));
+								
+								CFRelease(textFontRef);
+								CFRelease(fontRef);
+							}
+							else {
+								ReleaseLog(@"%s no fontRef", __PRETTY_FUNCTION__);
+							}
+							CFRelease(providerRef);
 						}
-						else {
-							ReleaseLog(@"%s no fontRef", __PRETTY_FUNCTION__);
-						}
-						CFRelease(providerRef);
 					}
 					else {
 						ReleaseLog(@"%s no providerRef", __PRETTY_FUNCTION__);
 					}
 
-					DebugLog(@"%s URL = %@, displayName = '%@', postscriptName = '%@'", __PRETTY_FUNCTION__, URL, displayName, postscriptName);
+					DebugLog(@"%s URL = %@, displayName = '%@', postscriptName = '%@', copyrightName = %@", __PRETTY_FUNCTION__, URL, displayName, postscriptName, copyrightName);
 					FontInfo *fontInfo = [[FontInfo alloc] initWithFileURL:URL displayName:displayName postscriptName:postscriptName];
 					[loadedFonts addObject:fontInfo];
 				}
 			}
 		}
+		
+		[loadedFonts sortUsingComparator:^NSComparisonResult(FontInfo *fontInfo1, FontInfo *fontInfo2) {
+			return [fontInfo1.displayName compare:fontInfo2.displayName];
+		}];
+		
 		self.fonts = [loadedFonts copy];
 		
 		[self.tableView reloadData];
@@ -212,6 +218,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+	
+	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	
 	FontInfo *fontInfo = self.fonts[indexPath.row];
 	
