@@ -118,7 +118,7 @@
 					}
 
 					DebugLog(@"%s URL = %@, displayName = '%@', postscriptName = '%@', copyrightName = %@", __PRETTY_FUNCTION__, URL, displayName, postscriptName, copyrightName);
-					FontInfo *fontInfo = [[FontInfo alloc] initWithFileURL:URL displayName:displayName postscriptName:postscriptName];
+					FontInfo *fontInfo = [[FontInfo alloc] initWithFileURL:URL];
 					[loadedFonts addObject:fontInfo];
 				}
 			}
@@ -225,7 +225,7 @@
 	
 	cell.textLabel.text = fontInfo.displayName;
 	cell.textLabel.font = [UIFont fontWithName:fontInfo.postscriptName size:16];
-	
+
 	UIView *selection = [UIView new];
 	selection.backgroundColor = [UIColor colorWithHue:260/360.0 saturation:0.5 brightness:0.8 alpha:1];
 	cell.selectedBackgroundView = selection;

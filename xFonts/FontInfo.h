@@ -14,13 +14,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (class, nonatomic, readonly) NSURL *storageURL;
 
-- (instancetype)initWithFileURL:(NSURL *)fileURL displayName:(NSString *)displayName postscriptName:(NSString *)postscriptName;
+- (instancetype)initWithFileURL:(NSURL *)fileURL;
 
 @property (readonly) NSUInteger hash;
 
 @property (nonatomic, readonly) NSURL *fileURL;
-@property (nonatomic, readonly) NSString *displayName;
 @property (nonatomic, readonly) NSString *postscriptName;
+@property (nonatomic, readonly, nullable) NSString *displayName;
+@property (nonatomic, readonly, nullable) NSString *copyrightName;
+@property (nonatomic, readonly, nullable) NSString *descriptionName;
+
+@property (nonatomic, readonly) NSInteger numberOfGlyphs;
 
 - (BOOL)removeFile; // returns YES if successful
 
