@@ -73,33 +73,50 @@
 			}
 			
 			if (fontName) {
+				CFErrorRef errorRef;
+				if (! CTFontManagerRegisterFontsForURL((CFURLRef)URL, kCTFontManagerScopeProcess, &errorRef)) {
+					if (CFErrorGetCode(errorRef) != kCTFontManagerErrorAlreadyRegistered) {
+						CFStringRef errorDescription = CFErrorCopyDescription(errorRef);
+						ReleaseLog(@"%s Failed to register font: %@", __PRETTY_FUNCTION__, errorDescription);
+						CFRelease(errorDescription);
+					}
+				}
+				
 				NSString *postscriptName = nil;
 				NSString *displayName = nil;
 				// Registers the font for use, this way we can show each row with its respective font as a preview.
 //				NSData *fontData = [[NSData alloc] initWithContentsOfURL:[self urlForFile:filePath]];
 				NSData *fontData = [[NSData alloc] initWithContentsOfURL:URL];
 				if (fontData) {
-					CFErrorRef errorRef;
 					CGDataProviderRef providerRef = CGDataProviderCreateWithCFData((CFDataRef)fontData);
 					if (providerRef) {
 						CGFontRef fontRef = CGFontCreateWithDataProvider(providerRef);
 						if (fontRef) {
-							if (! CTFontManagerRegisterGraphicsFont(fontRef, &errorRef)) {
-								CFStringRef errorDescription = CFErrorCopyDescription(errorRef);
-								if (CFErrorGetCode(errorRef) != 105) {
-									ReleaseLog(@"%s Failed to load font: %@", __PRETTY_FUNCTION__, errorDescription);
-								}
-								CFRelease(errorDescription);
-							}
-							else {
+//							CTFontManagerUnregisterGraphicsFont(fontRef, NULL);
+//							if (! CTFontManagerRegisterGraphicsFont(fontRef, &errorRef)) {
+//								CFStringRef errorDescription = CFErrorCopyDescription(errorRef);
+//								if (CFErrorGetCode(errorRef) != 105) {
+//									ReleaseLog(@"%s Failed to load font: %@", __PRETTY_FUNCTION__, errorDescription);
+//								}
+//								CFRelease(errorDescription);
+//							}
+//							//else {
+//							{
 								postscriptName = (NSString *)CFBridgingRelease(CGFontCopyPostScriptName(fontRef));
 								displayName = (NSString *)CFBridgingRelease(CGFontCopyFullName(fontRef));
-							}
+//							}
 							CFRelease(fontRef);
+						}
+						else {
+							ReleaseLog(@"%s no fontRef", __PRETTY_FUNCTION__);
 						}
 						CFRelease(providerRef);
 					}
-					
+					else {
+						ReleaseLog(@"%s no providerRef", __PRETTY_FUNCTION__);
+					}
+
+					DebugLog(@"%s URL = %@, displayName = '%@', postscriptName = '%@'", __PRETTY_FUNCTION__, URL, displayName, postscriptName);
 					FontInfo *fontInfo = [[FontInfo alloc] initWithFileURL:URL displayName:displayName postscriptName:postscriptName];
 					[loadedFonts addObject:fontInfo];
 				}
@@ -107,7 +124,7 @@
 		}
 		self.fonts = [loadedFonts copy];
 		
-		[_tableView reloadData];
+		[self.tableView reloadData];
 	}
 }
 
@@ -429,14 +446,22 @@ static NSString *const fontPayloadTemplate =
 	// https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/DocumentPickerProgrammingGuide/AccessingDocuments/AccessingDocuments.html#//apple_ref/doc/uid/TP40014451-CH2-SW9
 	
 	DebugLog(@"%s urls = %@", __PRETTY_FUNCTION__, URLs);
-	for (NSURL *URL in URLs) {
-		if ([URL startAccessingSecurityScopedResource]) {
-			
-			[URL stopAccessingSecurityScopedResource];
+	for (NSURL *sourceURL in URLs) {
+		if ([sourceURL startAccessingSecurityScopedResource]) {
+			NSString *fileName = sourceURL.lastPathComponent;
+			NSURL *destinationURL = [FontInfo.storageURL URLByAppendingPathComponent:fileName];
+			NSFileManager *fileManager = NSFileManager.defaultManager;
+			NSError *error;
+			if (! [fileManager fileExistsAtPath:destinationURL.path]) {
+				if (! [fileManager copyItemAtURL:sourceURL toURL:destinationURL error:&error]) {
+					ReleaseLog(@"%s error = %@", __PRETTY_FUNCTION__, error);
+				}
+			}
+			[sourceURL stopAccessingSecurityScopedResource];
 		}
-		
-		
 	}
+	
+	[self loadFonts];
 }
 
 // called if the user dismisses the document picker without selecting a document (using the Cancel button)
