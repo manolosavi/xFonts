@@ -17,43 +17,33 @@
 
 @property (nonatomic, strong) RoutingHTTPServer *http;
 
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *installButton;
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *addButton;
+
+@property (nonatomic, strong) NSArray<FontInfo *> *fonts;
+
 @end
 
 @implementation ViewController
 
-- (void)dealloc {
-	
-}
-
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
 	[super viewDidLoad];
-	
-//	Set self as observer for the "reloadFonts" notification to reload the TableView data when the application
-//	comes back to the foreground or is opened via the "Copy to xFonts" option in another app
-//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFonts) name:@"reloadFonts" object:nil];
-	
-	
-	//self.selectedFonts = [NSMutableArray array];
-	//self.fullSelection = true;
-	
-	//[_selectButton setPossibleTitles:[NSSet setWithObjects: @"None", @"All", nil]];
-	
-	//_noFontsView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern"]];
+
 	[NSNotificationCenter.defaultCenter addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
-	
+
 	[self loadFonts];
 }
 
 // TODO: add importFonts to copy files from Documents/Inbox to top-level folder if they don't already exist
 
 /**
- Ennumerates through all files in the Documents directory to look for fonts to show on the TableView.
+ Enumerates through all files in the Documents directory to look for fonts to show on the TableView.
  */
-- (void)loadFonts {
-//	NSString *file;
+- (void)loadFonts
+{
 	NSMutableArray *loadedFonts = [NSMutableArray array];
-//	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]];
-//	while ((file = [dirEnum nextObject])) {
+
 	NSError *error = nil;
 	NSArray<NSURL *> *URLs = [NSFileManager.defaultManager contentsOfDirectoryAtURL:FontInfo.storageURL includingPropertiesForKeys:nil options:(NSDirectoryEnumerationSkipsSubdirectoryDescendants) error:&error];
 	if (! URLs) {
@@ -73,54 +63,8 @@
 			}
 			
 			if (fontName) {
-				CFErrorRef errorRef;
-				if (! CTFontManagerRegisterFontsForURL((CFURLRef)URL, kCTFontManagerScopeProcess, &errorRef)) {
-					if (CFErrorGetCode(errorRef) != kCTFontManagerErrorAlreadyRegistered) {
-						CFStringRef errorDescription = CFErrorCopyDescription(errorRef);
-						ReleaseLog(@"%s Failed to register font: %@", __PRETTY_FUNCTION__, errorDescription);
-						CFRelease(errorDescription);
-					}
-				}
-				
-				NSString *postscriptName = nil;
-				NSString *displayName = nil;
-				NSString *copyrightName = nil;
-				// Registers the font for use, this way we can show each row with its respective font as a preview.
-//				NSData *fontData = [[NSData alloc] initWithContentsOfURL:[self urlForFile:filePath]];
-				NSData *fontData = [[NSData alloc] initWithContentsOfURL:URL];
-				if (fontData) {
-					CGDataProviderRef providerRef = CGDataProviderCreateWithCFData((CFDataRef)fontData);
-					if (providerRef) {
-						CGFontRef fontRef = CGFontCreateWithDataProvider(providerRef);
-						if (fontRef) {
-							postscriptName = CFBridgingRelease(CGFontCopyPostScriptName(fontRef));
-							displayName = CFBridgingRelease(CGFontCopyFullName(fontRef));
-							
-							// Also:
-							//	CG_EXTERN size_t CGFontGetNumberOfGlyphs(CGFontRef cg_nullable font)
-							// kCTFontDescriptionNameKey
-							// https://stackoverflow.com/questions/53359789/get-meta-info-from-uifont-or-cgfont-ios-swift
-							CTFontRef textFontRef = CTFontCreateWithGraphicsFont(fontRef, 0, NULL, NULL);
-							if (textFontRef) {
-								copyrightName = CFBridgingRelease(CTFontCopyName(textFontRef, kCTFontCopyrightNameKey));
-								
-								CFRelease(textFontRef);
-								CFRelease(fontRef);
-							}
-							else {
-								ReleaseLog(@"%s no fontRef", __PRETTY_FUNCTION__);
-							}
-							CFRelease(providerRef);
-						}
-					}
-					else {
-						ReleaseLog(@"%s no providerRef", __PRETTY_FUNCTION__);
-					}
-
-					DebugLog(@"%s URL = %@, displayName = '%@', postscriptName = '%@', copyrightName = %@", __PRETTY_FUNCTION__, URL, displayName, postscriptName, copyrightName);
-					FontInfo *fontInfo = [[FontInfo alloc] initWithFileURL:URL];
-					[loadedFonts addObject:fontInfo];
-				}
+				FontInfo *fontInfo = [[FontInfo alloc] initWithFileURL:URL];
+				[loadedFonts addObject:fontInfo];
 			}
 		}
 		
@@ -134,13 +78,15 @@
 	}
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)didReceiveMemoryWarning
+{
 	[super didReceiveMemoryWarning];
 }
 
 #pragma mark - Actions
 
-- (IBAction)installProfile:(id)sender {
+- (IBAction)installProfile:(id)sender
+{
 	[self saveFontsProfile:^(NSError *error) {
 		if (error) {
 			NSString *message = [NSString stringWithFormat:@"The mobile configuration profile could not be created.\n\nThe error was '%@'", error.localizedDescription];
@@ -162,12 +108,12 @@
 			[self presentViewController:viewController animated:YES completion:^{
 				// TODO: something here?
 			}];
-			//[[UIApplication sharedApplication] openURL:URL options:@{} completionHandler:nil];
 		}
 	}];
 }
 
-- (IBAction)addFonts:(id)sender {
+- (IBAction)addFonts:(id)sender
+{
 	NSArray<NSString *> *allowedUTIs = @[ @"public.truetype-font" , @"public.opentype-font"];
 	UIDocumentPickerViewController *viewController = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:allowedUTIs inMode:UIDocumentPickerModeImport];
 	viewController.view.tintColor = self.view.tintColor;
@@ -179,40 +125,15 @@
 	}];
 }
 
-/**
- Called when the TableView reloads, depending on the shouldShow parameter, the noFontsView will be added or removed.
-
- @param shouldShow true when the TableView is empty
- */
-//- (void)showNoFontsView:(BOOL)shouldShow {
-//	if (shouldShow) {
-//		_tableView.hidden = true;
-//		_installButton.enabled = false;
-//		_selectButton.enabled = false;
-//		[self.view addSubview:_noFontsView];
-//		_noFontsView.translatesAutoresizingMaskIntoConstraints = false;
-//		
-////		Constraints to make noFontsView the same size as it's superview
-//		NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:_noFontsView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_noFontsView.superview attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
-//		NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:_noFontsView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_noFontsView.superview attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
-//		NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:_noFontsView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_noFontsView.superview attribute:NSLayoutAttributeWidth multiplier:1 constant:0];
-//		NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:_noFontsView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_noFontsView.superview attribute:NSLayoutAttributeHeight multiplier:1 constant:0];
-//		[_noFontsView.superview addConstraints:@[centerX, centerY, widthConstraint, heightConstraint]];
-//		
-//	} else {
-//		_tableView.hidden = false;
-//		[_noFontsView removeFromSuperview];
-//	}
-//}
-
 #pragma mark - UITableViewDataSource
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
 	return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	//[self showNoFontsView:_allFonts.count == 0];
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
 	return self.fonts.count;
 }
 
@@ -224,10 +145,12 @@
 	FontInfo *fontInfo = self.fonts[indexPath.row];
 	
 	cell.textLabel.text = fontInfo.displayName;
-	cell.textLabel.font = [UIFont fontWithName:fontInfo.postscriptName size:16];
+	cell.textLabel.font = [UIFont fontWithName:fontInfo.postscriptName size:18.0];
+	cell.textLabel.adjustsFontSizeToFitWidth = YES;
+	cell.textLabel.minimumScaleFactor = 0.5;
 
 	UIView *selection = [UIView new];
-	selection.backgroundColor = [UIColor colorWithHue:260/360.0 saturation:0.5 brightness:0.8 alpha:1];
+	selection.backgroundColor = [UIColor colorNamed:@"appSelection"];
 	cell.selectedBackgroundView = selection;
 	
 	return cell;
@@ -235,14 +158,12 @@
 
 #pragma mark - UITableViewDelegate
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-}
-
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
 	return YES;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
 		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Delete Font" message:@"Are you sure you want to delete this font? There is no undo." preferredStyle:UIAlertControllerStyleAlert];
 		alertController.view.tintColor = self.view.tintColor;
@@ -272,7 +193,8 @@
 /**
  Starts the HTTP Server and sets the response to the root directory to allow the install of profiles.
  */
-- (void)startHTTPServer {
+- (void)startHTTPServer
+{
 	self.http = [RoutingHTTPServer new];
 	[self.http setPort:3333];
 	[self.http setDefaultHeader:@"Content-Type" value:@"application/x-apple-aspen-config"];
@@ -292,7 +214,8 @@
 	[self.http start:nil];
 }
 
-- (void)stopHTTPServer {
+- (void)stopHTTPServer
+{
 	[self.http stop];
 }
 
@@ -337,7 +260,8 @@ static NSString *const fontPayloadTemplate =
 
  @param completion this block is called when the profile has completed saving to disk
  */
-- (void)saveFontsProfile:(void(^)(NSError *error))completion {
+- (void)saveFontsProfile:(void(^)(NSError *error))completion
+{
 	NSInteger count = 0;
 	NSString *fonts = @"";
 	for (int i=0; i<self.fonts.count; i++) {
@@ -370,75 +294,10 @@ static NSString *const fontPayloadTemplate =
 	completion(error);
 }
 
-/**
- Returns an NSURL [in Documents directory] for the file passed on the parameter.
-
- @param fileName whose NSURL you need
- @return NSURL to the file
- */
-//- (NSURL*)urlForFile:(NSString*)fileName {
-//	NSURL *directory = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
-//	return [directory URLByAppendingPathComponent:fileName];
-//}
-
-/**
- Returns an NSString with the path [in Documents directory] for the file passed on the parameter.
-
- @param fileName whose path you need
- @return path to the file
- */
-//- (NSString*)pathForFile:(NSString*)fileName {
-//	NSString *filePath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;
-//	return [filePath stringByAppendingString:fileName];
-//}
-
-/**
- Saves the string "str" to disk on the "fileName" path.
-
- @param str file to save as a string
- @param fileName path to where the file should be saved
- */
-//- (void)saveString:(NSString*)str toFile:(NSString*)fileName {
-//	NSString *fileAtPath = [self pathForFile:fileName];
-//	if (![[NSFileManager defaultManager] fileExistsAtPath:fileAtPath]) {
-//		[[NSFileManager defaultManager] createFileAtPath:fileAtPath contents:nil attributes:nil];
-//	}
-//	[[str dataUsingEncoding:NSUTF8StringEncoding] writeToFile:fileAtPath atomically:YES];
-//}
-
-/**
- Removes the file at the "fileName" path.
-
- @param fileName path to file you want to delete
- @return true if the file was deleted, false if it couldn't be deleted
- */
-//- (BOOL)removeFile:(NSString*)fileName {
-//	if (![[fileName substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"/"]) {
-//		fileName = [@"/" stringByAppendingString:fileName];
-//	}
-//	NSString *fileAtPath = [self pathForFile:fileName];
-//
-//	NSError *error;
-//	if (![[NSFileManager defaultManager] removeItemAtPath:fileAtPath error:&error]) {
-//		ReleaseLog(@"%s Could not delete file: %@", __PRETTY_FUNCTION__, [error localizedDescription]);
-//		return false;
-//	}
-//	return true;
-//}
-
-//#pragma mark - Navigation
-
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//	if ([segue.identifier isEqualToString:@"HelpSegue"]) {
-//		UIViewController *vc = segue.destinationViewController;
-////		Set the transitioning delegate to allow for the custom animators
-//		vc.transitioningDelegate = self;
-//	}
-//}
-
 #pragma mark - Notifications
 
-- (void)applicationDidEnterBackground:(UIApplication *)application {
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
 	[self dismissViewControllerAnimated:YES completion:^{
 		[self stopHTTPServer];
 	}];
@@ -448,12 +307,9 @@ static NSString *const fontPayloadTemplate =
 
 - (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray <NSURL *>*)URLs
 {
+	DebugLog(@"%s urls = %@", __PRETTY_FUNCTION__, URLs);
 	// NOTE: This is called after the selected files are downloaded and the picker view is dismissed.
 	
-	// TODO: copy the security scoped URLs into the app
-	// https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/DocumentPickerProgrammingGuide/AccessingDocuments/AccessingDocuments.html#//apple_ref/doc/uid/TP40014451-CH2-SW9
-	
-	DebugLog(@"%s urls = %@", __PRETTY_FUNCTION__, URLs);
 	for (NSURL *sourceURL in URLs) {
 		BOOL accessingResource = [sourceURL startAccessingSecurityScopedResource];
 		NSString *fileName = sourceURL.lastPathComponent;
@@ -473,10 +329,10 @@ static NSString *const fontPayloadTemplate =
 	[self loadFonts];
 }
 
-// called if the user dismisses the document picker without selecting a document (using the Cancel button)
 - (void)documentPickerWasCancelled:(UIDocumentPickerViewController *)controller
 {
 	DebugLog(@"%s called", __PRETTY_FUNCTION__);
+	// NOTE: Called if the user dismisses the document picker without selecting a document (using the Cancel button).
 }
 
 #pragma mark - SFSafariViewControllerDelegate
@@ -487,15 +343,5 @@ static NSString *const fontPayloadTemplate =
 		[self stopHTTPServer];
 	}];
 }
-
-//#pragma mark - Custom Blur Transition
-//
-//- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-//	return [PresentationBlurAnimator new];
-//}
-//
-//- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
-//	return [DismissBlurAnimator new];
-//}
 
 @end

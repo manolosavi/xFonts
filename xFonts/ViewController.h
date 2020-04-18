@@ -14,12 +14,12 @@
 
 #import "FontInfo.h"
 
-@interface ViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UIViewControllerTransitioningDelegate>
-
-@property (nonatomic, weak) IBOutlet UITableView *tableView;
-@property (nonatomic, weak) IBOutlet UIBarButtonItem *installButton;
-@property (nonatomic, weak) IBOutlet UIBarButtonItem *addButton;
-
-@property (nonatomic, strong) NSArray<FontInfo *> *fonts;
+@interface ViewController : UITableViewController
+//
+//@property (nonatomic, weak) IBOutlet UITableView *tableView;
+//@property (nonatomic, weak) IBOutlet UIBarButtonItem *installButton;
+//@property (nonatomic, weak) IBOutlet UIBarButtonItem *addButton;
+//
+//@property (nonatomic, strong) NSArray<FontInfo *> *fonts;
 
 @end

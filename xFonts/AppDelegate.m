@@ -8,13 +8,6 @@
 
 #import "AppDelegate.h"
 
-@interface AppDelegate () {
-	UIBackgroundTaskIdentifier bgTask;
-}
-
-
-@end
-
 @implementation AppDelegate
 
 
@@ -32,28 +25,15 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-	NSAssert(self->bgTask == UIBackgroundTaskInvalid, nil);
-//	Set background task to keep the HTTP Server running while xFonts is in the background
-//	bgTask = [application beginBackgroundTaskWithExpirationHandler: ^{
-//		dispatch_async(dispatch_get_main_queue(), ^{
-//			[application endBackgroundTask:self->bgTask];
-//			self->bgTask = UIBackgroundTaskInvalid;
-//		});
-//	}];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
-//	[application endBackgroundTask:self->bgTask];
-//	self->bgTask = UIBackgroundTaskInvalid;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-//	Post "reloadFonts" notification when becoming active
-//	[[NSNotificationCenter defaultCenter] postNotificationName:@"reloadFonts" object:nil];
 }
 
-- (void)applicationWillTerminate:(UIApplication *)application {
-	
+- (void)applicationWillTerminate:(UIApplication *)application {	
 }
 
 //- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
