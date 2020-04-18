@@ -17,9 +17,12 @@
 
 @property (nonatomic, strong) NSURL *fileURL;
 @property (nonatomic, strong) NSString *displayName;
-@property (nonatomic, strong) NSString *postscriptName;
+@property (nonatomic, strong) NSString *postScriptName;
 @property (nonatomic, strong) NSString *copyrightName;
 @property (nonatomic, strong) NSString *descriptionName;
+@property (nonatomic, strong) NSString *versionName;
+@property (nonatomic, strong) NSString *styleName;
+@property (nonatomic, strong) NSString *familyName;
 
 @property (nonatomic, assign) NSInteger numberOfGlyphs;
 
@@ -49,6 +52,11 @@
 - (NSUInteger)hash
 {
 	return self.fileURL.hash;
+}
+
+- (NSString *)fileName
+{
+	return self.fileURL.lastPathComponent;
 }
 
 - (BOOL)removeFile
@@ -88,7 +96,7 @@
 			if (fontRef) {
 				self.numberOfGlyphs	= CGFontGetNumberOfGlyphs(fontRef);
 				
-				self.postscriptName = CFBridgingRelease(CGFontCopyPostScriptName(fontRef));
+				self.postScriptName = CFBridgingRelease(CGFontCopyPostScriptName(fontRef));
 				self.displayName = CFBridgingRelease(CGFontCopyFullName(fontRef));
 
 				// https://stackoverflow.com/questions/53359789/get-meta-info-from-uifont-or-cgfont-ios-swift
@@ -96,7 +104,11 @@
 				if (textFontRef) {
 					self.copyrightName = CFBridgingRelease(CTFontCopyName(textFontRef, kCTFontCopyrightNameKey));
 					self.descriptionName = CFBridgingRelease(CTFontCopyName(textFontRef, kCTFontDescriptionNameKey));
-
+					self.versionName = CFBridgingRelease(CTFontCopyName(textFontRef, kCTFontVersionNameKey));
+					self.styleName = CFBridgingRelease(CTFontCopyName(textFontRef, kCTFontStyleNameKey));
+					
+					self.familyName = CFBridgingRelease(CTFontCopyFamilyName(textFontRef));
+					
 					CFRelease(textFontRef);
 					CFRelease(fontRef);
 				}
@@ -107,7 +119,7 @@
 			}
 			else {
 				// fallback on file name which _might_ work
-				self.postscriptName = [self.fileURL.lastPathComponent stringByDeletingPathExtension];
+				self.postScriptName = [self.fileURL.lastPathComponent stringByDeletingPathExtension];
 			}
 		}
 		else {

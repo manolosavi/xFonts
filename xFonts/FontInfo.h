@@ -19,10 +19,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly) NSUInteger hash;
 
 @property (nonatomic, readonly) NSURL *fileURL;
-@property (nonatomic, readonly) NSString *postscriptName;
+@property (nonatomic, readonly) NSString *fileName;
+@property (nonatomic, readonly) NSString *postScriptName;
 @property (nonatomic, readonly, nullable) NSString *displayName;
 @property (nonatomic, readonly, nullable) NSString *copyrightName;
 @property (nonatomic, readonly, nullable) NSString *descriptionName;
+@property (nonatomic, readonly, nullable) NSString *versionName;
+@property (nonatomic, readonly, nullable) NSString *styleName;
+@property (nonatomic, readonly, nullable) NSString *familyName;
 
 @property (nonatomic, readonly) NSInteger numberOfGlyphs;
 

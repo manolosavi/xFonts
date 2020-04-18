@@ -9,6 +9,8 @@
 #import <SafariServices/SafariServices.h>
 
 #import "ViewController.h"
+
+#import "DetailViewController.h"
 #import "RoutingHTTPServer.h"
 
 #import "DebugLog.h"
@@ -83,6 +85,25 @@
 	[super didReceiveMemoryWarning];
 }
 
+#pragma mark - Navigation
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+	if ([segue.destinationViewController isKindOfClass:[DetailViewController class]]) {
+		DetailViewController *viewController = (DetailViewController *)segue.destinationViewController;
+		NSIndexPath *selectedIndexPath = self.tableView.indexPathForSelectedRow;
+		if (selectedIndexPath) {
+			NSInteger selectedIndex = selectedIndexPath.item;
+			if (selectedIndex >= 0 && selectedIndex < self.fonts.count) {
+				FontInfo *fontInfo = self.fonts[selectedIndex];
+				viewController.fontInfo = fontInfo;
+			}
+		}
+	}
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+
 #pragma mark - Actions
 
 - (IBAction)installProfile:(id)sender
@@ -145,7 +166,7 @@
 	FontInfo *fontInfo = self.fonts[indexPath.row];
 	
 	cell.textLabel.text = fontInfo.displayName;
-	cell.textLabel.font = [UIFont fontWithName:fontInfo.postscriptName size:18.0];
+	cell.textLabel.font = [UIFont fontWithName:fontInfo.postScriptName size:18.0];
 	cell.textLabel.adjustsFontSizeToFitWidth = YES;
 	cell.textLabel.minimumScaleFactor = 0.5;
 
