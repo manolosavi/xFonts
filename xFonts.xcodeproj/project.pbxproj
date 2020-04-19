@@ -6,8 +6,23 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		443576C9244CDD3900669EEB /* Prepare Release */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 443576CA244CDD3900669EEB /* Build configuration list for PBXAggregateTarget "Prepare Release" */;
+			buildPhases = (
+				443576CD244CDD4200669EEB /* Increment Build Number */,
+			);
+			dependencies = (
+			);
+			name = "Prepare Release";
+			productName = "Prepare Release";
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		443576C2244CC28F00669EEB /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 443576C1244CC28F00669EEB /* TabBarController.m */; };
+		443576C8244CDC3800669EEB /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 443576C7244CDC3800669EEB /* AboutViewController.m */; };
 		44A20B042447DC4100BF15DA /* FontInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A20B032447DC4100BF15DA /* FontInfo.m */; };
 		44C12221244A8F3F00DD9481 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C12220244A8F3F00DD9481 /* NavigationController.m */; };
 		44F6282D244B7EE300C8BBD7 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F6282C244B7EE300C8BBD7 /* DetailViewController.m */; };
@@ -50,9 +65,21 @@
 		93AE4C781E42C44B00D19E41 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93AE4C771E42C44B00D19E41 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		443576CE244CDD7800669EEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 93AE4C601E42C44B00D19E41 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 443576C9244CDD3900669EEB;
+			remoteInfo = "Prepare Release";
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		443576C0244CC28F00669EEB /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
 		443576C1244CC28F00669EEB /* TabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
+		443576C6244CDC3800669EEB /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		443576C7244CDC3800669EEB /* AboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		44A20B022447DC4100BF15DA /* FontInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FontInfo.h; sourceTree = "<group>"; };
 		44A20B032447DC4100BF15DA /* FontInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FontInfo.m; sourceTree = "<group>"; };
 		44C1221F244A8F3F00DD9481 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
@@ -327,6 +354,8 @@
 				93320FD51E4EACCB0045C38C /* index.html */,
 				93AE4C7C1E42C44B00D19E41 /* Info.plist */,
 				93AE4C6B1E42C44B00D19E41 /* Supporting Files */,
+				443576C6244CDC3800669EEB /* AboutViewController.h */,
+				443576C7244CDC3800669EEB /* AboutViewController.m */,
 			);
 			path = xFonts;
 			sourceTree = "<group>";
@@ -354,6 +383,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				443576CF244CDD7800669EEB /* PBXTargetDependency */,
 			);
 			name = xFonts;
 			productName = xFonts;
@@ -369,6 +399,10 @@
 				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = manolo;
 				TargetAttributes = {
+					443576C9244CDD3900669EEB = {
+						CreatedOnToolsVersion = 11.2.1;
+						ProvisioningStyle = Automatic;
+					};
 					93AE4C671E42C44B00D19E41 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = RYQWBTQRPT;
@@ -391,6 +425,7 @@
 			projectRoot = "";
 			targets = (
 				93AE4C671E42C44B00D19E41 /* xFonts */,
+				443576C9244CDD3900669EEB /* Prepare Release */,
 			);
 		};
 /* End PBXProject section */
@@ -409,6 +444,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		443576CD244CDD4200669EEB /* Increment Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Increment Build Number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "INFO_PLIST=\"$PROJECT_DIR/xFonts/Info.plist\"\n\nCURRENT_VERSION=$(/usr/libexec/PlistBuddy -c \"Print :CFBundleShortVersionString\" \"$INFO_PLIST\")\nCURRENT_BUILD=$(/usr/libexec/PlistBuddy -c \"Print :CFBundleVersion\" \"$INFO_PLIST\")\n\nif [ \"$CONFIGURATION\" == \"Release\" ]; then\n    NEW_BUILD=$(($CURRENT_BUILD + 1))\n\n    echo \"Changing build number from $CURRENT_BUILD to $NEW_BUILD...\"\n    /usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $NEW_BUILD\" \"$INFO_PLIST\"\nelse\n    echo \"Development build number is $CURRENT_BUILD...\"\nfi\n";
+		};
 		9392FDAB1E497CDB00960DE3 /* Export Sketch Assets */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -454,6 +507,7 @@
 				9309F3711E4917B2002F2AB7 /* DispatchQueueLogFormatter.m in Sources */,
 				44C12221244A8F3F00DD9481 /* NavigationController.m in Sources */,
 				9309F35E1E4917B2002F2AB7 /* HTTPErrorResponse.m in Sources */,
+				443576C8244CDC3800669EEB /* AboutViewController.m in Sources */,
 				9309F35D1E4917B2002F2AB7 /* HTTPDynamicFileResponse.m in Sources */,
 				9309F35C1E4917B2002F2AB7 /* HTTPDataResponse.m in Sources */,
 				44F6282D244B7EE300C8BBD7 /* DetailViewController.m in Sources */,
@@ -473,6 +527,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		443576CF244CDD7800669EEB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 443576C9244CDD3900669EEB /* Prepare Release */;
+			targetProxy = 443576CE244CDD7800669EEB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		93AE4C741E42C44B00D19E41 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -485,6 +547,22 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		443576CB244CDD3900669EEB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		443576CC244CDD3900669EEB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 		93AE4C7D1E42C44B00D19E41 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -622,6 +700,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		443576CA244CDD3900669EEB /* Build configuration list for PBXAggregateTarget "Prepare Release" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				443576CB244CDD3900669EEB /* Debug */,
+				443576CC244CDD3900669EEB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		93AE4C631E42C44B00D19E41 /* Build configuration list for PBXProject "xFonts" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

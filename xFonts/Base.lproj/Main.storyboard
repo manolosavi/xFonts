@@ -25,6 +25,11 @@
                                 <state key="normal" title="OK">
                                     <color key="titleColor" name="appOverlayText"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="4"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <segue destination="fWI-9F-bIw" kind="unwind" unwindAction="unwindToTabBar:" id="bX2-Sr-ksG"/>
                                 </connections>
@@ -574,39 +579,65 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
         <!--About-->
         <scene sceneID="vm3-3e-BEi">
             <objects>
-                <viewController id="512-d6-5g3" sceneMemberID="viewController">
+                <viewController id="512-d6-5g3" customClass="AboutViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TGN-Fy-Bhh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rF5-M2-9bK">
-                                <rect key="frame" x="135" y="287" width="144" height="101.5"/>
+                                <rect key="frame" x="135" y="277" width="144" height="122"/>
                                 <string key="text">Created by
 
 Manolo Sanudo
 Craig Hockenberry
+Gedeon Maheux
 et al.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VERSION 2.0 (4)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aV2-e9-TtV">
-                                <rect key="frame" x="143.5" y="553" width="127" height="20.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VERSION 1.0 (123)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aV2-e9-TtV">
+                                <rect key="frame" x="147.5" y="667.5" width="119.5" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <color key="textColor" systemColor="tertiaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Font Pad" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hcc-xG-Mx6">
+                                <rect key="frame" x="114.5" y="189.5" width="185" height="57.5"/>
+                                <fontDescription key="fontDescription" type="italicSystem" pointSize="48"/>
+                                <color key="textColor" name="appTint"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="design by the iconfactory" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UMc-xU-7A4">
+                                <rect key="frame" x="125" y="610.5" width="164" height="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconfactory_logo" translatesAutoresizingMaskIntoConstraints="NO" id="OEy-Nw-MIH">
+                                <rect key="frame" x="191" y="570.5" width="32" height="32"/>
+                                <color key="tintColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="rF5-M2-9bK" firstAttribute="centerX" secondItem="Kwx-xM-UQ5" secondAttribute="centerX" id="9yH-RJ-0Go"/>
                             <constraint firstItem="aV2-e9-TtV" firstAttribute="centerX" secondItem="Kwx-xM-UQ5" secondAttribute="centerX" id="BwE-vC-i0A"/>
                             <constraint firstItem="rF5-M2-9bK" firstAttribute="centerY" secondItem="Kwx-xM-UQ5" secondAttribute="centerY" multiplier="0.75" id="DTe-gZ-284"/>
-                            <constraint firstItem="aV2-e9-TtV" firstAttribute="centerY" secondItem="Kwx-xM-UQ5" secondAttribute="centerY" multiplier="1.25" id="Nrx-oo-sLc"/>
+                            <constraint firstItem="aV2-e9-TtV" firstAttribute="top" secondItem="UMc-xU-7A4" secondAttribute="bottom" constant="40" id="Fya-2a-l10"/>
+                            <constraint firstItem="aV2-e9-TtV" firstAttribute="centerY" secondItem="Kwx-xM-UQ5" secondAttribute="centerY" multiplier="1.5" id="Nrx-oo-sLc"/>
+                            <constraint firstItem="rF5-M2-9bK" firstAttribute="top" secondItem="hcc-xG-Mx6" secondAttribute="bottom" constant="30" id="Vpk-5R-Ore"/>
+                            <constraint firstItem="hcc-xG-Mx6" firstAttribute="centerX" secondItem="rF5-M2-9bK" secondAttribute="centerX" id="X0r-74-SfQ"/>
+                            <constraint firstItem="UMc-xU-7A4" firstAttribute="centerX" secondItem="aV2-e9-TtV" secondAttribute="centerX" id="aRA-dZ-uii"/>
+                            <constraint firstItem="OEy-Nw-MIH" firstAttribute="centerX" secondItem="UMc-xU-7A4" secondAttribute="centerX" id="coJ-CE-6Vo"/>
+                            <constraint firstItem="UMc-xU-7A4" firstAttribute="top" secondItem="OEy-Nw-MIH" secondAttribute="bottom" constant="8" id="wYv-xT-iza"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Kwx-xM-UQ5"/>
                     </view>
                     <navigationItem key="navigationItem" title="About" id="1LR-fx-030"/>
+                    <connections>
+                        <outlet property="versionLabel" destination="aV2-e9-TtV" id="ixu-En-Gqj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UB3-0G-oCs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -684,6 +715,7 @@ et al.</string>
     <resources>
         <image name="arrowhead" width="12" height="12"/>
         <image name="book" catalog="system" width="64" height="50"/>
+        <image name="iconfactory_logo" width="32" height="32"/>
         <image name="info.circle" catalog="system" width="64" height="60"/>
         <image name="textformat.alt" catalog="system" width="64" height="40"/>
         <namedColor name="appHeader">
