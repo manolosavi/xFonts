@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ojk-Bn-Ctu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qyC-eK-c3T">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
@@ -8,6 +8,21 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
+        <!--View Controller-->
+        <scene sceneID="5oP-de-wu2">
+            <objects>
+                <viewController id="teL-20-r1o" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="2Oq-8v-pYO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="z8X-iI-BEB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gEe-pz-W5C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1" y="38"/>
+        </scene>
         <!--Font Pad-->
         <scene sceneID="QIi-FZ-IXC">
             <objects>
@@ -34,7 +49,7 @@
                             <outlet property="delegate" destination="FOw-fU-3BX" id="6Hb-J4-JAO"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Font Pad" id="dpu-oN-dBk">
+                    <navigationItem key="navigationItem" title="Fonts" id="dpu-oN-dBk">
                         <barButtonItem key="backBarButtonItem" title=" " id="9G3-TW-Vs9"/>
                         <barButtonItem key="leftBarButtonItem" title="Add" id="T6u-ro-7rs">
                             <color key="tintColor" name="appHeaderText"/>
@@ -70,17 +85,20 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="t9v-2L-JtN">
-                                        <rect key="frame" x="0.0" y="20" width="414" height="645"/>
+                                        <rect key="frame" x="0.0" y="20" width="414" height="709.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ivc-Tp-xMC">
-                                                <rect key="frame" x="20" y="0.0" width="374" height="208"/>
+                                                <rect key="frame" x="20" y="0.0" width="374" height="272.5"/>
                                                 <subviews>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="750" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m7S-bd-HG1">
-                                                        <rect key="frame" x="10" y="10" width="354" height="188"/>
+                                                        <rect key="frame" x="10" y="10" width="354" height="252.5"/>
                                                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <string key="text">ABCDEFGHIJKLMNOPQRSTUVWXYZ
-abcdefghijklmnopqrstuvwxyz
-0123456789 !@#$%^&amp;*()_-+=
+                                                        <string key="text">ABCDEFGHIJKLM
+NOPQRSTUVWXYZ
+abcdefghijklm
+nopqrstuvwxyz
+0123456789
+!@#$%^&amp;*()-+=
 
 Hamburgfonstiv
 
@@ -99,7 +117,7 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CgR-CW-xgK">
-                                                <rect key="frame" x="202" y="218" width="10" height="10"/>
+                                                <rect key="frame" x="202" y="282.5" width="10" height="10"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="10" id="b7d-YK-6cF"/>
@@ -107,7 +125,7 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="tRH-wl-eJ4">
-                                                <rect key="frame" x="20" y="238" width="374" height="20.5"/>
+                                                <rect key="frame" x="20" y="302.5" width="374" height="20.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="File Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7fK-Pn-QLd">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="20.5"/>
@@ -127,7 +145,7 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Q2A-2U-RUA">
-                                                <rect key="frame" x="20" y="268.5" width="374" height="20.5"/>
+                                                <rect key="frame" x="20" y="333" width="374" height="20.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="PostScript Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AzZ-Uv-yGl">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="20.5"/>
@@ -147,7 +165,7 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ByW-aB-TAa">
-                                                <rect key="frame" x="20" y="299" width="374" height="20.5"/>
+                                                <rect key="frame" x="20" y="363.5" width="374" height="20.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Full Name" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5GB-6w-QAj">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="20.5"/>
@@ -167,7 +185,7 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dgS-iv-AKS">
-                                                <rect key="frame" x="20" y="329.5" width="374" height="20.5"/>
+                                                <rect key="frame" x="20" y="394" width="374" height="20.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Family" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esG-gg-dKM">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="20.5"/>
@@ -187,7 +205,7 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Uoq-hu-Ykv">
-                                                <rect key="frame" x="20" y="360" width="374" height="20.5"/>
+                                                <rect key="frame" x="20" y="424.5" width="374" height="20.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Style" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bhU-gW-MFj">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="20.5"/>
@@ -207,7 +225,7 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ztu-Tg-fgU">
-                                                <rect key="frame" x="20" y="390.5" width="374" height="20.5"/>
+                                                <rect key="frame" x="20" y="455" width="374" height="20.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Glyph Count" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DOi-Ta-eJi">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="20.5"/>
@@ -227,7 +245,7 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ghc-LA-n3v">
-                                                <rect key="frame" x="20" y="421" width="374" height="20.5"/>
+                                                <rect key="frame" x="20" y="485.5" width="374" height="20.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Version" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gXQ-TC-9Rw">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="20.5"/>
@@ -247,7 +265,7 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qkb-Qg-nVx">
-                                                <rect key="frame" x="20" y="451.5" width="374" height="41"/>
+                                                <rect key="frame" x="20" y="516" width="374" height="41"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Copyright" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b0l-a4-B57">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="20.5"/>
@@ -267,7 +285,7 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="era-WV-WYr">
-                                                <rect key="frame" x="20" y="502.5" width="374" height="142.5"/>
+                                                <rect key="frame" x="20" y="567" width="374" height="142.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Description" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kVe-yk-J3E">
                                                         <rect key="frame" x="0.0" y="0.0" width="150" height="20.5"/>
@@ -376,10 +394,86 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
             </objects>
             <point key="canvasLocation" x="1551" y="38"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Help-->
+        <scene sceneID="Ya9-Rs-rOO">
+            <objects>
+                <navigationController id="PaN-a1-ZQu" customClass="NavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Help" image="book" catalog="system" id="mSk-N8-bCf"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ueB-LF-Fhc">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="appHeader"/>
+                        <color key="barTintColor" name="appHeader"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="appHeaderText"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="CFk-UM-8KU" kind="relationship" relationship="rootViewController" id="rsG-5e-NM1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nVt-9E-His" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3549" y="-660"/>
+        </scene>
+        <!--Help-->
+        <scene sceneID="Wzm-4N-mbE">
+            <objects>
+                <viewController id="CFk-UM-8KU" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="frl-PP-akL">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="bu9-yP-IYN"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Help" id="5y7-tJ-82J"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6eX-Te-Nf6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3548" y="38"/>
+        </scene>
+        <!--About-->
+        <scene sceneID="vm3-3e-BEi">
+            <objects>
+                <viewController id="512-d6-5g3" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TGN-Fy-Bhh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="Kwx-xM-UQ5"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="About" id="1LR-fx-030"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UB3-0G-oCs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2571" y="38"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="Tyo-sJ-bQq">
+            <objects>
+                <tabBarController id="qyC-eK-c3T" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UA3-aE-Wny">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="appTint"/>
+                        <color key="selectedImageTintColor" name="appTint"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="ojk-Bn-Ctu" kind="relationship" relationship="viewControllers" id="v50-Xu-HrT"/>
+                        <segue destination="PaN-a1-ZQu" kind="relationship" relationship="viewControllers" id="2vF-oN-H0f"/>
+                        <segue destination="wln-UC-LOP" kind="relationship" relationship="viewControllers" id="PAi-pv-MkN"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jJy-oL-T8K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2570" y="-1585"/>
+        </scene>
+        <!--Fonts-->
         <scene sceneID="Jb0-Lg-0iR">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ojk-Bn-Ctu" customClass="NavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Fonts" image="textformat.alt" catalog="system" id="nEz-5w-u7v"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6P9-P3-wLF">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -397,10 +491,36 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MAN-gw-E4Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="32.799999999999997" y="38.23088455772114"/>
+            <point key="canvasLocation" x="799" y="-660"/>
+        </scene>
+        <!--About-->
+        <scene sceneID="DjH-yU-S09">
+            <objects>
+                <navigationController id="wln-UC-LOP" customClass="NavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="About" image="info.circle" catalog="system" id="Egl-p3-48L"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CKL-BM-BvV">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" name="appHeader"/>
+                        <color key="barTintColor" name="appHeader"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="appHeaderText"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="512-d6-5g3" kind="relationship" relationship="rootViewController" id="bHh-Ow-bbB"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bpM-3S-8Kc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2570" y="-660"/>
         </scene>
     </scenes>
     <resources>
+        <image name="book" catalog="system" width="64" height="50"/>
+        <image name="info.circle" catalog="system" width="64" height="60"/>
+        <image name="textformat.alt" catalog="system" width="64" height="40"/>
         <namedColor name="appHeader">
             <color red="0.41960784313725491" green="0.27843137254901962" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
@@ -409,6 +529,9 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
         </namedColor>
         <namedColor name="appHeaderText">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appTint">
+            <color red="0.41960784313725491" green="0.27843137254901962" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
     <color key="tintColor" name="appTint"/>

@@ -80,7 +80,7 @@
 		self.descriptionView.hidden = YES;
 	}
 		
-	self.sampleTextView.font = [UIFont fontWithName:self.fontInfo.postScriptName size:18.0];
+	self.sampleTextView.font = [UIFont fontWithName:self.fontInfo.postScriptName size:32.0];
 	self.sampleBackgroundView.layer.cornerRadius = 4.0;
 }
 
