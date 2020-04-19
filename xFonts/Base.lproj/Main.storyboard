@@ -16,68 +16,118 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xY3-y1-AGm">
-                                <rect key="frame" x="177" y="429" width="61" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xY3-y1-AGm">
+                                <rect key="frame" x="175" y="546" width="64" height="41"/>
                                 <color key="backgroundColor" name="appTint"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="tintColor" name="appHeaderText"/>
                                 <inset key="contentEdgeInsets" minX="20" minY="10" maxX="20" maxY="10"/>
                                 <state key="normal" title="OK">
-                                    <color key="titleColor" name="appHeaderText"/>
+                                    <color key="titleColor" name="appOverlayText"/>
                                 </state>
                                 <connections>
                                     <segue destination="fWI-9F-bIw" kind="unwind" unwindAction="unwindToTabBar:" id="bX2-Sr-ksG"/>
                                 </connections>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DBs-rs-jpm">
-                                <rect key="frame" x="40" y="104" width="160" height="101.5"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DBs-rs-jpm" userLabel="Step 1">
+                                <rect key="frame" x="41" y="365.5" width="160" height="140.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(1) Pick the fonts you want to use from your iCloud Drive or Dropbox." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HUV-BU-GXe">
-                                        <rect key="frame" x="10" y="10" width="140" height="81.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o9q-DP-1EZ">
+                                        <rect key="frame" x="73.5" y="10" width="13" height="29"/>
+                                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="24"/>
+                                        <color key="textColor" name="appOverlayText"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick the fonts you want to use from your iCloud Drive or Dropbox." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HUV-BU-GXe">
+                                        <rect key="frame" x="10" y="49" width="140" height="81.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="140" id="DQc-oU-fvY"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" name="appOverlayText"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" name="appOverlay"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="HUV-BU-GXe" secondAttribute="bottom" constant="10" id="2HH-H0-KZo"/>
-                                    <constraint firstItem="HUV-BU-GXe" firstAttribute="top" secondItem="DBs-rs-jpm" secondAttribute="top" constant="10" id="BLv-Xr-OVy"/>
+                                    <constraint firstItem="o9q-DP-1EZ" firstAttribute="top" secondItem="DBs-rs-jpm" secondAttribute="top" constant="10" id="Yfw-UC-8bI"/>
                                     <constraint firstItem="HUV-BU-GXe" firstAttribute="leading" secondItem="DBs-rs-jpm" secondAttribute="leading" constant="10" id="aip-b4-quU"/>
+                                    <constraint firstItem="HUV-BU-GXe" firstAttribute="top" secondItem="o9q-DP-1EZ" secondAttribute="bottom" constant="10" id="cla-C8-8BL"/>
+                                    <constraint firstItem="o9q-DP-1EZ" firstAttribute="centerX" secondItem="DBs-rs-jpm" secondAttribute="centerX" id="gGU-1Z-l8Q"/>
                                     <constraint firstAttribute="trailing" secondItem="HUV-BU-GXe" secondAttribute="trailing" constant="10" id="oyw-po-QQh"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEx-fm-5eT">
-                                <rect key="frame" x="214" y="104" width="160" height="101.5"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kf3-2W-iS0" userLabel="Step 2">
+                                <rect key="frame" x="208" y="365.5" width="160" height="140.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(2) Create and download a font installer for Settings." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8r-6K-WrN">
-                                        <rect key="frame" x="10" y="10" width="140" height="81.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WjT-Gr-UZ7">
+                                        <rect key="frame" x="72" y="10" width="16" height="29"/>
+                                        <fontDescription key="fontDescription" type="system" weight="black" pointSize="24"/>
+                                        <color key="textColor" name="appOverlayText"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create and download a font installer for Settings." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SVQ-LI-yPd">
+                                        <rect key="frame" x="10" y="49" width="140" height="81.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="140" id="WYS-ST-hnk"/>
+                                            <constraint firstAttribute="width" constant="140" id="SCo-NO-E8k"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
+                                        <color key="textColor" name="appOverlayText"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" name="appOverlay"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="s8r-6K-WrN" secondAttribute="trailing" constant="10" id="6L9-FL-TLR"/>
-                                    <constraint firstAttribute="bottom" secondItem="s8r-6K-WrN" secondAttribute="bottom" constant="10" id="6Y6-qx-jT1"/>
-                                    <constraint firstItem="s8r-6K-WrN" firstAttribute="top" secondItem="gEx-fm-5eT" secondAttribute="top" constant="10" id="gTo-gZ-kQG"/>
-                                    <constraint firstItem="s8r-6K-WrN" firstAttribute="leading" secondItem="gEx-fm-5eT" secondAttribute="leading" constant="10" id="gqq-gN-DDh"/>
+                                    <constraint firstItem="WjT-Gr-UZ7" firstAttribute="centerX" secondItem="kf3-2W-iS0" secondAttribute="centerX" id="363-CE-2G3"/>
+                                    <constraint firstAttribute="trailing" secondItem="SVQ-LI-yPd" secondAttribute="trailing" constant="10" id="C6l-fo-WrW"/>
+                                    <constraint firstItem="SVQ-LI-yPd" firstAttribute="top" secondItem="WjT-Gr-UZ7" secondAttribute="bottom" constant="10" id="GdS-80-D21"/>
+                                    <constraint firstItem="SVQ-LI-yPd" firstAttribute="leading" secondItem="kf3-2W-iS0" secondAttribute="leading" constant="10" id="J3h-Om-8Ts"/>
+                                    <constraint firstItem="WjT-Gr-UZ7" firstAttribute="top" secondItem="kf3-2W-iS0" secondAttribute="top" constant="10" id="r7L-TN-pXi"/>
+                                    <constraint firstAttribute="bottom" secondItem="SVQ-LI-yPd" secondAttribute="bottom" constant="10" id="uRc-6i-bGO"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowhead" translatesAutoresizingMaskIntoConstraints="NO" id="8HT-fj-P4R" userLabel="Left Point">
+                                <rect key="frame" x="30" y="81" width="24" height="24"/>
+                                <color key="tintColor" name="appOverlayText"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HpR-br-pgM" userLabel="Left Connector">
+                                <rect key="frame" x="41" y="105" width="2" height="401"/>
+                                <color key="backgroundColor" name="appOverlayText"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="2" id="gQv-yc-pzn"/>
+                                </constraints>
+                            </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowhead" translatesAutoresizingMaskIntoConstraints="NO" id="xXW-Oe-Wds" userLabel="Right Point">
+                                <rect key="frame" x="355" y="81" width="24" height="24"/>
+                                <color key="tintColor" name="appOverlayText"/>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4zL-Sb-Fay" userLabel="Right Connector">
+                                <rect key="frame" x="366" y="105" width="2" height="401"/>
+                                <color key="backgroundColor" name="appOverlayText"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="2" id="cLf-cp-pb2"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" name="appSelection"/>
                         <constraints>
-                            <constraint firstItem="DBs-rs-jpm" firstAttribute="top" secondItem="z8X-iI-BEB" secondAttribute="top" constant="60" id="Khj-FP-mVG"/>
-                            <constraint firstItem="gEx-fm-5eT" firstAttribute="top" secondItem="z8X-iI-BEB" secondAttribute="top" constant="60" id="VLd-bd-rw3"/>
-                            <constraint firstItem="z8X-iI-BEB" firstAttribute="trailing" secondItem="gEx-fm-5eT" secondAttribute="trailing" constant="40" id="fhp-eX-3ln"/>
-                            <constraint firstItem="DBs-rs-jpm" firstAttribute="leading" secondItem="z8X-iI-BEB" secondAttribute="leading" constant="40" id="k2Y-Y6-F54"/>
+                            <constraint firstItem="xXW-Oe-Wds" firstAttribute="top" secondItem="z8X-iI-BEB" secondAttribute="top" constant="37" id="2Ae-v8-HJ6"/>
+                            <constraint firstItem="4zL-Sb-Fay" firstAttribute="centerX" secondItem="xXW-Oe-Wds" secondAttribute="centerX" id="4nR-Yp-eNj"/>
+                            <constraint firstAttribute="trailing" secondItem="xXW-Oe-Wds" secondAttribute="trailing" constant="35" id="8Ao-b2-Ev6"/>
+                            <constraint firstItem="xY3-y1-AGm" firstAttribute="centerY" secondItem="z8X-iI-BEB" secondAttribute="centerY" multiplier="1.25" id="9of-3i-ikx"/>
+                            <constraint firstItem="xY3-y1-AGm" firstAttribute="centerX" secondItem="z8X-iI-BEB" secondAttribute="centerX" id="DGE-Gr-ns8"/>
+                            <constraint firstItem="xY3-y1-AGm" firstAttribute="top" secondItem="DBs-rs-jpm" secondAttribute="bottom" constant="40" id="F5E-nM-iWb"/>
+                            <constraint firstItem="DBs-rs-jpm" firstAttribute="bottom" secondItem="HpR-br-pgM" secondAttribute="bottom" id="NpI-Xz-PTb"/>
+                            <constraint firstItem="8HT-fj-P4R" firstAttribute="leading" secondItem="2Oq-8v-pYO" secondAttribute="leading" constant="30" id="SFE-oa-jdb"/>
+                            <constraint firstItem="HpR-br-pgM" firstAttribute="top" secondItem="8HT-fj-P4R" secondAttribute="bottom" id="Tc8-rm-QKI"/>
+                            <constraint firstItem="kf3-2W-iS0" firstAttribute="trailing" secondItem="4zL-Sb-Fay" secondAttribute="trailing" id="XB3-jl-Mtm"/>
+                            <constraint firstItem="kf3-2W-iS0" firstAttribute="bottom" secondItem="4zL-Sb-Fay" secondAttribute="bottom" id="XgO-TU-cWU"/>
+                            <constraint firstItem="8HT-fj-P4R" firstAttribute="top" secondItem="z8X-iI-BEB" secondAttribute="top" constant="37" id="Ze7-bc-fSi"/>
+                            <constraint firstItem="DBs-rs-jpm" firstAttribute="leading" secondItem="HpR-br-pgM" secondAttribute="leading" id="n2P-GC-hOh"/>
+                            <constraint firstItem="HpR-br-pgM" firstAttribute="centerX" secondItem="8HT-fj-P4R" secondAttribute="centerX" id="rP4-1o-iHn"/>
+                            <constraint firstItem="4zL-Sb-Fay" firstAttribute="top" secondItem="xXW-Oe-Wds" secondAttribute="bottom" id="rie-If-9yA"/>
+                            <constraint firstItem="xY3-y1-AGm" firstAttribute="top" secondItem="kf3-2W-iS0" secondAttribute="bottom" constant="40" id="xRf-Nq-lXo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="z8X-iI-BEB"/>
                     </view>
@@ -536,7 +586,7 @@ et al.</string>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VERSION 2.0 (4)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aV2-e9-TtV">
                                 <rect key="frame" x="143.5" y="553" width="127" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" systemColor="tertiaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -625,6 +675,7 @@ et al.</string>
         </scene>
     </scenes>
     <resources>
+        <image name="arrowhead" width="12" height="12"/>
         <image name="book" catalog="system" width="64" height="50"/>
         <image name="info.circle" catalog="system" width="64" height="60"/>
         <image name="textformat.alt" catalog="system" width="64" height="40"/>
@@ -635,6 +686,12 @@ et al.</string>
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="appHeaderText">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appOverlay">
+            <color red="0.41999998688697815" green="0.27799999713897705" blue="0.69800001382827759" alpha="0.89999997615814209" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appOverlayText">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="appSelection">
