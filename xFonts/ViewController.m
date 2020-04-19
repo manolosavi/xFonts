@@ -240,40 +240,82 @@
 	[self.http stop];
 }
 
+/*
 static NSString *const profilePayloadTemplate =
-@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
-"<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">"
-"<plist version=\"1.0\">"
-"<dict>"
-"<key>PayloadType</key>"
-"<string>Configuration</string>"
-"<key>PayloadVersion</key>"
-"<integer>1</integer>"
-"<key>PayloadDisplayName</key>"
-"<string>xFonts (%@)</string>"
-"<key>PayloadIdentifier</key>"
-"<string>xFonts %@</string>"
-"<key>PayloadUUID</key>"
-"<string>%@</string>"
-"<key>PayloadContent</key>"
-"<array>%@</array>"
-"</dict>"
-"</plist>";
-
-static NSString *const fontPayloadTemplate =
-	@"<dict>\n"
+	@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+	"<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n"
+	"<plist version=\"1.0\">\n"
+	"<dict>\n"
 	"	<key>PayloadType</key>\n"
-	"	<string>com.apple.font</string>\n"
+	"	<string>Configuration</string>\n"
 	"	<key>PayloadVersion</key>\n"
 	"	<integer>1</integer>\n"
+	"	<key>PayloadDisplayName</key>\n"
+	"	<string>xFonts Installation</string>\n"
 	"	<key>PayloadIdentifier</key>\n"
-	"	<string>%@</string>\n"
+	"	<string>com.iconfactory.xfonts</string>\n"
 	"	<key>PayloadUUID</key>\n"
 	"	<string>%@</string>\n"
-	"	<key>Name</key>\n"
-	"	<string>%@</string>\n"
-	"	<key>Font</key>\n"
-	"	<data>%@</data>\n"
+	"	<key>PayloadContent</key>\n"
+	"	<array>\n"
+	"%@\n"
+	"	</array>\n"
+	"</dict>\n"
+	"</plist>";
+
+static NSString *const fontPayloadTemplate =
+	@"		<dict>\n"
+	"			<key>PayloadType</key>\n"
+	"			<string>com.apple.font</string>\n"
+	"			<key>PayloadVersion</key>\n"
+	"			<integer>1</integer>\n"
+	"			<key>PayloadIdentifier</key>\n"
+	"			<string>com.iconfactory.xfonts.%@</string>\n"
+	"			<key>PayloadUUID</key>\n"
+	"			<string>%@</string>\n"
+	"			<key>Name</key>\n"
+	"			<string>%@</string>\n"
+	"			<key>Font</key>\n"
+	"			<data>%@</data>\n"
+	"		</dict>\n";
+*/
+
+static NSString *const profilePayloadTemplate =
+	@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+	"<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">"
+	"<plist version=\"1.0\">"
+	"<dict>"
+		"<key>PayloadType</key>"
+		"<string>Configuration</string>"
+		"<key>PayloadVersion</key>"
+		"<integer>1</integer>"
+		"<key>PayloadDisplayName</key>"
+		"<string>xFonts Installation</string>"
+		"<key>PayloadIdentifier</key>"
+		"<string>com.iconfactory.xfonts</string>"
+		"<key>PayloadUUID</key>"
+		"<string>%@</string>"
+		"<key>PayloadContent</key>"
+		"<array>"
+			"%@"
+		"</array>"
+	"</dict>"
+	"</plist>";
+
+static NSString *const fontPayloadTemplate =
+	@"<dict>"
+		"<key>PayloadType</key>"
+		"<string>com.apple.font</string>"
+		"<key>PayloadVersion</key>"
+		"<integer>1</integer>"
+		"<key>PayloadIdentifier</key>"
+		"<string>com.iconfactory.xfonts.%@</string>"
+		"<key>PayloadUUID</key>"
+		"<string>%@</string>"
+		"<key>Name</key>"
+		"<string>%@</string>"
+		"<key>Font</key>"
+		"<data>%@</data>"
 	"</dict>";
 
 /**
@@ -283,24 +325,28 @@ static NSString *const fontPayloadTemplate =
  */
 - (void)saveFontsProfile:(void(^)(NSError *error))completion
 {
-	NSInteger count = 0;
-	NSString *fonts = @"";
+	//NSInteger count = 0;
+	NSString *fontsPayload = @"";
 	for (int i=0; i<self.fonts.count; i++) {
 		FontInfo *fontInfo = self.fonts[i];
 
 		//NSURL *url = [self urlForFile:fontInfo.filePath];
 		
-		NSString *UUIDString = NSUUID.UUID.UUIDString;
-		NSString *font = [[[NSData alloc] initWithContentsOfURL:fontInfo.fileURL] base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
+		NSString *fontEncoded = [[[NSData alloc] initWithContentsOfURL:fontInfo.fileURL] base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
 		
-		fonts = [fonts stringByAppendingString:[NSString stringWithFormat:@"<dict><key>PayloadType</key><string>com.apple.font</string><key>PayloadVersion</key><integer>1</integer><key>PayloadIdentifier</key><string>%@</string><key>PayloadUUID</key><string>%@</string><key>Name</key><string>%@</string><key>Font</key><data>%@</data></dict>", fontInfo.displayName, UUIDString, fontInfo.displayName, font]];
+		NSString *fontPayload = [NSString stringWithFormat:fontPayloadTemplate, fontInfo.postScriptName, NSUUID.UUID.UUIDString, fontInfo.displayName, fontEncoded];
 		
-		count++;
+		fontsPayload = [fontsPayload stringByAppendingString:fontPayload];
+//		fonts = [fonts stringByAppendingString:[NSString stringWithFormat:@"<dict><key>PayloadType</key><string>com.apple.font</string><key>PayloadVersion</key><integer>1</integer><key>PayloadIdentifier</key><string>%@</string><key>PayloadUUID</key><string>%@</string><key>Name</key><string>%@</string><key>Font</key><data>%@</data></dict>", fontInfo.displayName, UUIDString, fontInfo.displayName, font]];
+		
+		//count++;
 	}
-	NSString *title = [NSString stringWithFormat:@"%ld font%@", (long)count, (count>1?@"s":@"")];
+	//NSString *title = [NSString stringWithFormat:@"%ld font%@", (long)count, (count>1?@"s":@"")];
 	
-	NSString *profile = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict><key>PayloadType</key><string>Configuration</string><key>PayloadVersion</key><integer>1</integer><key>PayloadDisplayName</key><string>xFonts (%@)</string><key>PayloadIdentifier</key><string>xFonts %@</string><key>PayloadUUID</key><string>%@</string><key>PayloadContent</key><array>%@</array></dict></plist>", title, NSUUID.UUID.UUIDString, NSUUID.UUID.UUIDString, fonts];
+	//NSString *profile = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict><key>PayloadType</key><string>Configuration</string><key>PayloadVersion</key><integer>1</integer><key>PayloadDisplayName</key><string>xFonts (%@)</string><key>PayloadIdentifier</key><string>xFonts %@</string><key>PayloadUUID</key><string>%@</string><key>PayloadContent</key><array>%@</array></dict></plist>", title, NSUUID.UUID.UUIDString, NSUUID.UUID.UUIDString, fonts];
 	
+	NSString *profile = [NSString stringWithFormat:profilePayloadTemplate, NSUUID.UUID.UUIDString, fontsPayload];
+
 	NSURL *URL = [FontInfo.storageURL URLByAppendingPathComponent:@"xFonts.mobileconfig"];
 	// URL = [NSURL fileURLWithPath:@"/"]; // to generate an error
 	
