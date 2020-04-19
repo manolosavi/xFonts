@@ -313,15 +313,15 @@
 				44C12220244A8F3F00DD9481 /* NavigationController.m */,
 				93AE4C711E42C44B00D19E41 /* ViewController.h */,
 				93AE4C721E42C44B00D19E41 /* ViewController.m */,
+				44F6282B244B7EE300C8BBD7 /* DetailViewController.h */,
+				44F6282C244B7EE300C8BBD7 /* DetailViewController.m */,
+				44A20B022447DC4100BF15DA /* FontInfo.h */,
+				44A20B032447DC4100BF15DA /* FontInfo.m */,
 				93AE4C741E42C44B00D19E41 /* Main.storyboard */,
 				93AE4C771E42C44B00D19E41 /* Assets.xcassets */,
 				93320FD51E4EACCB0045C38C /* index.html */,
 				93AE4C7C1E42C44B00D19E41 /* Info.plist */,
 				93AE4C6B1E42C44B00D19E41 /* Supporting Files */,
-				44A20B022447DC4100BF15DA /* FontInfo.h */,
-				44A20B032447DC4100BF15DA /* FontInfo.m */,
-				44F6282B244B7EE300C8BBD7 /* DetailViewController.h */,
-				44F6282C244B7EE300C8BBD7 /* DetailViewController.m */,
 			);
 			path = xFonts;
 			sourceTree = "<group>";

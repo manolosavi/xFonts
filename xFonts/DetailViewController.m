@@ -17,11 +17,16 @@
 @property (nonatomic, weak) IBOutlet UILabel *styleNameLabel;
 @property (nonatomic, weak) IBOutlet UILabel *versionNameLabel;
 
+@property (nonatomic, weak) IBOutlet UIView *versionView;
+@property (nonatomic, weak) IBOutlet UIView *copyrightView;
+@property (nonatomic, weak) IBOutlet UIView *descriptionView;
+
 @property (nonatomic, weak) IBOutlet UILabel *glyphCountLabel;
 @property (nonatomic, weak) IBOutlet UILabel *copyrightLabel;
 @property (nonatomic, weak) IBOutlet UILabel *descriptionLabel;
 
-@property (nonatomic, weak) IBOutlet UILabel *sampleLabel;
+@property (nonatomic, weak) IBOutlet UIView *sampleBackgroundView;
+@property (nonatomic, weak) IBOutlet UITextView *sampleTextView;
 
 @end
 
@@ -54,13 +59,29 @@
 	self.displayNameLabel.text = self.fontInfo.displayName;
 	self.familyNameLabel.text = self.fontInfo.familyName;
 	self.styleNameLabel.text = self.fontInfo.styleName;
-	self.versionNameLabel.text = self.fontInfo.versionName;
 
 	self.glyphCountLabel.text = [NSNumberFormatter localizedStringFromNumber:@(self.fontInfo.numberOfGlyphs) numberStyle:NSNumberFormatterDecimalStyle];
-	self.copyrightLabel.text = self.fontInfo.copyrightName;
-	self.descriptionLabel.text = self.fontInfo.descriptionName;
-	
-	self.sampleLabel.font = [UIFont fontWithName:self.fontInfo.postScriptName size:20.0];
+	if (self.fontInfo.versionName) {
+		self.versionNameLabel.text = self.fontInfo.versionName;
+	}
+	else {
+		self.versionView.hidden = YES;
+	}
+	if (self.fontInfo.copyrightName) {
+		self.copyrightLabel.text = self.fontInfo.copyrightName;
+	}
+	else {
+		self.copyrightView.hidden = YES;
+	}
+	if (self.fontInfo.descriptionName) {
+		self.descriptionLabel.text = self.fontInfo.descriptionName;
+	}
+	else {
+		self.descriptionView.hidden = YES;
+	}
+		
+	self.sampleTextView.font = [UIFont fontWithName:self.fontInfo.postScriptName size:18.0];
+	self.sampleBackgroundView.layer.cornerRadius = 4.0;
 }
 
 @end

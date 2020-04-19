@@ -56,15 +56,15 @@
 			NSString *fileName = URL.lastPathComponent;
 			NSString *fileExtension = fileName.pathExtension;
 			
-			NSString *fontName = nil;
-			if ([fileExtension isEqual:@"otf"]) {
-				fontName = [fileName stringByReplacingOccurrencesOfString:@".otf" withString:@""];
+			BOOL validFont = NO;
+			if ([fileExtension.lowercaseString isEqual:@"otf"]) {
+				validFont = YES;
 			}
-			else if ([fileExtension isEqual:@"ttf"]) {
-				fontName = [fileName stringByReplacingOccurrencesOfString:@".ttf" withString:@""];
+			else if ([fileExtension.lowercaseString isEqual:@"ttf"]) {
+				validFont = YES;
 			}
 			
-			if (fontName) {
+			if (validFont) {
 				FontInfo *fontInfo = [[FontInfo alloc] initWithFileURL:URL];
 				[loadedFonts addObject:fontInfo];
 			}
