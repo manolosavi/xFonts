@@ -15,18 +15,84 @@
                     <view key="view" contentMode="scaleToFill" id="2Oq-8v-pYO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xY3-y1-AGm">
+                                <rect key="frame" x="177" y="429" width="61" height="38"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" name="appTint"/>
+                                <color key="tintColor" name="appHeaderText"/>
+                                <inset key="contentEdgeInsets" minX="20" minY="10" maxX="20" maxY="10"/>
+                                <state key="normal" title="OK">
+                                    <color key="titleColor" name="appHeaderText"/>
+                                </state>
+                                <connections>
+                                    <segue destination="fWI-9F-bIw" kind="unwind" unwindAction="unwindToTabBar:" id="bX2-Sr-ksG"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DBs-rs-jpm">
+                                <rect key="frame" x="40" y="104" width="160" height="101.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(1) Pick the fonts you want to use from your iCloud Drive or Dropbox." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HUV-BU-GXe">
+                                        <rect key="frame" x="10" y="10" width="140" height="81.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="140" id="DQc-oU-fvY"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="HUV-BU-GXe" secondAttribute="bottom" constant="10" id="2HH-H0-KZo"/>
+                                    <constraint firstItem="HUV-BU-GXe" firstAttribute="top" secondItem="DBs-rs-jpm" secondAttribute="top" constant="10" id="BLv-Xr-OVy"/>
+                                    <constraint firstItem="HUV-BU-GXe" firstAttribute="leading" secondItem="DBs-rs-jpm" secondAttribute="leading" constant="10" id="aip-b4-quU"/>
+                                    <constraint firstAttribute="trailing" secondItem="HUV-BU-GXe" secondAttribute="trailing" constant="10" id="oyw-po-QQh"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gEx-fm-5eT">
+                                <rect key="frame" x="214" y="104" width="160" height="101.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(2) Create and download a font installer for Settings." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s8r-6K-WrN">
+                                        <rect key="frame" x="10" y="10" width="140" height="81.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="140" id="WYS-ST-hnk"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="s8r-6K-WrN" secondAttribute="trailing" constant="10" id="6L9-FL-TLR"/>
+                                    <constraint firstAttribute="bottom" secondItem="s8r-6K-WrN" secondAttribute="bottom" constant="10" id="6Y6-qx-jT1"/>
+                                    <constraint firstItem="s8r-6K-WrN" firstAttribute="top" secondItem="gEx-fm-5eT" secondAttribute="top" constant="10" id="gTo-gZ-kQG"/>
+                                    <constraint firstItem="s8r-6K-WrN" firstAttribute="leading" secondItem="gEx-fm-5eT" secondAttribute="leading" constant="10" id="gqq-gN-DDh"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" name="appSelection"/>
+                        <constraints>
+                            <constraint firstItem="DBs-rs-jpm" firstAttribute="top" secondItem="z8X-iI-BEB" secondAttribute="top" constant="60" id="Khj-FP-mVG"/>
+                            <constraint firstItem="gEx-fm-5eT" firstAttribute="top" secondItem="z8X-iI-BEB" secondAttribute="top" constant="60" id="VLd-bd-rw3"/>
+                            <constraint firstItem="z8X-iI-BEB" firstAttribute="trailing" secondItem="gEx-fm-5eT" secondAttribute="trailing" constant="40" id="fhp-eX-3ln"/>
+                            <constraint firstItem="DBs-rs-jpm" firstAttribute="leading" secondItem="z8X-iI-BEB" secondAttribute="leading" constant="40" id="k2Y-Y6-F54"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="z8X-iI-BEB"/>
                     </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gEe-pz-W5C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="fWI-9F-bIw" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1" y="38"/>
+            <point key="canvasLocation" x="3604" y="-1585"/>
         </scene>
-        <!--Font Pad-->
+        <!--Fonts-->
         <scene sceneID="QIi-FZ-IXC">
             <objects>
-                <tableViewController title="Font Pad" id="FOw-fU-3BX" customClass="ViewController" sceneMemberID="viewController">
+                <tableViewController title="Fonts" id="FOw-fU-3BX" customClass="ViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="yyv-FH-WXJ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -415,7 +481,7 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nVt-9E-His" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3549" y="-660"/>
+            <point key="canvasLocation" x="2570" y="-660"/>
         </scene>
         <!--Help-->
         <scene sceneID="Wzm-4N-mbE">
@@ -424,14 +490,29 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                     <view key="view" contentMode="scaleToFill" id="frl-PP-akL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Explain why this app is both dangerous and necessary." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O3K-lU-vpO">
+                                <rect key="frame" x="107" y="420" width="200" height="61"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="PNd-fD-bxQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="O3K-lU-vpO" firstAttribute="centerX" secondItem="bu9-yP-IYN" secondAttribute="centerX" id="a3Z-Rh-XcF"/>
+                            <constraint firstItem="O3K-lU-vpO" firstAttribute="centerY" secondItem="bu9-yP-IYN" secondAttribute="centerY" id="hUH-IL-jtI"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="bu9-yP-IYN"/>
                     </view>
                     <navigationItem key="navigationItem" title="Help" id="5y7-tJ-82J"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6eX-Te-Nf6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3548" y="38"/>
+            <point key="canvasLocation" x="2570" y="38"/>
         </scene>
         <!--About-->
         <scene sceneID="vm3-3e-BEi">
@@ -440,19 +521,44 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                     <view key="view" contentMode="scaleToFill" id="TGN-Fy-Bhh">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rF5-M2-9bK">
+                                <rect key="frame" x="135" y="287" width="144" height="101.5"/>
+                                <string key="text">Created by
+
+Manolo Sanudo
+Craig Hockenberry
+et al.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="VERSION 2.0 (4)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aV2-e9-TtV">
+                                <rect key="frame" x="143.5" y="553" width="127" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="rF5-M2-9bK" firstAttribute="centerX" secondItem="Kwx-xM-UQ5" secondAttribute="centerX" id="9yH-RJ-0Go"/>
+                            <constraint firstItem="aV2-e9-TtV" firstAttribute="centerX" secondItem="Kwx-xM-UQ5" secondAttribute="centerX" id="BwE-vC-i0A"/>
+                            <constraint firstItem="rF5-M2-9bK" firstAttribute="centerY" secondItem="Kwx-xM-UQ5" secondAttribute="centerY" multiplier="0.75" id="DTe-gZ-284"/>
+                            <constraint firstItem="aV2-e9-TtV" firstAttribute="centerY" secondItem="Kwx-xM-UQ5" secondAttribute="centerY" multiplier="1.25" id="Nrx-oo-sLc"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Kwx-xM-UQ5"/>
                     </view>
                     <navigationItem key="navigationItem" title="About" id="1LR-fx-030"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UB3-0G-oCs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2571" y="38"/>
+            <point key="canvasLocation" x="4283" y="38"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Tyo-sJ-bQq">
             <objects>
-                <tabBarController id="qyC-eK-c3T" sceneMemberID="viewController">
+                <tabBarController id="qyC-eK-c3T" customClass="TabBarController" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UA3-aE-Wny">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -463,6 +569,7 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                         <segue destination="ojk-Bn-Ctu" kind="relationship" relationship="viewControllers" id="v50-Xu-HrT"/>
                         <segue destination="PaN-a1-ZQu" kind="relationship" relationship="viewControllers" id="2vF-oN-H0f"/>
                         <segue destination="wln-UC-LOP" kind="relationship" relationship="viewControllers" id="PAi-pv-MkN"/>
+                        <segue destination="teL-20-r1o" kind="presentation" identifier="helpOverlay" modalPresentationStyle="overCurrentContext" modalTransitionStyle="crossDissolve" id="lc8-cE-QOs"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jJy-oL-T8K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -514,7 +621,7 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bpM-3S-8Kc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2570" y="-660"/>
+            <point key="canvasLocation" x="4283" y="-660"/>
         </scene>
     </scenes>
     <resources>
@@ -529,6 +636,9 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
         </namedColor>
         <namedColor name="appHeaderText">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appSelection">
+            <color red="0.41999998688697815" green="0.27799999713897705" blue="0.69800001382827759" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="appTint">
             <color red="0.41960784313725491" green="0.27843137254901962" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

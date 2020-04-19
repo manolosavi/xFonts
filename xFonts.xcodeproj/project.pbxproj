@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		443576C2244CC28F00669EEB /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 443576C1244CC28F00669EEB /* TabBarController.m */; };
 		44A20B042447DC4100BF15DA /* FontInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A20B032447DC4100BF15DA /* FontInfo.m */; };
 		44C12221244A8F3F00DD9481 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C12220244A8F3F00DD9481 /* NavigationController.m */; };
 		44F6282D244B7EE300C8BBD7 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F6282C244B7EE300C8BBD7 /* DetailViewController.m */; };
@@ -50,6 +51,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		443576C0244CC28F00669EEB /* TabBarController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TabBarController.h; sourceTree = "<group>"; };
+		443576C1244CC28F00669EEB /* TabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		44A20B022447DC4100BF15DA /* FontInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FontInfo.h; sourceTree = "<group>"; };
 		44A20B032447DC4100BF15DA /* FontInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FontInfo.m; sourceTree = "<group>"; };
 		44C1221F244A8F3F00DD9481 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
@@ -309,6 +312,8 @@
 				9309F2F61E4917B1002F2AB7 /* RoutingHTTPServer */,
 				93AE4C6E1E42C44B00D19E41 /* AppDelegate.h */,
 				93AE4C6F1E42C44B00D19E41 /* AppDelegate.m */,
+				443576C0244CC28F00669EEB /* TabBarController.h */,
+				443576C1244CC28F00669EEB /* TabBarController.m */,
 				44C1221F244A8F3F00DD9481 /* NavigationController.h */,
 				44C12220244A8F3F00DD9481 /* NavigationController.m */,
 				93AE4C711E42C44B00D19E41 /* ViewController.h */,
@@ -428,6 +433,7 @@
 				9309F36E1E4917B2002F2AB7 /* DDLog.m in Sources */,
 				9309F3601E4917B2002F2AB7 /* HTTPRedirectResponse.m in Sources */,
 				9309F3611E4917B2002F2AB7 /* WebSocket.m in Sources */,
+				443576C2244CC28F00669EEB /* TabBarController.m in Sources */,
 				93AE4C731E42C44B00D19E41 /* ViewController.m in Sources */,
 				9309F36B1E4917B2002F2AB7 /* DDAbstractDatabaseLogger.m in Sources */,
 				9309F35A1E4917B2002F2AB7 /* MultipartMessageHeaderField.m in Sources */,

@@ -11,6 +11,7 @@
 #import "ViewController.h"
 
 #import "DetailViewController.h"
+#import "TabBarController.h"
 #import "RoutingHTTPServer.h"
 
 #import "DebugLog.h"
@@ -34,50 +35,16 @@
 
 	[NSNotificationCenter.defaultCenter addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 
+	// TODO: Add importFonts to copy files from Documents/Inbox to top-level folder if they don't already exist?
+
 	[self loadFonts];
 }
 
-// TODO: add importFonts to copy files from Documents/Inbox to top-level folder if they don't already exist
-
-/**
- Enumerates through all files in the Documents directory to look for fonts to show on the TableView.
- */
-- (void)loadFonts
+- (void)viewDidAppear:(BOOL)animated
 {
-	NSMutableArray *loadedFonts = [NSMutableArray array];
-
-	NSError *error = nil;
-	NSArray<NSURL *> *URLs = [NSFileManager.defaultManager contentsOfDirectoryAtURL:FontInfo.storageURL includingPropertiesForKeys:nil options:(NSDirectoryEnumerationSkipsSubdirectoryDescendants) error:&error];
-	if (! URLs) {
-		ReleaseLog(@"%s error = %@", __PRETTY_FUNCTION__, error);
-	}
-	else {
-		for (NSURL *URL in URLs) {
-			NSString *fileName = URL.lastPathComponent;
-			NSString *fileExtension = fileName.pathExtension;
-			
-			BOOL validFont = NO;
-			if ([fileExtension.lowercaseString isEqual:@"otf"]) {
-				validFont = YES;
-			}
-			else if ([fileExtension.lowercaseString isEqual:@"ttf"]) {
-				validFont = YES;
-			}
-			
-			if (validFont) {
-				FontInfo *fontInfo = [[FontInfo alloc] initWithFileURL:URL];
-				[loadedFonts addObject:fontInfo];
-			}
-		}
-		
-		[loadedFonts sortUsingComparator:^NSComparisonResult(FontInfo *fontInfo1, FontInfo *fontInfo2) {
-			return [fontInfo1.displayName compare:fontInfo2.displayName];
-		}];
-		
-		self.fonts = [loadedFonts copy];
-		
-		[self.tableView reloadData];
-	}
+	[super viewDidAppear:animated];
+	
+	[self showHelpOverlay];
 }
 
 - (void)didReceiveMemoryWarning
@@ -211,6 +178,46 @@
 
 #pragma mark - Utility
 
+- (void)loadFonts
+{
+	NSMutableArray *loadedFonts = [NSMutableArray array];
+
+	NSError *error = nil;
+	NSArray<NSURL *> *URLs = [NSFileManager.defaultManager contentsOfDirectoryAtURL:FontInfo.storageURL includingPropertiesForKeys:nil options:(NSDirectoryEnumerationSkipsSubdirectoryDescendants) error:&error];
+	if (! URLs) {
+		ReleaseLog(@"%s error = %@", __PRETTY_FUNCTION__, error);
+	}
+	else {
+		for (NSURL *URL in URLs) {
+			NSString *fileName = URL.lastPathComponent;
+			NSString *fileExtension = fileName.pathExtension;
+			
+			BOOL validFont = NO;
+			if ([fileExtension.lowercaseString isEqual:@"otf"]) {
+				validFont = YES;
+			}
+			else if ([fileExtension.lowercaseString isEqual:@"ttf"]) {
+				validFont = YES;
+			}
+			
+			if (validFont) {
+				FontInfo *fontInfo = [[FontInfo alloc] initWithFileURL:URL];
+				[loadedFonts addObject:fontInfo];
+			}
+		}
+		
+		[loadedFonts sortUsingComparator:^NSComparisonResult(FontInfo *fontInfo1, FontInfo *fontInfo2) {
+			return [fontInfo1.displayName compare:fontInfo2.displayName];
+		}];
+		
+		self.fonts = [loadedFonts copy];
+		
+		[self.tableView reloadData];
+	}
+}
+
+#pragma mark -
+
 /**
  Starts the HTTP Server and sets the response to the root directory to allow the install of profiles.
  */
@@ -239,6 +246,8 @@
 {
 	[self.http stop];
 }
+
+#pragma mark -
 
 /*
 static NSString *const profilePayloadTemplate =
@@ -359,6 +368,15 @@ static NSString *const fontPayloadTemplate =
 	}
 	
 	completion(error);
+}
+
+#pragma mark -
+
+- (void)showHelpOverlay
+{
+	NSAssert([self.tabBarController isKindOfClass:[TabBarController class]], @"TabBarController not configured");
+	TabBarController *tabBarController = (TabBarController *)self.tabBarController;
+	[tabBarController showHelpOverlay];
 }
 
 #pragma mark - Notifications
