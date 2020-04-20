@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xY3-y1-AGm">
-                                <rect key="frame" x="175" y="546" width="64" height="41"/>
+                                <rect key="frame" x="175" y="563.5" width="64" height="41"/>
                                 <color key="backgroundColor" name="appTint"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="tintColor" name="appHeaderText"/>
@@ -35,7 +35,7 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DBs-rs-jpm" userLabel="Step 1">
-                                <rect key="frame" x="38" y="365.5" width="159" height="140.5"/>
+                                <rect key="frame" x="38" y="383" width="159" height="140.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o9q-DP-1EZ">
                                         <rect key="frame" x="73" y="10" width="13" height="29"/>
@@ -62,7 +62,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kf3-2W-iS0" userLabel="Step 2">
-                                <rect key="frame" x="217" y="365.5" width="159" height="140.5"/>
+                                <rect key="frame" x="217" y="383" width="159" height="140.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WjT-Gr-UZ7">
                                         <rect key="frame" x="71.5" y="10" width="16" height="29"/>
@@ -97,7 +97,7 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HpR-br-pgM" userLabel="Left Connector">
-                                <rect key="frame" x="38" y="94" width="2" height="412"/>
+                                <rect key="frame" x="38" y="94" width="2" height="429.5"/>
                                 <color key="backgroundColor" name="appOverlayText"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="2" id="gQv-yc-pzn"/>
@@ -112,7 +112,7 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4zL-Sb-Fay" userLabel="Right Connector">
-                                <rect key="frame" x="374" y="94" width="2" height="412"/>
+                                <rect key="frame" x="374" y="94" width="2" height="429.5"/>
                                 <color key="backgroundColor" name="appOverlayText"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="2" id="cLf-cp-pb2"/>
@@ -124,7 +124,6 @@
                             <constraint firstItem="xXW-Oe-Wds" firstAttribute="centerY" secondItem="z8X-iI-BEB" secondAttribute="top" constant="44" id="2Ae-v8-HJ6"/>
                             <constraint firstItem="4zL-Sb-Fay" firstAttribute="centerX" secondItem="xXW-Oe-Wds" secondAttribute="centerX" id="4nR-Yp-eNj"/>
                             <constraint firstAttribute="trailing" secondItem="xXW-Oe-Wds" secondAttribute="trailing" constant="33" id="8Ao-b2-Ev6"/>
-                            <constraint firstItem="xY3-y1-AGm" firstAttribute="centerY" secondItem="z8X-iI-BEB" secondAttribute="centerY" multiplier="1.25" id="9of-3i-ikx"/>
                             <constraint firstItem="xY3-y1-AGm" firstAttribute="centerX" secondItem="z8X-iI-BEB" secondAttribute="centerX" id="DGE-Gr-ns8"/>
                             <constraint firstItem="xY3-y1-AGm" firstAttribute="top" secondItem="DBs-rs-jpm" secondAttribute="bottom" constant="40" id="F5E-nM-iWb"/>
                             <constraint firstItem="kf3-2W-iS0" firstAttribute="leading" secondItem="xY3-y1-AGm" secondAttribute="centerX" constant="10" id="NZg-ds-57J"/>
@@ -139,6 +138,7 @@
                             <constraint firstItem="DBs-rs-jpm" firstAttribute="leading" secondItem="HpR-br-pgM" secondAttribute="leading" id="n2P-GC-hOh"/>
                             <constraint firstItem="HpR-br-pgM" firstAttribute="centerX" secondItem="8HT-fj-P4R" secondAttribute="centerX" id="rP4-1o-iHn"/>
                             <constraint firstItem="4zL-Sb-Fay" firstAttribute="top" secondItem="xXW-Oe-Wds" secondAttribute="bottom" id="rie-If-9yA"/>
+                            <constraint firstItem="DBs-rs-jpm" firstAttribute="centerY" secondItem="z8X-iI-BEB" secondAttribute="centerY" id="vPs-v2-6Jt"/>
                             <constraint firstItem="xY3-y1-AGm" firstAttribute="top" secondItem="kf3-2W-iS0" secondAttribute="bottom" constant="40" id="xRf-Nq-lXo"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="z8X-iI-BEB"/>
