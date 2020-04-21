@@ -132,7 +132,7 @@
 	
 	FontInfo *fontInfo = self.fonts[indexPath.row];
 	
-#if 0
+#if 1
 	cell.textLabel.text = fontInfo.displayName;
 #else
 	cell.textLabel.text = [NSString stringWithFormat:@"%@ %s", fontInfo.displayName, (fontInfo.isRegistered ? "" : "*")];
@@ -142,6 +142,15 @@
 	cell.textLabel.adjustsFontSizeToFitWidth = YES;
 	cell.textLabel.minimumScaleFactor = 0.5;
 
+#if 1
+	if (fontInfo.isRegistered) {
+		cell.imageView.image = [UIImage systemImageNamed:@"checkmark.circle"];
+	}
+	else {
+		cell.imageView.image = [UIImage systemImageNamed:@"plus.circle.fill"];
+	}
+#endif
+	
 	UIView *selection = [UIView new];
 	selection.backgroundColor = [UIColor colorNamed:@"appSelection"];
 	cell.selectedBackgroundView = selection;
