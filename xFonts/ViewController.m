@@ -132,7 +132,12 @@
 	
 	FontInfo *fontInfo = self.fonts[indexPath.row];
 	
+#if 0
 	cell.textLabel.text = fontInfo.displayName;
+#else
+	cell.textLabel.text = [NSString stringWithFormat:@"%@ %s", fontInfo.displayName, (fontInfo.isRegistered ? "" : "*")];
+#endif
+	
 	cell.textLabel.font = [UIFont fontWithName:fontInfo.postScriptName size:18.0];
 	cell.textLabel.adjustsFontSizeToFitWidth = YES;
 	cell.textLabel.minimumScaleFactor = 0.5;

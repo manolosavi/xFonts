@@ -42,6 +42,8 @@
 	if ((self = [self init])) {
 		_fileURL = fileURL;
 		
+		DebugLog(@"%s fileName = %@", __PRETTY_FUNCTION__, self.fileName);
+
 		[self extractPropertiesFromFileURL];
 		[self registerFont];
 	}
@@ -49,15 +51,41 @@
 	return self;
 }
 
+- (void)dealloc
+{
+	DebugLog(@"%s fileName = %@", __PRETTY_FUNCTION__, self.fileName);
+	
+	[self unregisterFont];
+}
+
 - (NSUInteger)hash
 {
 	return self.fileURL.hash;
 }
 
+#pragma mark Accessors
+
 - (NSString *)fileName
 {
 	return self.fileURL.lastPathComponent;
 }
+
+- (BOOL)isRegistered
+{
+	BOOL result = NO;
+	
+	[self unregisterFont];
+	CGFontRef fontRef = CGFontCreateWithFontName((CFStringRef)self.postScriptName);
+	if (fontRef) {
+		result = YES;
+		CFRelease(fontRef);
+	}
+	[self registerFont];
+	
+	return result;
+}
+
+#pragma mark -
 
 - (BOOL)removeFile
 {
@@ -78,9 +106,21 @@
 {
 	CFErrorRef errorRef;
 	if (! CTFontManagerRegisterFontsForURL((CFURLRef)self.fileURL, kCTFontManagerScopeProcess, &errorRef)) {
-		if (CFErrorGetCode(errorRef) != kCTFontManagerErrorAlreadyRegistered) {
+		if (CFErrorGetCode(errorRef) != kCTFontManagerErrorAlreadyRegistered) { // error 105
 			CFStringRef errorDescription = CFErrorCopyDescription(errorRef);
-			ReleaseLog(@"%s Failed to register font: %@", __PRETTY_FUNCTION__, errorDescription);
+			ReleaseLog(@"%s Failed to register font %@ = %@", __PRETTY_FUNCTION__, self.postScriptName, errorDescription);
+			CFRelease(errorDescription);
+		}
+	}
+}
+
+- (void)unregisterFont
+{
+	CFErrorRef errorRef;
+	if (! CTFontManagerUnregisterFontsForURL((CFURLRef)self.fileURL, kCTFontManagerScopeProcess, &errorRef)) {
+		if (CFErrorGetCode(errorRef) != kCTFontManagerErrorNotRegistered) { // error 201
+			CFStringRef errorDescription = CFErrorCopyDescription(errorRef);
+			ReleaseLog(@"%s Failed to unregister font %@ = %@", __PRETTY_FUNCTION__, self.postScriptName, errorDescription);
 			CFRelease(errorDescription);
 		}
 	}

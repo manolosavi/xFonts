@@ -28,6 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) NSString *styleName;
 @property (nonatomic, readonly, nullable) NSString *familyName;
 
+@property (nonatomic, readonly) BOOL isRegistered;
 @property (nonatomic, readonly) NSInteger numberOfGlyphs;
 
 - (BOOL)removeFile; // returns YES if successful
