@@ -12,6 +12,7 @@
 
 #import "DetailViewController.h"
 #import "TabBarController.h"
+#import "HeaderView.h"
 #import "RoutingHTTPServer.h"
 
 #import "DebugLog.h"
@@ -33,18 +34,23 @@
 {
 	[super viewDidLoad];
 
-	[NSNotificationCenter.defaultCenter addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+	NSNotificationCenter *notificationCenter = NSNotificationCenter.defaultCenter;
+	[notificationCenter addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+	[notificationCenter addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
 
 	// TODO: Add importFonts to copy files from Documents/Inbox to top-level folder if they don't already exist?
 
 	[self loadFonts];
+	[self updateNavigation];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
 	
-	[self showHelpOverlay];
+	if (self.fonts.count == 0) {
+		[self showHelpOverlay];
+	}
 }
 
 - (void)didReceiveMemoryWarning
@@ -144,10 +150,11 @@
 
 #if 1
 	if (fontInfo.isRegistered) {
-		cell.imageView.image = [UIImage systemImageNamed:@"checkmark.circle"];
+		cell.imageView.image = [UIImage systemImageNamed:@"checkmark.circle.fill"];
 	}
 	else {
-		cell.imageView.image = [UIImage systemImageNamed:@"plus.circle.fill"];
+		cell.imageView.image = [UIImage systemImageNamed:@"arrow.down.circle"];
+//		cell.imageView.image = [UIImage systemImageNamed:@"arrow.uturn.up.circle"];
 	}
 #endif
 	
@@ -160,7 +167,8 @@
 
 #pragma mark - UITableViewDelegate
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
 	return YES;
 }
 
@@ -178,7 +186,9 @@
 				NSMutableArray *newFonts = [self.fonts mutableCopy];
 				[newFonts removeObjectAtIndex:indexPath.row];
 				self.fonts = [newFonts copy];
-				
+
+				[self updateNavigation];
+
 				[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 			}
 		}];
@@ -228,6 +238,23 @@
 		
 		[self.tableView reloadData];
 	}
+}
+
+- (void)updateNavigation
+{
+	NSInteger addedCount = self.fonts.count;
+	NSInteger installCount = 0;
+	for (FontInfo *fontInfo in self.fonts) {
+		if (! fontInfo.isRegistered) {
+			installCount += 1;
+		}
+	}
+
+	NSAssert([self.tableView.tableHeaderView isKindOfClass:[HeaderView class]], @"HeaderView not configured");
+	HeaderView *headerView = (HeaderView *)self.tableView.tableHeaderView;
+	[headerView setFontAddedCount:addedCount installCount:installCount];
+	
+	self.installButton.enabled = (installCount > 0);
 }
 
 #pragma mark -
@@ -348,30 +375,19 @@ static NSString *const fontPayloadTemplate =
  */
 - (void)saveFontsProfile:(void(^)(NSError *error))completion
 {
-	//NSInteger count = 0;
 	NSString *fontsPayload = @"";
-	for (int i=0; i<self.fonts.count; i++) {
-		FontInfo *fontInfo = self.fonts[i];
-
-		//NSURL *url = [self urlForFile:fontInfo.filePath];
-		
+	for (FontInfo *fontInfo in self.fonts) {
 		NSString *fontEncoded = [[[NSData alloc] initWithContentsOfURL:fontInfo.fileURL] base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
 		
 		NSString *fontPayload = [NSString stringWithFormat:fontPayloadTemplate, fontInfo.postScriptName, NSUUID.UUID.UUIDString, fontInfo.displayName, fontEncoded];
 		
 		fontsPayload = [fontsPayload stringByAppendingString:fontPayload];
-//		fonts = [fonts stringByAppendingString:[NSString stringWithFormat:@"<dict><key>PayloadType</key><string>com.apple.font</string><key>PayloadVersion</key><integer>1</integer><key>PayloadIdentifier</key><string>%@</string><key>PayloadUUID</key><string>%@</string><key>Name</key><string>%@</string><key>Font</key><data>%@</data></dict>", fontInfo.displayName, UUIDString, fontInfo.displayName, font]];
-		
-		//count++;
 	}
-	//NSString *title = [NSString stringWithFormat:@"%ld font%@", (long)count, (count>1?@"s":@"")];
-	
-	//NSString *profile = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict><key>PayloadType</key><string>Configuration</string><key>PayloadVersion</key><integer>1</integer><key>PayloadDisplayName</key><string>xFonts (%@)</string><key>PayloadIdentifier</key><string>xFonts %@</string><key>PayloadUUID</key><string>%@</string><key>PayloadContent</key><array>%@</array></dict></plist>", title, NSUUID.UUID.UUIDString, NSUUID.UUID.UUIDString, fonts];
 	
 	NSString *profile = [NSString stringWithFormat:profilePayloadTemplate, NSUUID.UUID.UUIDString, fontsPayload];
 
 	NSURL *URL = [FontInfo.storageURL URLByAppendingPathComponent:@"xFonts.mobileconfig"];
-	// URL = [NSURL fileURLWithPath:@"/"]; // to generate an error
+	// URL = [NSURL fileURLWithPath:@"/"]; // to generate an error during write
 	
 	NSError *error;
 	if (! [profile writeToURL:URL atomically:YES encoding:NSUTF8StringEncoding error:&error]) {
@@ -397,9 +413,18 @@ static NSString *const fontPayloadTemplate =
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
+	DebugLog(@"%s shutting down server...", __PRETTY_FUNCTION__);
 	[self dismissViewControllerAnimated:YES completion:^{
 		[self stopHTTPServer];
 	}];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+	DebugLog(@"%s refreshing font info...", __PRETTY_FUNCTION__);
+	for (FontInfo *fontInfo in self.fonts) {
+		[fontInfo refresh];
+	}
 }
 
 #pragma mark - UIDocumentPickerDelegate
@@ -426,6 +451,7 @@ static NSString *const fontPayloadTemplate =
 	}
 	
 	[self loadFonts];
+	[self updateNavigation];
 }
 
 - (void)documentPickerWasCancelled:(UIDocumentPickerViewController *)controller

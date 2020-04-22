@@ -31,6 +31,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly) BOOL isRegistered;
 @property (nonatomic, readonly) NSInteger numberOfGlyphs;
 
+- (void)refresh; // reload cached properties (everything derived from fileURL)
+
 - (BOOL)removeFile; // returns YES if successful
 
 @end

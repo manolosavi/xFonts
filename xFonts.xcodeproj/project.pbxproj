@@ -23,6 +23,10 @@
 /* Begin PBXBuildFile section */
 		443576C2244CC28F00669EEB /* TabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 443576C1244CC28F00669EEB /* TabBarController.m */; };
 		443576C8244CDC3800669EEB /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 443576C7244CDC3800669EEB /* AboutViewController.m */; };
+		443576D22450AA7D00669EEB /* HeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 443576D12450AA7D00669EEB /* HeaderView.m */; };
+		443576D52450AE4200669EEB /* HelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 443576D42450AE4200669EEB /* HelpViewController.m */; };
+		443576DE2450AFA200669EEB /* NSAttributedString+Markdown.m in Sources */ = {isa = PBXBuildFile; fileRef = 443576DD2450AFA200669EEB /* NSAttributedString+Markdown.m */; };
+		449C16822450B1D90070226F /* Help.md in Resources */ = {isa = PBXBuildFile; fileRef = 449C16812450B1D90070226F /* Help.md */; };
 		44A20B042447DC4100BF15DA /* FontInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A20B032447DC4100BF15DA /* FontInfo.m */; };
 		44C12221244A8F3F00DD9481 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C12220244A8F3F00DD9481 /* NavigationController.m */; };
 		44F6282D244B7EE300C8BBD7 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F6282C244B7EE300C8BBD7 /* DetailViewController.m */; };
@@ -80,6 +84,13 @@
 		443576C1244CC28F00669EEB /* TabBarController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TabBarController.m; sourceTree = "<group>"; };
 		443576C6244CDC3800669EEB /* AboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		443576C7244CDC3800669EEB /* AboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		443576D02450AA7D00669EEB /* HeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = HeaderView.h; path = xFonts/HeaderView.h; sourceTree = SOURCE_ROOT; };
+		443576D12450AA7D00669EEB /* HeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = HeaderView.m; path = xFonts/HeaderView.m; sourceTree = SOURCE_ROOT; };
+		443576D32450AE4200669EEB /* HelpViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpViewController.h; sourceTree = "<group>"; };
+		443576D42450AE4200669EEB /* HelpViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpViewController.m; sourceTree = "<group>"; };
+		443576DC2450AFA200669EEB /* NSAttributedString+Markdown.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSAttributedString+Markdown.h"; sourceTree = "<group>"; };
+		443576DD2450AFA200669EEB /* NSAttributedString+Markdown.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSAttributedString+Markdown.m"; sourceTree = "<group>"; };
+		449C16812450B1D90070226F /* Help.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Help.md; sourceTree = "<group>"; };
 		44A20B022447DC4100BF15DA /* FontInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FontInfo.h; sourceTree = "<group>"; };
 		44A20B032447DC4100BF15DA /* FontInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FontInfo.m; sourceTree = "<group>"; };
 		44C1221F244A8F3F00DD9481 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
@@ -173,6 +184,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		443576DB2450AF5800669EEB /* MarkdownAttributedString */ = {
+			isa = PBXGroup;
+			children = (
+				443576DC2450AFA200669EEB /* NSAttributedString+Markdown.h */,
+				443576DD2450AFA200669EEB /* NSAttributedString+Markdown.m */,
+			);
+			path = MarkdownAttributedString;
+			sourceTree = "<group>";
+		};
 		9309F2F61E4917B1002F2AB7 /* RoutingHTTPServer */ = {
 			isa = PBXGroup;
 			children = (
@@ -337,6 +357,7 @@
 			isa = PBXGroup;
 			children = (
 				9309F2F61E4917B1002F2AB7 /* RoutingHTTPServer */,
+				443576DB2450AF5800669EEB /* MarkdownAttributedString */,
 				93AE4C6E1E42C44B00D19E41 /* AppDelegate.h */,
 				93AE4C6F1E42C44B00D19E41 /* AppDelegate.m */,
 				443576C0244CC28F00669EEB /* TabBarController.h */,
@@ -345,8 +366,15 @@
 				44C12220244A8F3F00DD9481 /* NavigationController.m */,
 				93AE4C711E42C44B00D19E41 /* ViewController.h */,
 				93AE4C721E42C44B00D19E41 /* ViewController.m */,
+				443576D02450AA7D00669EEB /* HeaderView.h */,
+				443576D12450AA7D00669EEB /* HeaderView.m */,
 				44F6282B244B7EE300C8BBD7 /* DetailViewController.h */,
 				44F6282C244B7EE300C8BBD7 /* DetailViewController.m */,
+				443576C6244CDC3800669EEB /* AboutViewController.h */,
+				443576C7244CDC3800669EEB /* AboutViewController.m */,
+				443576D32450AE4200669EEB /* HelpViewController.h */,
+				443576D42450AE4200669EEB /* HelpViewController.m */,
+				449C16812450B1D90070226F /* Help.md */,
 				44A20B022447DC4100BF15DA /* FontInfo.h */,
 				44A20B032447DC4100BF15DA /* FontInfo.m */,
 				93AE4C741E42C44B00D19E41 /* Main.storyboard */,
@@ -354,8 +382,6 @@
 				93320FD51E4EACCB0045C38C /* index.html */,
 				93AE4C7C1E42C44B00D19E41 /* Info.plist */,
 				93AE4C6B1E42C44B00D19E41 /* Supporting Files */,
-				443576C6244CDC3800669EEB /* AboutViewController.h */,
-				443576C7244CDC3800669EEB /* AboutViewController.m */,
 			);
 			path = xFonts;
 			sourceTree = "<group>";
@@ -438,6 +464,7 @@
 				93320FD61E4EACCC0045C38C /* index.html in Resources */,
 				93AE4C781E42C44B00D19E41 /* Assets.xcassets in Resources */,
 				93AE4C761E42C44B00D19E41 /* Main.storyboard in Resources */,
+				449C16822450B1D90070226F /* Help.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -491,9 +518,11 @@
 				9309F36B1E4917B2002F2AB7 /* DDAbstractDatabaseLogger.m in Sources */,
 				9309F35A1E4917B2002F2AB7 /* MultipartMessageHeaderField.m in Sources */,
 				9309F3781E4917B2002F2AB7 /* RouteResponse.m in Sources */,
+				443576DE2450AFA200669EEB /* NSAttributedString+Markdown.m in Sources */,
 				9309F3561E4917B2002F2AB7 /* HTTPMessage.m in Sources */,
 				9309F35B1E4917B2002F2AB7 /* HTTPAsyncFileResponse.m in Sources */,
 				44A20B042447DC4100BF15DA /* FontInfo.m in Sources */,
+				443576D22450AA7D00669EEB /* HeaderView.m in Sources */,
 				9309F35F1E4917B2002F2AB7 /* HTTPFileResponse.m in Sources */,
 				9309F3731E4917B2002F2AB7 /* HTTPResponseProxy.m in Sources */,
 				9309F36C1E4917B2002F2AB7 /* DDASLLogger.m in Sources */,
@@ -507,6 +536,7 @@
 				9309F3711E4917B2002F2AB7 /* DispatchQueueLogFormatter.m in Sources */,
 				44C12221244A8F3F00DD9481 /* NavigationController.m in Sources */,
 				9309F35E1E4917B2002F2AB7 /* HTTPErrorResponse.m in Sources */,
+				443576D52450AE4200669EEB /* HelpViewController.m in Sources */,
 				443576C8244CDC3800669EEB /* AboutViewController.m in Sources */,
 				9309F35D1E4917B2002F2AB7 /* HTTPDynamicFileResponse.m in Sources */,
 				9309F35C1E4917B2002F2AB7 /* HTTPDataResponse.m in Sources */,

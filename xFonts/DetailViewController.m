@@ -80,7 +80,15 @@
 		self.descriptionView.hidden = YES;
 	}
 		
-	self.sampleTextView.font = [UIFont fontWithName:self.fontInfo.postScriptName size:32.0];
+	UIFont *font = [UIFont fontWithName:self.fontInfo.postScriptName size:32.0];
+	if (! font) {
+		// NOTE: This is a workaround for font registration not reporting an error, but not actually registering the
+		// font the first time: a retry helps.
+		[self.fontInfo refresh];
+		font = [UIFont fontWithName:self.fontInfo.postScriptName size:32.0];
+	}
+	
+	self.sampleTextView.font = font;
 	self.sampleBackgroundView.layer.cornerRadius = 4.0;
 }
 

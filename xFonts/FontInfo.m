@@ -24,6 +24,7 @@
 @property (nonatomic, strong) NSString *styleName;
 @property (nonatomic, strong) NSString *familyName;
 
+@property (nonatomic, assign) BOOL isRegistered;
 @property (nonatomic, assign) NSInteger numberOfGlyphs;
 
 @end
@@ -44,6 +45,7 @@
 		
 		DebugLog(@"%s fileName = %@", __PRETTY_FUNCTION__, self.fileName);
 
+		[self unregisterFont];
 		[self extractPropertiesFromFileURL];
 		[self registerFont];
 	}
@@ -70,22 +72,29 @@
 	return self.fileURL.lastPathComponent;
 }
 
-- (BOOL)isRegistered
-{
-	BOOL result = NO;
-	
-	[self unregisterFont];
-	CGFontRef fontRef = CGFontCreateWithFontName((CFStringRef)self.postScriptName);
-	if (fontRef) {
-		result = YES;
-		CFRelease(fontRef);
-	}
-	[self registerFont];
-	
-	return result;
-}
+//- (BOOL)isRegistered
+//{
+//	BOOL result = NO;
+//	
+//	[self unregisterFont];
+//	CGFontRef fontRef = CGFontCreateWithFontName((CFStringRef)self.postScriptName);
+//	if (fontRef) {
+//		result = YES;
+//		CFRelease(fontRef);
+//	}
+//	[self registerFont];
+//	
+//	return result;
+//}
 
 #pragma mark -
+
+- (void)refresh
+{
+	[self unregisterFont];
+	[self extractPropertiesFromFileURL];
+	[self registerFont];
+}
 
 - (BOOL)removeFile
 {
@@ -155,6 +164,14 @@
 				else {
 					ReleaseLog(@"%s no fontRef", __PRETTY_FUNCTION__);
 				}
+				
+				self.isRegistered = NO;
+				CGFontRef fontRef = CGFontCreateWithFontName((CFStringRef)self.postScriptName);
+				if (fontRef) {
+					self.isRegistered = YES;
+					CFRelease(fontRef);
+				}
+
 				CFRelease(providerRef);
 			}
 			else {

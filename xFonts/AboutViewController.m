@@ -25,4 +25,9 @@
 	self.versionLabel.text = [NSString stringWithFormat:@"VERSION %@ (%@)", productVersion, productBuild];
 }
 
+- (IBAction)openIconfactory:(id)sender
+{
+	[UIApplication.sharedApplication openURL:[NSURL URLWithString:@"https://iconfactory.com"] options:@{} completionHandler:nil];
+}
+
 @end
