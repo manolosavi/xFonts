@@ -204,14 +204,18 @@
 
 - (void)loadFonts
 {
-	NSMutableArray *loadedFonts = [NSMutableArray array];
-
 	NSError *error = nil;
 	NSArray<NSURL *> *URLs = [NSFileManager.defaultManager contentsOfDirectoryAtURL:FontInfo.storageURL includingPropertiesForKeys:nil options:(NSDirectoryEnumerationSkipsSubdirectoryDescendants) error:&error];
 	if (! URLs) {
 		ReleaseLog(@"%s error = %@", __PRETTY_FUNCTION__, error);
 	}
 	else {
+		// NOTE: This causes all current FontInfo instances to be deallocated and become unregistered. The
+		// new instances created below will re-register the fonts during initialization.
+		self.fonts = nil;
+		
+		NSMutableArray *loadedFonts = [NSMutableArray array];
+
 		for (NSURL *URL in URLs) {
 			NSString *fileName = URL.lastPathComponent;
 			NSString *fileExtension = fileName.pathExtension;
@@ -230,8 +234,8 @@
 			}
 		}
 		
-		[loadedFonts sortUsingComparator:^NSComparisonResult(FontInfo *fontInfo1, FontInfo *fontInfo2) {
-			return [fontInfo1.displayName compare:fontInfo2.displayName];
+		[loadedFonts sortUsingComparator:^NSComparisonResult(FontInfo *firstFontInfo, FontInfo *secondFontInfo) {
+			return [firstFontInfo.displayName compare:secondFontInfo.displayName];
 		}];
 		
 		self.fonts = [loadedFonts copy];
