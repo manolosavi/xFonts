@@ -258,7 +258,12 @@
 	HeaderView *headerView = (HeaderView *)self.tableView.tableHeaderView;
 	[headerView setFontAddedCount:addedCount installCount:installCount];
 	
-	self.installButton.enabled = (installCount > 0);
+	// NOTE: It would be nice to enable or disable the install button, but we can't really know what happens after a font is deleted.
+	// We could track the start of the install, but there's no indication that the process completed successfully. Moving the font to
+	// a temporary holding area and checking if it's registered at next launch might work, but this adds a lot of complexity and
+	// given the disjointed nature of the install process, I'd say that's unlikely.
+	//
+	//self.installButton.enabled = (installCount > 0);
 }
 
 #pragma mark -
