@@ -150,10 +150,10 @@
 
 #if 1
 	if (fontInfo.isRegistered) {
-		cell.imageView.image = [UIImage systemImageNamed:@"checkmark.circle.fill"];
+		cell.imageView.image = [UIImage systemImageNamed:@"checkmark.circle"];
 	}
 	else {
-		cell.imageView.image = [UIImage systemImageNamed:@"arrow.down.circle"];
+		cell.imageView.image = [UIImage systemImageNamed:@"arrow.down.circle.fill"];
 //		cell.imageView.image = [UIImage systemImageNamed:@"arrow.uturn.up.circle"];
 	}
 #endif
