@@ -138,17 +138,13 @@
 	
 	FontInfo *fontInfo = self.fonts[indexPath.row];
 	
-#if 1
+	UIFont *bodyFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+
 	cell.textLabel.text = fontInfo.displayName;
-#else
-	cell.textLabel.text = [NSString stringWithFormat:@"%@ %s", fontInfo.displayName, (fontInfo.isRegistered ? "" : "*")];
-#endif
-	
-	cell.textLabel.font = [UIFont fontWithName:fontInfo.postScriptName size:18.0];
+	cell.textLabel.font = [UIFont fontWithName:fontInfo.postScriptName size:bodyFont.pointSize];
 	cell.textLabel.adjustsFontSizeToFitWidth = YES;
 	cell.textLabel.minimumScaleFactor = 0.5;
 
-#if 1
 	if (fontInfo.isRegistered) {
 		cell.imageView.image = [UIImage systemImageNamed:@"checkmark.circle"];
 	}
@@ -156,7 +152,6 @@
 		cell.imageView.image = [UIImage systemImageNamed:@"arrow.down.circle.fill"];
 //		cell.imageView.image = [UIImage systemImageNamed:@"arrow.uturn.up.circle"];
 	}
-#endif
 	
 	UIView *selection = [UIView new];
 	selection.backgroundColor = [UIColor colorNamed:@"appSelection"];
@@ -349,7 +344,9 @@ static NSString *const profilePayloadTemplate =
 		"<key>PayloadVersion</key>"
 		"<integer>1</integer>"
 		"<key>PayloadDisplayName</key>"
-		"<string>xFonts Installation</string>"
+		"<string>%@ Installation</string>"
+		"<key>PayloadDescription</key>"
+		"<string>This profile will install the fonts managed by %@.</string>"
 		"<key>PayloadIdentifier</key>"
 		"<string>com.iconfactory.xfonts</string>"
 		"<key>PayloadUUID</key>"
@@ -384,6 +381,8 @@ static NSString *const fontPayloadTemplate =
  */
 - (void)saveFontsProfile:(void(^)(NSError *error))completion
 {
+	NSString *productName = [NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+
 	NSString *fontsPayload = @"";
 	for (FontInfo *fontInfo in self.fonts) {
 		NSString *fontEncoded = [[[NSData alloc] initWithContentsOfURL:fontInfo.fileURL] base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
@@ -393,7 +392,7 @@ static NSString *const fontPayloadTemplate =
 		fontsPayload = [fontsPayload stringByAppendingString:fontPayload];
 	}
 	
-	NSString *profile = [NSString stringWithFormat:profilePayloadTemplate, NSUUID.UUID.UUIDString, fontsPayload];
+	NSString *profile = [NSString stringWithFormat:profilePayloadTemplate, productName, productName, NSUUID.UUID.UUIDString, fontsPayload];
 
 	NSURL *URL = [FontInfo.storageURL URLByAppendingPathComponent:@"xFonts.mobileconfig"];
 	// URL = [NSURL fileURLWithPath:@"/"]; // to generate an error during write

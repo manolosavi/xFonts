@@ -26,4 +26,12 @@
 	}
 }
 
+- (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
+{
+	//DebugLog(@"%s called", __PRETTY_FUNCTION__);
+	if (previousTraitCollection.userInterfaceStyle != self.traitCollection.userInterfaceStyle) {
+		//[self loadHelpMarkdown];
+	}
+}
+
 @end

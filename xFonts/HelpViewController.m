@@ -29,6 +29,8 @@
 	self.textView.textContainerInset = UIEdgeInsetsMake(20, 15, 20, 15);
 
 	[self loadHelpMarkdown];
+	
+	[self.textView scrollRangeToVisible:NSMakeRange(0, 0)];
 }
 
 /*
@@ -41,15 +43,13 @@
 }
 */
 
-/*
 - (void)traitCollectionDidChange:(UITraitCollection *)previousTraitCollection
 {
 	DebugLog(@"%s called", __PRETTY_FUNCTION__);
-	if (previousTraitCollection.userInterfaceStyle != self.traitCollection.userInterfaceStyle) {
+	if (previousTraitCollection.preferredContentSizeCategory != self.traitCollection.preferredContentSizeCategory) {
 		[self loadHelpMarkdown];
 	}
 }
-*/
 
 #pragma mark - Utility
 
