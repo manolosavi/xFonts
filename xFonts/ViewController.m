@@ -278,8 +278,11 @@
 		[response setHeader:@"Content-Type" value:@"text/html"];
 		
 		// Get the html file from the main bundle, send it as the response string.
-		NSString *path = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
+		NSString *path = [NSBundle.mainBundle pathForResource:@"index" ofType:@"html"];
 		NSString *html = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+		NSString *productName = [NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+
+		html = [html stringByReplacingOccurrencesOfString:@"$(PRODUCT_NAME)" withString:productName];
 		
 		[response respondWithString:html];
 	}];

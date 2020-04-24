@@ -1,4 +1,4 @@
-**_Welcome to Font Pad_**
+**_Welcome to $(PRODUCT_NAME)_**
 
 Explain why this app is both _dangerous_ and **necessary**. The [Github project](https://github.com/manolosavi/xFonts) is why that's OK.
 

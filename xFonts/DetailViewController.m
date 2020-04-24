@@ -25,6 +25,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *copyrightLabel;
 @property (nonatomic, weak) IBOutlet UILabel *descriptionLabel;
 
+@property (nonatomic, weak) IBOutlet UIView *installWarningView;
 @property (nonatomic, weak) IBOutlet UIView *sampleBackgroundView;
 @property (nonatomic, weak) IBOutlet UITextView *sampleTextView;
 
@@ -84,6 +85,9 @@
 	self.sampleTextView.font = font;
 	
 	self.sampleBackgroundView.layer.cornerRadius = 4.0;
+	
+	self.installWarningView.hidden = self.fontInfo.isRegistered;
+	self.installWarningView.layer.cornerRadius = 4.0;
 }
 
 @end

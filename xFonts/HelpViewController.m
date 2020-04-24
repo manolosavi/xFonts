@@ -55,12 +55,15 @@
 
 - (void)loadHelpMarkdown
 {
+	NSString *productName = [NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+
 	NSURL *markdownURL = [NSBundle.mainBundle URLForResource:@"Help" withExtension:@"md"];
 	NSData *markdownData = [NSData dataWithContentsOfURL:markdownURL];
 	NSString *markdownString = [[NSString alloc] initWithData:markdownData encoding:NSUTF8StringEncoding];
-
 	NSAssert(markdownString != nil, @"Missing help Markdown text");
 	
+	markdownString = [markdownString stringByReplacingOccurrencesOfString:@"$(PRODUCT_NAME)" withString:productName];
+
 	UIColor *bodyTextColor = UIColor.secondaryLabelColor;
 	UIColor *emphasisColor = UIColor.labelColor;
 	UIColor *highlightColor = [UIColor colorNamed:@"appTint"];
