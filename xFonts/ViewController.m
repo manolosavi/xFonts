@@ -349,7 +349,7 @@ static NSString *const profilePayloadTemplate =
 		"<key>PayloadDisplayName</key>"
 		"<string>%@ Installation</string>"
 		"<key>PayloadDescription</key>"
-		"<string>This profile will install the fonts managed by %@.</string>"
+		"<string>This profile installs the fonts managed by %@.</string>"
 		"<key>PayloadIdentifier</key>"
 		"<string>com.iconfactory.xfonts</string>"
 		"<key>PayloadUUID</key>"
