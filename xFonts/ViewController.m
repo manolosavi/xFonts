@@ -48,9 +48,9 @@
 {
 	[super viewDidAppear:animated];
 	
-	if (self.fonts.count == 0) {
+	//if (self.fonts.count == 0) {
 		[self showHelpOverlay];
-	}
+	//}
 }
 
 - (void)didReceiveMemoryWarning

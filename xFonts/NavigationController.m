@@ -14,10 +14,9 @@
 
 @implementation NavigationController
 
-- (UIStatusBarStyle)preferredStatusBarStyle
-{
-	return UIStatusBarStyleLightContent;
-}
-
+//- (UIStatusBarStyle)preferredStatusBarStyle
+//{
+//	return UIStatusBarStyleLightContent;
+//}
 
 @end

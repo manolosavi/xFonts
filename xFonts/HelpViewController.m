@@ -25,7 +25,7 @@
 {
     [super viewDidLoad];
 
-	self.textView.linkTextAttributes = @{ NSForegroundColorAttributeName: [UIColor colorNamed:@"appTint"] };
+	self.textView.linkTextAttributes = @{ NSForegroundColorAttributeName: [UIColor colorNamed:@"appTint"], NSUnderlineStyleAttributeName: @(1) };
 	self.textView.textContainerInset = UIEdgeInsetsMake(20, 15, 20, 15);
 
 	[self loadHelpMarkdown];
@@ -66,7 +66,7 @@
 
 	UIColor *bodyTextColor = UIColor.secondaryLabelColor;
 	UIColor *emphasisColor = UIColor.labelColor;
-	UIColor *highlightColor = [UIColor colorNamed:@"appTint"];
+	UIColor *highlightColor = [UIColor colorNamed:@"appHeaderText"];
 
 	UIFont *baseFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 

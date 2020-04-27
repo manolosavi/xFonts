@@ -18,13 +18,10 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xY3-y1-AGm">
                                 <rect key="frame" x="175" y="563.5" width="64" height="41"/>
-                                <color key="backgroundColor" name="appTint"/>
+                                <color key="backgroundColor" name="infoHighlight"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="tintColor" name="appHeaderText"/>
                                 <inset key="contentEdgeInsets" minX="20" minY="10" maxX="20" maxY="10"/>
-                                <state key="normal" title="OK">
-                                    <color key="titleColor" name="appOverlayText"/>
-                                </state>
+                                <state key="normal" title="OK"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="4"/>
@@ -38,26 +35,26 @@
                                 <rect key="frame" x="38" y="383" width="159" height="140.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o9q-DP-1EZ">
-                                        <rect key="frame" x="73" y="10" width="13" height="29"/>
+                                        <rect key="frame" x="10" y="10" width="13" height="29"/>
                                         <fontDescription key="fontDescription" type="system" weight="black" pointSize="24"/>
-                                        <color key="textColor" name="appOverlayText"/>
+                                        <color key="textColor" name="infoHighlight"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pick the fonts you want to use from your iCloud Drive or Dropbox." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HUV-BU-GXe">
                                         <rect key="frame" x="10" y="49" width="139" height="81.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" name="appOverlayText"/>
+                                        <color key="textColor" name="infoHighlight"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" name="appOverlay"/>
+                                <color key="backgroundColor" name="infoBackground"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="HUV-BU-GXe" secondAttribute="bottom" constant="10" id="2HH-H0-KZo"/>
                                     <constraint firstItem="o9q-DP-1EZ" firstAttribute="top" secondItem="DBs-rs-jpm" secondAttribute="top" constant="10" id="Yfw-UC-8bI"/>
                                     <constraint firstItem="HUV-BU-GXe" firstAttribute="leading" secondItem="DBs-rs-jpm" secondAttribute="leading" constant="10" id="aip-b4-quU"/>
+                                    <constraint firstItem="o9q-DP-1EZ" firstAttribute="leading" secondItem="HUV-BU-GXe" secondAttribute="leading" id="cfn-Os-38Q"/>
                                     <constraint firstItem="HUV-BU-GXe" firstAttribute="top" secondItem="o9q-DP-1EZ" secondAttribute="bottom" constant="10" id="cla-C8-8BL"/>
                                     <constraint firstAttribute="bottom" secondItem="HUV-BU-GXe" secondAttribute="bottom" priority="250" constant="10" id="dHI-W8-20l"/>
-                                    <constraint firstItem="o9q-DP-1EZ" firstAttribute="centerX" secondItem="DBs-rs-jpm" secondAttribute="centerX" id="gGU-1Z-l8Q"/>
                                     <constraint firstAttribute="trailing" secondItem="HUV-BU-GXe" secondAttribute="trailing" constant="10" id="oyw-po-QQh"/>
                                 </constraints>
                             </view>
@@ -65,32 +62,32 @@
                                 <rect key="frame" x="217" y="383" width="159" height="140.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WjT-Gr-UZ7">
-                                        <rect key="frame" x="71.5" y="10" width="16" height="29"/>
+                                        <rect key="frame" x="133" y="10" width="16" height="29"/>
                                         <fontDescription key="fontDescription" type="system" weight="black" pointSize="24"/>
-                                        <color key="textColor" name="appOverlayText"/>
+                                        <color key="textColor" name="infoHighlight"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create and download a font installer for Settings." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SVQ-LI-yPd">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Create and download a font installer for Settings." textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SVQ-LI-yPd">
                                         <rect key="frame" x="10" y="49" width="139" height="81.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" name="appOverlayText"/>
+                                        <color key="textColor" name="infoHighlight"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" name="appOverlay"/>
+                                <color key="backgroundColor" name="infoBackground"/>
                                 <constraints>
-                                    <constraint firstItem="WjT-Gr-UZ7" firstAttribute="centerX" secondItem="kf3-2W-iS0" secondAttribute="centerX" id="363-CE-2G3"/>
                                     <constraint firstAttribute="trailing" secondItem="SVQ-LI-yPd" secondAttribute="trailing" constant="10" id="C6l-fo-WrW"/>
                                     <constraint firstItem="SVQ-LI-yPd" firstAttribute="top" secondItem="WjT-Gr-UZ7" secondAttribute="bottom" constant="10" id="GdS-80-D21"/>
                                     <constraint firstItem="SVQ-LI-yPd" firstAttribute="leading" secondItem="kf3-2W-iS0" secondAttribute="leading" constant="10" id="J3h-Om-8Ts"/>
                                     <constraint firstAttribute="bottom" secondItem="SVQ-LI-yPd" secondAttribute="bottom" priority="250" constant="10" id="cOt-o7-i3y"/>
+                                    <constraint firstItem="WjT-Gr-UZ7" firstAttribute="trailing" secondItem="SVQ-LI-yPd" secondAttribute="trailing" id="h0Y-Z9-Rw7"/>
                                     <constraint firstItem="WjT-Gr-UZ7" firstAttribute="top" secondItem="kf3-2W-iS0" secondAttribute="top" constant="10" id="r7L-TN-pXi"/>
                                     <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="SVQ-LI-yPd" secondAttribute="bottom" constant="10" id="uRc-6i-bGO"/>
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowhead" translatesAutoresizingMaskIntoConstraints="NO" id="8HT-fj-P4R" userLabel="Left Point">
                                 <rect key="frame" x="33" y="82" width="12" height="12"/>
-                                <color key="tintColor" name="appOverlayText"/>
+                                <color key="tintColor" name="infoHighlight"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="12" id="cxP-Mq-H6V"/>
                                     <constraint firstAttribute="width" constant="12" id="sm0-Uf-e0F"/>
@@ -98,14 +95,14 @@
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HpR-br-pgM" userLabel="Left Connector">
                                 <rect key="frame" x="38" y="94" width="2" height="429.5"/>
-                                <color key="backgroundColor" name="appOverlayText"/>
+                                <color key="backgroundColor" name="statusTextSecondary"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="2" id="gQv-yc-pzn"/>
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrowhead" translatesAutoresizingMaskIntoConstraints="NO" id="xXW-Oe-Wds" userLabel="Right Point">
                                 <rect key="frame" x="369" y="82" width="12" height="12"/>
-                                <color key="tintColor" name="appOverlayText"/>
+                                <color key="tintColor" name="infoHighlight"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="12" id="J2n-SF-lrv"/>
                                     <constraint firstAttribute="width" constant="12" id="ZYf-0n-1cQ"/>
@@ -113,13 +110,14 @@
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4zL-Sb-Fay" userLabel="Right Connector">
                                 <rect key="frame" x="374" y="94" width="2" height="429.5"/>
-                                <color key="backgroundColor" name="appOverlayText"/>
+                                <color key="backgroundColor" name="statusTextSecondary"/>
+                                <color key="tintColor" name="statusTextSecondary"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="2" id="cLf-cp-pb2"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" name="appSelection"/>
+                        <color key="backgroundColor" name="overlayBackground"/>
                         <constraints>
                             <constraint firstItem="xXW-Oe-Wds" firstAttribute="centerY" secondItem="z8X-iI-BEB" secondAttribute="top" constant="44" id="2Ae-v8-HJ6"/>
                             <constraint firstItem="4zL-Sb-Fay" firstAttribute="centerX" secondItem="xXW-Oe-Wds" secondAttribute="centerX" id="4nR-Yp-eNj"/>
@@ -166,11 +164,11 @@
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1,234 fonts added, 32 need install" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fSr-Lz-IwQ">
                                     <rect key="frame" x="91" y="13" width="232" height="18"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                    <color key="textColor" name="appHeaderText"/>
+                                    <color key="textColor" name="infoHighlight"/>
                                     <nil key="highlightedColor"/>
                                 </label>
                             </subviews>
-                            <color key="backgroundColor" name="appSelection"/>
+                            <color key="backgroundColor" name="infoBackground"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fSr-Lz-IwQ" secondAttribute="bottom" constant="2" id="NED-0r-f3k"/>
                                 <constraint firstItem="fSr-Lz-IwQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fEz-pn-Q2A" secondAttribute="leading" constant="10" id="UBz-1Z-zoG"/>
@@ -203,13 +201,11 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Fonts" id="dpu-oN-dBk">
                         <barButtonItem key="leftBarButtonItem" title="Add" id="T6u-ro-7rs">
-                            <color key="tintColor" name="appHeaderText"/>
                             <connections>
                                 <action selector="addFonts:" destination="FOw-fU-3BX" id="JAV-GS-LwU"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Install" id="tHI-nC-Pyd">
-                            <color key="tintColor" name="appHeaderText"/>
                             <connections>
                                 <action selector="installProfile:" destination="FOw-fU-3BX" id="w2n-Lo-1uM"/>
                             </connections>
@@ -246,11 +242,12 @@
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" verticalHuggingPriority="251" image="arrow.down.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="v89-BY-Sq4">
                                                                 <rect key="frame" x="0.0" y="-0.5" width="20" height="19"/>
+                                                                <color key="tintColor" name="infoHighlight"/>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Font needs to be installed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bL0-5g-Iyt">
                                                                 <rect key="frame" x="30" y="0.0" width="177" height="18"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                                                <color key="textColor" name="appHeaderText"/>
+                                                                <color key="textColor" name="infoHighightSecondary"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
@@ -265,7 +262,7 @@
                                                         </constraints>
                                                     </view>
                                                 </subviews>
-                                                <color key="backgroundColor" name="appSelection"/>
+                                                <color key="backgroundColor" name="infoBackground"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="Ce3-dT-mxU" secondAttribute="trailing" constant="10" id="Ayp-Xw-Ubj"/>
                                                     <constraint firstItem="Ce3-dT-mxU" firstAttribute="centerX" secondItem="7cn-Q4-QXT" secondAttribute="centerX" id="DVV-7c-i7q"/>
@@ -576,8 +573,7 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ueB-LF-Fhc">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" name="appHeader"/>
-                        <color key="barTintColor" name="appHeader"/>
+                        <color key="tintColor" name="appHeaderTint"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" name="appHeaderText"/>
                         </textAttributes>
@@ -638,36 +634,35 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text=" Font Pad " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hcc-xG-Mx6">
-                                <rect key="frame" x="103" y="184.5" width="208.5" height="57.5"/>
-                                <fontDescription key="fontDescription" type="italicSystem" pointSize="48"/>
-                                <color key="textColor" name="appTint"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" image="product_logo" translatesAutoresizingMaskIntoConstraints="NO" id="ssB-O3-fKC">
+                                <rect key="frame" x="57" y="111.5" width="300" height="170"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="PHv-T6-emz"/>
+                                </constraints>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EaN-Ap-foU">
-                                <rect key="frame" x="167" y="272" width="80" height="19.5"/>
+                                <rect key="frame" x="167" y="281.5" width="80" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" name="infoHighightSecondary"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rF5-M2-9bK">
-                                <rect key="frame" x="139" y="299.5" width="136.5" height="76.5"/>
+                                <rect key="frame" x="139" y="309" width="136.5" height="57.5"/>
                                 <string key="text">Manolo Sañudo
 Craig Hockenberry
-Gedeon Maheux
-et al.</string>
+Gedeon Maheux</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" name="infoHighlight"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconfactory_logo" translatesAutoresizingMaskIntoConstraints="NO" id="OEy-Nw-MIH">
                                 <rect key="frame" x="191" y="627.5" width="32" height="32"/>
-                                <color key="tintColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" name="infoHighightSecondary"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="design by the iconfactory" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UMc-xU-7A4">
                                 <rect key="frame" x="125" y="667.5" width="164" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" name="infoHighightSecondary"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="POK-iA-bdr">
@@ -679,13 +674,13 @@ et al.</string>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="VERSION 1.0 (123)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aV2-e9-TtV">
                                 <rect key="frame" x="158.5" y="724.5" width="97" height="13.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <color key="textColor" systemColor="tertiaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" name="infoHighightSecondary"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="infoBackground"/>
                         <constraints>
-                            <constraint firstItem="EaN-Ap-foU" firstAttribute="top" secondItem="hcc-xG-Mx6" secondAttribute="bottom" constant="30" id="3vW-ly-KPO"/>
+                            <constraint firstItem="ssB-O3-fKC" firstAttribute="centerX" secondItem="rF5-M2-9bK" secondAttribute="centerX" id="0TK-dU-4No"/>
                             <constraint firstItem="rF5-M2-9bK" firstAttribute="centerX" secondItem="Kwx-xM-UQ5" secondAttribute="centerX" id="9yH-RJ-0Go"/>
                             <constraint firstItem="aV2-e9-TtV" firstAttribute="centerX" secondItem="Kwx-xM-UQ5" secondAttribute="centerX" id="BwE-vC-i0A"/>
                             <constraint firstItem="rF5-M2-9bK" firstAttribute="top" secondItem="EaN-Ap-foU" secondAttribute="bottom" constant="8" id="Bze-3X-SAM"/>
@@ -693,22 +688,21 @@ et al.</string>
                             <constraint firstItem="POK-iA-bdr" firstAttribute="top" secondItem="OEy-Nw-MIH" secondAttribute="top" id="Fdg-yK-Hgh"/>
                             <constraint firstItem="aV2-e9-TtV" firstAttribute="top" secondItem="UMc-xU-7A4" secondAttribute="bottom" constant="40" id="Fya-2a-l10"/>
                             <constraint firstItem="UMc-xU-7A4" firstAttribute="centerY" secondItem="Kwx-xM-UQ5" secondAttribute="centerY" multiplier="1.5" priority="750" id="OLI-Hq-tRa"/>
-                            <constraint firstItem="hcc-xG-Mx6" firstAttribute="centerX" secondItem="rF5-M2-9bK" secondAttribute="centerX" id="X0r-74-SfQ"/>
+                            <constraint firstItem="ssB-O3-fKC" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Kwx-xM-UQ5" secondAttribute="top" constant="10" id="Rq6-uu-2fd"/>
                             <constraint firstItem="POK-iA-bdr" firstAttribute="leading" secondItem="UMc-xU-7A4" secondAttribute="leading" id="ZDl-mi-dXC"/>
                             <constraint firstItem="UMc-xU-7A4" firstAttribute="centerX" secondItem="aV2-e9-TtV" secondAttribute="centerX" id="aRA-dZ-uii"/>
                             <constraint firstItem="OEy-Nw-MIH" firstAttribute="centerX" secondItem="UMc-xU-7A4" secondAttribute="centerX" id="coJ-CE-6Vo"/>
                             <constraint firstItem="EaN-Ap-foU" firstAttribute="centerX" secondItem="Kwx-xM-UQ5" secondAttribute="centerX" id="dqf-6U-hfZ"/>
-                            <constraint firstItem="hcc-xG-Mx6" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Kwx-xM-UQ5" secondAttribute="top" constant="10" id="faU-uX-drj"/>
                             <constraint firstItem="POK-iA-bdr" firstAttribute="trailing" secondItem="UMc-xU-7A4" secondAttribute="trailing" id="j3V-Ko-gz6"/>
                             <constraint firstItem="POK-iA-bdr" firstAttribute="bottom" secondItem="UMc-xU-7A4" secondAttribute="bottom" id="rAF-DG-arj"/>
                             <constraint firstItem="Kwx-xM-UQ5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="aV2-e9-TtV" secondAttribute="bottom" constant="10" id="sfj-6L-WPm"/>
+                            <constraint firstItem="EaN-Ap-foU" firstAttribute="top" secondItem="ssB-O3-fKC" secondAttribute="bottom" id="tJa-Bs-nTf"/>
                             <constraint firstItem="UMc-xU-7A4" firstAttribute="top" secondItem="OEy-Nw-MIH" secondAttribute="bottom" constant="8" id="wYv-xT-iza"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Kwx-xM-UQ5"/>
                     </view>
                     <navigationItem key="navigationItem" title="About" id="1LR-fx-030"/>
                     <connections>
-                        <outlet property="productNameLabel" destination="hcc-xG-Mx6" id="OF4-OJ-FsX"/>
                         <outlet property="versionLabel" destination="aV2-e9-TtV" id="ixu-En-Gqj"/>
                     </connections>
                 </viewController>
@@ -723,8 +717,8 @@ et al.</string>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UA3-aE-Wny">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" name="appTint"/>
-                        <color key="selectedImageTintColor" name="appTint"/>
+                        <color key="tintColor" name="statusTextSecondary"/>
+                        <color key="selectedImageTintColor" name="appHeaderTint"/>
                     </tabBar>
                     <connections>
                         <segue destination="ojk-Bn-Ctu" kind="relationship" relationship="viewControllers" id="v50-Xu-HrT"/>
@@ -741,13 +735,12 @@ et al.</string>
         <scene sceneID="Jb0-Lg-0iR">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ojk-Bn-Ctu" customClass="NavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Fonts" image="textformat.alt" catalog="system" id="nEz-5w-u7v"/>
+                    <tabBarItem key="tabBarItem" title="Fonts" image="textformat" catalog="system" id="nEz-5w-u7v"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6P9-P3-wLF">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" name="appHeaderText"/>
-                        <color key="barTintColor" name="appHeader"/>
+                        <color key="tintColor" name="appHeaderTint"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" name="appHeaderText"/>
                         </textAttributes>
@@ -770,8 +763,7 @@ et al.</string>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="CKL-BM-BvV">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" name="appHeader"/>
-                        <color key="barTintColor" name="appHeader"/>
+                        <color key="tintColor" name="appHeaderTint"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" name="appHeaderText"/>
                         </textAttributes>
@@ -793,27 +785,28 @@ et al.</string>
         <image name="iconfactory_logo" width="32" height="32"/>
         <image name="info.circle" catalog="system" width="64" height="60"/>
         <image name="info.circle.fill" catalog="system" width="64" height="60"/>
-        <image name="textformat.alt" catalog="system" width="64" height="40"/>
-        <namedColor name="appHeader">
-            <color red="0.41960784313725491" green="0.27843137254901962" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
+        <image name="product_logo" width="775" height="170"/>
+        <image name="textformat" catalog="system" width="64" height="40"/>
         <namedColor name="appHeaderText">
+            <color red="0.23617021276595754" green="0.21276595744680848" blue="0.29999999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="appHeaderTint">
+            <color red="0.5" green="0.45100000500679016" blue="0.63499999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="infoBackground">
+            <color red="0.51372549019607838" green="0.47450980392156861" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="infoHighightSecondary">
+            <color red="1" green="1" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="infoHighlight">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="appHeaderText">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="overlayBackground">
+            <color red="0.0" green="0.0" blue="0.0" alpha="0.60000002384185791" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="appOverlay">
-            <color red="0.41999998688697815" green="0.27799999713897705" blue="0.69800001382827759" alpha="0.89999997615814209" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="appOverlayText">
-            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="appSelection">
-            <color red="0.41999998688697815" green="0.27799999713897705" blue="0.69800001382827759" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="appTint">
-            <color red="0.41960784313725491" green="0.27843137254901962" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="statusTextSecondary">
+            <color red="1" green="1" blue="1" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
     <color key="tintColor" name="appTint"/>

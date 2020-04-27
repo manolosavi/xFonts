@@ -10,7 +10,6 @@
 
 @interface AboutViewController ()
 
-@property (nonatomic, weak) IBOutlet UILabel *productNameLabel;
 @property (nonatomic, weak) IBOutlet UILabel *versionLabel;
 
 @end
@@ -20,15 +19,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
 	
 	NSString *productVersion = [NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 	NSString *productBuild = [NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"];
 	self.versionLabel.text = [NSString stringWithFormat:@"VERSION %@ (%@)", productVersion, productBuild];
-	
-	NSString *productName = [NSString stringWithFormat:@" %@ ", [NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleDisplayName"]];
-	self.productNameLabel.text = productName;
-
 }
 
 - (IBAction)openIconfactory:(id)sender
