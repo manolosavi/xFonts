@@ -616,6 +616,9 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" contentInsetAdjustmentBehavior="always" editable="NO" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QjW-Pk-7rf">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="500" id="Lpj-2M-y85"/>
+                                </constraints>
                                 <attributedString key="attributedText">
                                     <fragment content="Explain why this app is both dangerous and necessary.">
                                         <attributes>
@@ -627,12 +630,13 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="secondarySystemBackgroundColor" red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="QjW-Pk-7rf" firstAttribute="top" secondItem="frl-PP-akL" secondAttribute="top" id="Geo-9n-W0a"/>
-                            <constraint firstItem="bu9-yP-IYN" firstAttribute="trailing" secondItem="QjW-Pk-7rf" secondAttribute="trailing" id="IUl-Ug-JIT"/>
-                            <constraint firstItem="QjW-Pk-7rf" firstAttribute="leading" secondItem="bu9-yP-IYN" secondAttribute="leading" id="XtX-Il-ZwY"/>
+                            <constraint firstItem="bu9-yP-IYN" firstAttribute="trailing" secondItem="QjW-Pk-7rf" secondAttribute="trailing" priority="750" id="IUl-Ug-JIT"/>
+                            <constraint firstItem="QjW-Pk-7rf" firstAttribute="leading" secondItem="bu9-yP-IYN" secondAttribute="leading" priority="750" id="XtX-Il-ZwY"/>
                             <constraint firstAttribute="bottom" secondItem="QjW-Pk-7rf" secondAttribute="bottom" id="i6y-at-7px"/>
+                            <constraint firstItem="QjW-Pk-7rf" firstAttribute="centerX" secondItem="bu9-yP-IYN" secondAttribute="centerX" id="nxk-Oy-IUp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="bu9-yP-IYN"/>
                     </view>
@@ -654,13 +658,13 @@ How razorback-jumping frogs can level six piqued gymnasts!</string>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" image="product_logo" translatesAutoresizingMaskIntoConstraints="NO" id="ssB-O3-fKC">
-                                <rect key="frame" x="82" y="131" width="250" height="54.5"/>
+                                <rect key="frame" x="82" y="141" width="250" height="54.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="250" id="PHv-T6-emz"/>
                                     <constraint firstAttribute="width" secondItem="ssB-O3-fKC" secondAttribute="height" multiplier="1550:340" id="mhX-3v-yfw"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Created by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EaN-Ap-foU">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Created by" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EaN-Ap-foU">
                                 <rect key="frame" x="167" y="215.5" width="80" height="19.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" name="infoHighightSecondary"/>
@@ -716,7 +720,7 @@ Gedeon Maheux</string>
                             <constraint firstItem="POK-iA-bdr" firstAttribute="trailing" secondItem="UMc-xU-7A4" secondAttribute="trailing" id="j3V-Ko-gz6"/>
                             <constraint firstItem="POK-iA-bdr" firstAttribute="bottom" secondItem="UMc-xU-7A4" secondAttribute="bottom" id="rAF-DG-arj"/>
                             <constraint firstItem="Kwx-xM-UQ5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="aV2-e9-TtV" secondAttribute="bottom" constant="10" id="sfj-6L-WPm"/>
-                            <constraint firstItem="EaN-Ap-foU" firstAttribute="top" secondItem="ssB-O3-fKC" secondAttribute="bottom" constant="30" id="tJa-Bs-nTf"/>
+                            <constraint firstItem="EaN-Ap-foU" firstAttribute="top" secondItem="ssB-O3-fKC" secondAttribute="bottom" constant="20" id="tJa-Bs-nTf"/>
                             <constraint firstItem="UMc-xU-7A4" firstAttribute="top" secondItem="OEy-Nw-MIH" secondAttribute="bottom" constant="8" id="wYv-xT-iza"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Kwx-xM-UQ5"/>
