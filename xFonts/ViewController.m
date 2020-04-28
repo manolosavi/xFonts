@@ -153,9 +153,10 @@
 	else {
 		cell.imageView.image = [UIImage systemImageNamed:@"arrow.down.circle.fill"];
 	}
+	cell.imageView.tintColor = [UIColor colorNamed:@"infoBackground"];
 	
 	UIView *selection = [UIView new];
-	selection.backgroundColor = [UIColor colorNamed:@"appTint"];
+	selection.backgroundColor = [[UIColor colorNamed:@"infoBackground"] colorWithAlphaComponent:0.5];
 	cell.selectedBackgroundView = selection;
 	
 	return cell;

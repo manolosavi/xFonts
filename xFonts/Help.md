@@ -34,12 +34,12 @@ Normally, you should be very careful about downloading configuration profiles. Y
 
 This is the first instance where you need to trust $(PRODUCT_NAME). You should only tap _Allow_ if you have confidence in both the contents and source of the configuration profile.
 
-To establish this trust, the source code of this app is [available for review](https://github.com/manolosavi/xFonts). $(PRODUCT_NAME) is also being distributed by a company that has been treating customers with respect for [over 20 years](https://iconfactory.com/20years). The [Iconfactory](https://iconfactory.com) contributed their expertise to the xFonts open source project because they couldn’t trust any app whose inner workings weren’t completely transparent. If that's not enough, you can even build and run the app using Xcode.
+To establish this trust, the source code of this app is [available for review](https://github.com/manolosavi/xFonts). $(PRODUCT_NAME) is also being distributed by a company that has been treating customers with respect for [over 20 years](https://iconfactory.com/20years). The [Iconfactory](https://iconfactory.com) contributed their expertise to the xFonts open source project because they couldn’t trust any app whose inner workings weren’t completely transparent. If that doesn't give you enough peace of mind, you can build and run the app using Xcode.
 
 If you do decide to tap _Allow_ you’ll see a dialog that tells you to review the profile in _Settings_ and no other information. Tap _Close_ and you’re ready for the next phase of installation.
 
 
-**_Update Settings_**
+**_Update Your Settings_**
 
 Open the _Settings_ app and you’ll see _Profile Downloaded_ button above the Airplane Mode switch. (If not, navigate to _General_ > _Profiles_ > _Downloaded Profile_ > _$(PRODUCT_NAME) Installation_.) After tapping the button, the first thing you’ll see is “Not Signed” highlighted in red.
 
@@ -56,6 +56,6 @@ iOS takes some time to get things sorted out so you may not see the fonts immedi
 
 **_Conclusion_**
 
-Remember that you’ll need to go through the whole installation process again if you add any fonts to $(PRODUCT_NAME). Your original profile will be replaced after the download, but you still need to authorize the new fonts with a passcode.
+Remember that you’ll need to go through the whole installation process again if you add any new type to $(PRODUCT_NAME). Your original profile is replaced after a download, but you still need to authorize the fonts with a passcode.
 
 If you’ve made it this far, you now understand warning at the top of this page. If you think this process should be easier, [please give Apple some feedback](https://www.apple.com/feedback/iphone.html).

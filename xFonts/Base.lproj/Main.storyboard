@@ -161,24 +161,42 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1,234 fonts added, 32 need install" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fSr-Lz-IwQ">
-                                    <rect key="frame" x="91" y="13" width="232" height="18"/>
-                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                    <color key="textColor" name="infoHighlight"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9uZ-3r-TiK">
+                                    <rect key="frame" x="73.5" y="13" width="267" height="18"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" verticalHuggingPriority="251" image="info.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="l27-a1-7M2">
+                                            <rect key="frame" x="0.0" y="-0.5" width="20" height="19"/>
+                                            <color key="tintColor" name="infoHighightSecondary"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="1,234 fonts added, 987 need install" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3u-wn-B8Q">
+                                            <rect key="frame" x="26" y="0.0" width="241" height="18"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                            <color key="textColor" name="infoHighightSecondary"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="a3u-wn-B8Q" secondAttribute="trailing" id="6vv-V1-Oeb"/>
+                                        <constraint firstAttribute="bottom" secondItem="a3u-wn-B8Q" secondAttribute="bottom" id="OWB-gE-fpq"/>
+                                        <constraint firstItem="a3u-wn-B8Q" firstAttribute="top" secondItem="9uZ-3r-TiK" secondAttribute="top" id="Ytp-Ar-OE9"/>
+                                        <constraint firstItem="a3u-wn-B8Q" firstAttribute="centerY" secondItem="9uZ-3r-TiK" secondAttribute="centerY" id="g9O-J1-6EK"/>
+                                        <constraint firstItem="a3u-wn-B8Q" firstAttribute="leading" secondItem="l27-a1-7M2" secondAttribute="trailing" constant="6" id="mYH-7T-uxX"/>
+                                        <constraint firstItem="l27-a1-7M2" firstAttribute="centerY" secondItem="9uZ-3r-TiK" secondAttribute="centerY" id="qyH-MP-beg"/>
+                                        <constraint firstItem="l27-a1-7M2" firstAttribute="leading" secondItem="9uZ-3r-TiK" secondAttribute="leading" id="rG6-rc-rhM"/>
+                                    </constraints>
+                                </view>
                             </subviews>
                             <color key="backgroundColor" name="infoBackground"/>
                             <constraints>
-                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="fSr-Lz-IwQ" secondAttribute="bottom" constant="2" id="NED-0r-f3k"/>
-                                <constraint firstItem="fSr-Lz-IwQ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fEz-pn-Q2A" secondAttribute="leading" constant="10" id="UBz-1Z-zoG"/>
-                                <constraint firstItem="fSr-Lz-IwQ" firstAttribute="centerY" secondItem="fEz-pn-Q2A" secondAttribute="centerY" id="X3V-Dp-sM7"/>
-                                <constraint firstItem="fSr-Lz-IwQ" firstAttribute="centerX" secondItem="fEz-pn-Q2A" secondAttribute="centerX" id="cHR-Bk-XTc"/>
-                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="fSr-Lz-IwQ" secondAttribute="trailing" constant="10" id="iUv-iM-4zZ"/>
-                                <constraint firstItem="fSr-Lz-IwQ" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fEz-pn-Q2A" secondAttribute="top" constant="2" id="lYJ-nG-zmJ"/>
+                                <constraint firstItem="9uZ-3r-TiK" firstAttribute="centerY" secondItem="fEz-pn-Q2A" secondAttribute="centerY" id="Kdd-c6-Szu"/>
+                                <constraint firstItem="9uZ-3r-TiK" firstAttribute="centerX" secondItem="fEz-pn-Q2A" secondAttribute="centerX" id="MCQ-Ke-9Ig"/>
+                                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="9uZ-3r-TiK" secondAttribute="bottom" constant="2" id="RnS-Da-Yef"/>
+                                <constraint firstItem="9uZ-3r-TiK" firstAttribute="top" relation="greaterThanOrEqual" secondItem="fEz-pn-Q2A" secondAttribute="top" constant="2" id="dcK-7R-1SF"/>
+                                <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9uZ-3r-TiK" secondAttribute="trailing" constant="10" id="npd-OB-szB"/>
+                                <constraint firstItem="9uZ-3r-TiK" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="fEz-pn-Q2A" secondAttribute="leading" constant="10" id="v9t-dV-cVy"/>
                             </constraints>
                             <connections>
-                                <outlet property="statusLabel" destination="fSr-Lz-IwQ" id="fvp-0i-VdZ"/>
+                                <outlet property="statusLabel" destination="a3u-wn-B8Q" id="RAn-Ac-MIU"/>
                             </connections>
                         </view>
                         <prototypes>
@@ -238,14 +256,14 @@
                                                 <rect key="frame" x="20" y="0.0" width="374" height="40"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ce3-dT-mxU">
-                                                        <rect key="frame" x="83.5" y="11" width="207" height="18"/>
+                                                        <rect key="frame" x="85.5" y="11" width="203" height="18"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" verticalHuggingPriority="251" image="arrow.down.circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="v89-BY-Sq4">
                                                                 <rect key="frame" x="0.0" y="-0.5" width="20" height="19"/>
                                                                 <color key="tintColor" name="infoHighlight"/>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="Font needs to be installed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bL0-5g-Iyt">
-                                                                <rect key="frame" x="30" y="0.0" width="177" height="18"/>
+                                                                <rect key="frame" x="26" y="0.0" width="177" height="18"/>
                                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                                 <color key="textColor" name="infoHighightSecondary"/>
                                                                 <nil key="highlightedColor"/>
@@ -255,7 +273,7 @@
                                                             <constraint firstItem="v89-BY-Sq4" firstAttribute="centerY" secondItem="Ce3-dT-mxU" secondAttribute="centerY" id="8Rb-c7-gBz"/>
                                                             <constraint firstAttribute="trailing" secondItem="bL0-5g-Iyt" secondAttribute="trailing" id="AEu-fl-yKx"/>
                                                             <constraint firstItem="bL0-5g-Iyt" firstAttribute="top" secondItem="Ce3-dT-mxU" secondAttribute="top" id="C7h-Yz-dgL"/>
-                                                            <constraint firstItem="bL0-5g-Iyt" firstAttribute="leading" secondItem="v89-BY-Sq4" secondAttribute="trailing" constant="10" id="Dl8-wW-Kmt"/>
+                                                            <constraint firstItem="bL0-5g-Iyt" firstAttribute="leading" secondItem="v89-BY-Sq4" secondAttribute="trailing" constant="6" id="Dl8-wW-Kmt"/>
                                                             <constraint firstAttribute="bottom" secondItem="bL0-5g-Iyt" secondAttribute="bottom" id="FR9-G6-9rc"/>
                                                             <constraint firstItem="bL0-5g-Iyt" firstAttribute="centerY" secondItem="Ce3-dT-mxU" secondAttribute="centerY" id="eSp-me-OYp"/>
                                                             <constraint firstItem="v89-BY-Sq4" firstAttribute="leading" secondItem="Ce3-dT-mxU" secondAttribute="leading" id="vnO-Fs-9Fp"/>
@@ -791,7 +809,7 @@ Gedeon Maheux</string>
             <color red="0.23617021276595754" green="0.21276595744680848" blue="0.29999999999999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="appHeaderTint">
-            <color red="0.5" green="0.45100000500679016" blue="0.63499999046325684" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.62699997425079346" green="0.56499999761581421" blue="0.79600000381469727" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="infoBackground">
             <color red="0.51372549019607838" green="0.47450980392156861" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
