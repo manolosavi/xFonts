@@ -468,6 +468,7 @@ static NSString *const fontPayloadTemplate =
 		for (FontInfo *fontInfo in self.fonts) {
 			[fontInfo refresh];
 		}
+		[self.tableView reloadData];
 	}
 }
 

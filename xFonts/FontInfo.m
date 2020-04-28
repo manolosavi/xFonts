@@ -155,12 +155,8 @@
 					ReleaseLog(@"%s no fontRef", __PRETTY_FUNCTION__);
 				}
 				
-				self.isRegistered = NO;
-				CGFontRef fontRef = CGFontCreateWithFontName((CFStringRef)self.postScriptName);
-				if (fontRef) {
-					self.isRegistered = YES;
-					CFRelease(fontRef);
-				}
+				NSArray *availablePostsScriptNames = CFBridgingRelease(CTFontManagerCopyAvailablePostScriptNames());
+				self.isRegistered = [availablePostsScriptNames containsObject:self.postScriptName];
 
 				CFRelease(providerRef);
 			}
