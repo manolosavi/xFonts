@@ -17,9 +17,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="product_logo" translatesAutoresizingMaskIntoConstraints="NO" id="RxT-wA-7Jf">
-                                <rect key="frame" x="57" y="255" width="300" height="170"/>
+                                <rect key="frame" x="82" y="255" width="250" height="170"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="300" id="IBI-hP-gIV"/>
+                                    <constraint firstAttribute="width" constant="250" id="IBI-hP-gIV"/>
                                 </constraints>
                             </imageView>
                         </subviews>
@@ -39,7 +39,7 @@
     <resources>
         <image name="product_logo" width="775" height="170"/>
         <namedColor name="infoBackground">
-            <color red="0.51372549019607838" green="0.47450980392156861" blue="0.61568627450980395" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.46666666666666667" green="0.35686274509803922" blue="0.72941176470588232" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

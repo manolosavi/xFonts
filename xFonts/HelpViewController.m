@@ -66,14 +66,34 @@
 
 	UIColor *bodyTextColor = UIColor.secondaryLabelColor;
 	UIColor *emphasisColor = UIColor.labelColor;
-	UIColor *highlightColor = [UIColor colorNamed:@"appHeaderText"];
+	UIColor *highlightColor = [UIColor colorNamed:@"appTint"];
 
 	UIFont *baseFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 
+#if 1
+	UIFont *emphasisSingleFont = [UIFont italicSystemFontOfSize:baseFont.pointSize];
+	UIFont *emphasisDoubleFont = [UIFont boldSystemFontOfSize:baseFont.pointSize];
+	UIFont *emphasisBothFont = [UIFont systemFontOfSize:baseFont.pointSize weight:UIFontWeightHeavy];
+	
+	NSDictionary<MarkdownStyleKey, NSDictionary<NSAttributedStringKey, id> *> *styleAttributes = @{
+		MarkdownStyleEmphasisSingle: @{
+				NSFontAttributeName: emphasisSingleFont,
+				NSForegroundColorAttributeName: emphasisColor
+		},
+		MarkdownStyleEmphasisDouble: @{
+				NSFontAttributeName: emphasisDoubleFont,
+				NSForegroundColorAttributeName: emphasisColor
+		},
+		MarkdownStyleEmphasisBoth: @{
+				NSFontAttributeName: emphasisBothFont,
+				NSForegroundColorAttributeName: highlightColor
+		},
+	};
+#else
 	UIFontDescriptor *italicFontDescriptor = [baseFont.fontDescriptor fontDescriptorWithSymbolicTraits:(UIFontDescriptorTraitItalic)];
 	UIFontDescriptor *boldFontDescriptor = [baseFont.fontDescriptor fontDescriptorWithSymbolicTraits:(UIFontDescriptorTraitBold)];
 	UIFontDescriptor *boldItalicFontDescriptor = [baseFont.fontDescriptor fontDescriptorWithSymbolicTraits:(UIFontDescriptorTraitBold | UIFontDescriptorTraitItalic)];
-
+	
 	NSDictionary<MarkdownStyleKey, NSDictionary<NSAttributedStringKey, id> *> *styleAttributes = @{
 		MarkdownStyleEmphasisSingle: @{
 				NSFontAttributeName: [UIFont fontWithDescriptor:italicFontDescriptor size:baseFont.pointSize],
@@ -88,7 +108,8 @@
 				NSForegroundColorAttributeName: highlightColor
 		},
 	};
-
+#endif
+	
 	NSDictionary<NSAttributedStringKey,id> *attributes = @{ NSFontAttributeName: baseFont, NSForegroundColorAttributeName: bodyTextColor };
 
 	NSAttributedString *attributedString = [[NSAttributedString alloc] initWithMarkdownRepresentation:markdownString baseAttributes:attributes styleAttributes:styleAttributes];

@@ -149,11 +149,12 @@
 
 	if (fontInfo.isRegistered) {
 		cell.imageView.image = [UIImage systemImageNamed:@"checkmark.circle"];
+		cell.imageView.tintColor = [UIColor colorNamed:@"appHeaderBackground"];
 	}
 	else {
 		cell.imageView.image = [UIImage systemImageNamed:@"arrow.down.circle.fill"];
+		cell.imageView.tintColor = [UIColor colorNamed:@"infoBackground"];
 	}
-	cell.imageView.tintColor = [UIColor colorNamed:@"infoBackground"];
 	
 	UIView *selection = [UIView new];
 	selection.backgroundColor = [[UIColor colorNamed:@"infoBackground"] colorWithAlphaComponent:0.5];
@@ -359,46 +360,6 @@
 }
 
 #pragma mark -
-
-/*
-static NSString *const profilePayloadTemplate =
-	@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-	"<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">\n"
-	"<plist version=\"1.0\">\n"
-	"<dict>\n"
-	"	<key>PayloadType</key>\n"
-	"	<string>Configuration</string>\n"
-	"	<key>PayloadVersion</key>\n"
-	"	<integer>1</integer>\n"
-	"	<key>PayloadDisplayName</key>\n"
-	"	<string>xFonts Installation</string>\n"
-	"	<key>PayloadIdentifier</key>\n"
-	"	<string>com.iconfactory.xfonts</string>\n"
-	"	<key>PayloadUUID</key>\n"
-	"	<string>%@</string>\n"
-	"	<key>PayloadContent</key>\n"
-	"	<array>\n"
-	"%@\n"
-	"	</array>\n"
-	"</dict>\n"
-	"</plist>";
-
-static NSString *const fontPayloadTemplate =
-	@"		<dict>\n"
-	"			<key>PayloadType</key>\n"
-	"			<string>com.apple.font</string>\n"
-	"			<key>PayloadVersion</key>\n"
-	"			<integer>1</integer>\n"
-	"			<key>PayloadIdentifier</key>\n"
-	"			<string>com.iconfactory.xfonts.%@</string>\n"
-	"			<key>PayloadUUID</key>\n"
-	"			<string>%@</string>\n"
-	"			<key>Name</key>\n"
-	"			<string>%@</string>\n"
-	"			<key>Font</key>\n"
-	"			<data>%@</data>\n"
-	"		</dict>\n";
-*/
 
 static NSString *const profilePayloadTemplate =
 	@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
