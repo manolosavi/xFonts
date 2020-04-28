@@ -15,15 +15,16 @@
 @property (nonatomic, weak) IBOutlet UILabel *displayNameLabel;
 @property (nonatomic, weak) IBOutlet UILabel *familyNameLabel;
 @property (nonatomic, weak) IBOutlet UILabel *styleNameLabel;
+@property (nonatomic, weak) IBOutlet UILabel *monospacedLabel;
 @property (nonatomic, weak) IBOutlet UILabel *versionNameLabel;
+@property (nonatomic, weak) IBOutlet UILabel *glyphCountLabel;
+@property (nonatomic, weak) IBOutlet UILabel *copyrightLabel;
+@property (nonatomic, weak) IBOutlet UILabel *descriptionLabel;
+
 
 @property (nonatomic, weak) IBOutlet UIView *versionView;
 @property (nonatomic, weak) IBOutlet UIView *copyrightView;
 @property (nonatomic, weak) IBOutlet UIView *descriptionView;
-
-@property (nonatomic, weak) IBOutlet UILabel *glyphCountLabel;
-@property (nonatomic, weak) IBOutlet UILabel *copyrightLabel;
-@property (nonatomic, weak) IBOutlet UILabel *descriptionLabel;
 
 @property (nonatomic, weak) IBOutlet UIView *installWarningView;
 @property (nonatomic, weak) IBOutlet UIView *sampleBackgroundView;
@@ -60,6 +61,8 @@
 	self.displayNameLabel.text = self.fontInfo.displayName;
 	self.familyNameLabel.text = self.fontInfo.familyName;
 	self.styleNameLabel.text = self.fontInfo.styleName;
+
+	self.monospacedLabel.text = (self.fontInfo.isMonospaced ? @"Yes" : @"No");
 
 	self.glyphCountLabel.text = [NSNumberFormatter localizedStringFromNumber:@(self.fontInfo.numberOfGlyphs) numberStyle:NSNumberFormatterDecimalStyle];
 	if (self.fontInfo.versionName) {

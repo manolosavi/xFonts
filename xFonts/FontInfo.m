@@ -23,6 +23,7 @@
 @property (nonatomic, strong) NSString *versionName;
 @property (nonatomic, strong) NSString *styleName;
 @property (nonatomic, strong) NSString *familyName;
+@property (nonatomic, assign) BOOL isMonospaced;
 
 @property (nonatomic, assign) BOOL isRegistered;
 @property (nonatomic, assign) NSInteger numberOfGlyphs;
@@ -148,6 +149,9 @@
 					
 					self.familyName = CFBridgingRelease(CTFontCopyFamilyName(textFontRef));
 					
+					CTFontSymbolicTraits symbolicTraits = CTFontGetSymbolicTraits(textFontRef);
+					self.isMonospaced = (symbolicTraits & kCTFontTraitMonoSpace) != 0;
+
 					CFRelease(textFontRef);
 					CFRelease(fontRef);
 				}
