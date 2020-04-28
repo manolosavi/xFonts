@@ -29,6 +29,7 @@
 		449C16822450B1D90070226F /* Help.md in Resources */ = {isa = PBXBuildFile; fileRef = 449C16812450B1D90070226F /* Help.md */; };
 		44A20B042447DC4100BF15DA /* FontInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A20B032447DC4100BF15DA /* FontInfo.m */; };
 		44C12221244A8F3F00DD9481 /* NavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44C12220244A8F3F00DD9481 /* NavigationController.m */; };
+		44DDE6332457D40100AD7F8F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44DDE6312457D40100AD7F8F /* Launch Screen.storyboard */; };
 		44F6282D244B7EE300C8BBD7 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 44F6282C244B7EE300C8BBD7 /* DetailViewController.m */; };
 		9309F3511E4917B2002F2AB7 /* DDData.m in Sources */ = {isa = PBXBuildFile; fileRef = 9309F2FB1E4917B1002F2AB7 /* DDData.m */; };
 		9309F3521E4917B2002F2AB7 /* DDNumber.m in Sources */ = {isa = PBXBuildFile; fileRef = 9309F2FD1E4917B1002F2AB7 /* DDNumber.m */; };
@@ -95,6 +96,7 @@
 		44A20B032447DC4100BF15DA /* FontInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FontInfo.m; sourceTree = "<group>"; };
 		44C1221F244A8F3F00DD9481 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		44C12220244A8F3F00DD9481 /* NavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
+		44DDE6322457D40100AD7F8F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "xFonts/Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		44F6282B244B7EE300C8BBD7 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		44F6282C244B7EE300C8BBD7 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		9309F2FA1E4917B1002F2AB7 /* DDData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDData.h; sourceTree = "<group>"; };
@@ -378,6 +380,7 @@
 				44A20B022447DC4100BF15DA /* FontInfo.h */,
 				44A20B032447DC4100BF15DA /* FontInfo.m */,
 				93AE4C741E42C44B00D19E41 /* Main.storyboard */,
+				44DDE6312457D40100AD7F8F /* Launch Screen.storyboard */,
 				93AE4C771E42C44B00D19E41 /* Assets.xcassets */,
 				93320FD51E4EACCB0045C38C /* index.html */,
 				93AE4C7C1E42C44B00D19E41 /* Info.plist */,
@@ -464,6 +467,7 @@
 				93320FD61E4EACCC0045C38C /* index.html in Resources */,
 				93AE4C781E42C44B00D19E41 /* Assets.xcassets in Resources */,
 				93AE4C761E42C44B00D19E41 /* Main.storyboard in Resources */,
+				44DDE6332457D40100AD7F8F /* Launch Screen.storyboard in Resources */,
 				449C16822450B1D90070226F /* Help.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -566,6 +570,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		44DDE6312457D40100AD7F8F /* Launch Screen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				44DDE6322457D40100AD7F8F /* Base */,
+			);
+			name = "Launch Screen.storyboard";
+			sourceTree = "<group>";
+		};
 		93AE4C741E42C44B00D19E41 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
