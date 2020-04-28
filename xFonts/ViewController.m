@@ -38,19 +38,26 @@
 	[notificationCenter addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 	[notificationCenter addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
 
-	// TODO: Add importFonts to copy files from Documents/Inbox to top-level folder if they don't already exist?
-
 	[self loadFonts];
+	if ([self importFonts]) {
+		[self loadFonts];
+	}
+	
 	[self updateNavigation];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
-	
-	//if (self.fonts.count == 0) {
+
+#if 1
+	if (self.fonts.count == 0) {
 		[self showHelpOverlay];
-	//}
+	}
+#else
+	#warning TURN OFF OVERLAY OVERRIDE
+	[self showHelpOverlay];
+#endif
 }
 
 - (void)didReceiveMemoryWarning
@@ -99,9 +106,7 @@
 			viewController.delegate = self;
 			viewController.preferredControlTintColor = self.view.tintColor;
 			viewController.modalPresentationStyle = UIModalPresentationPageSheet;
-			[self presentViewController:viewController animated:YES completion:^{
-				// TODO: something here?
-			}];
+			[self presentViewController:viewController animated:YES completion:nil];
 		}
 	}];
 }
@@ -113,10 +118,7 @@
 	viewController.view.tintColor = self.view.tintColor;
 	viewController.allowsMultipleSelection = YES;
 	viewController.delegate = self;
-	
-	[self presentViewController:viewController animated:YES completion:^{
-		// TODO: something here?
-	}];
+	[self presentViewController:viewController animated:YES completion:nil];
 }
 
 #pragma mark - UITableViewDataSource
@@ -150,11 +152,10 @@
 	}
 	else {
 		cell.imageView.image = [UIImage systemImageNamed:@"arrow.down.circle.fill"];
-//		cell.imageView.image = [UIImage systemImageNamed:@"arrow.uturn.up.circle"];
 	}
 	
 	UIView *selection = [UIView new];
-	selection.backgroundColor = [UIColor colorNamed:@"appSelection"];
+	selection.backgroundColor = [UIColor colorNamed:@"appTint"];
 	cell.selectedBackgroundView = selection;
 	
 	return cell;
@@ -196,6 +197,67 @@
 }
 
 #pragma mark - Utility
+
+- (BOOL)importFonts
+{
+	BOOL result = NO;
+	
+	NSError *error = nil;
+	NSArray<NSURL *> *URLs = [NSFileManager.defaultManager contentsOfDirectoryAtURL:FontInfo.inboxURL includingPropertiesForKeys:nil options:(NSDirectoryEnumerationSkipsSubdirectoryDescendants) error:&error];
+	if (! URLs) {
+		ReleaseLog(@"%s error = %@", __PRETTY_FUNCTION__, error);
+	}
+	else {
+		if (URLs.count > 0) {
+			NSMutableArray *importableFonts = [NSMutableArray array];
+			
+			for (NSURL *URL in URLs) {
+				NSString *fileName = URL.lastPathComponent;
+				NSString *fileExtension = fileName.pathExtension;
+				
+				BOOL validFont = NO;
+				if ([fileExtension.lowercaseString isEqual:@"otf"]) {
+					validFont = YES;
+				}
+				else if ([fileExtension.lowercaseString isEqual:@"ttf"]) {
+					validFont = YES;
+				}
+				
+				if (validFont) {
+					FontInfo *importFontInfo = [[FontInfo alloc] initWithFileURL:URL];
+					
+					BOOL importable = YES;
+					for (FontInfo *fontInfo in self.fonts) {
+						if ([importFontInfo.postScriptName isEqual:fontInfo.postScriptName] || [importFontInfo.fileName isEqual:fontInfo.fileName]) {
+							[importFontInfo removeFile];
+							importable = NO;
+							break;
+						}
+					}
+					if (importable) {
+						[importableFonts addObject:importFontInfo];
+					}
+				}
+			}
+			
+			if (importableFonts.count > 0) {
+				for (FontInfo *importableFont in importableFonts) {
+					NSURL *destinationURL = [FontInfo.storageURL URLByAppendingPathComponent:importableFont.fileName];
+					NSError *error;
+					BOOL success = [NSFileManager.defaultManager moveItemAtURL:importableFont.fileURL toURL:destinationURL error:&error];
+					if (! success) {
+						ReleaseLog(@"%s error = %@", __PRETTY_FUNCTION__, error);
+					}
+					else {
+						result = YES;
+					}
+				}
+			}
+		}
+	}
+	
+	return result;
+}
 
 - (void)loadFonts
 {
@@ -432,9 +494,15 @@ static NSString *const fontPayloadTemplate =
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-	DebugLog(@"%s refreshing font info...", __PRETTY_FUNCTION__);
-	for (FontInfo *fontInfo in self.fonts) {
-		[fontInfo refresh];
+	if ([self importFonts]) {
+		DebugLog(@"%s reloading font info...", __PRETTY_FUNCTION__);
+		[self loadFonts];
+	}
+	else {
+		DebugLog(@"%s refreshing font info...", __PRETTY_FUNCTION__);
+		for (FontInfo *fontInfo in self.fonts) {
+			[fontInfo refresh];
+		}
 	}
 }
 

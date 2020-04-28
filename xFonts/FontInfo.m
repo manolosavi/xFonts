@@ -38,6 +38,11 @@
 	return URLs.firstObject;
 }
 
++ (NSURL *)inboxURL
+{
+	return [self.storageURL URLByAppendingPathComponent:@"Inbox"];
+}
+
 - (instancetype)initWithFileURL:(NSURL *)fileURL
 {
 	if ((self = [self init])) {

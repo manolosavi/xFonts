@@ -95,31 +95,4 @@
 	self.textView.attributedText = attributedString;
 }
 
-/*
-const CGFloat fontSize = 20.0;
-
-- (NSDictionary<NSAttributedStringKey, id> *)baseAttributes
-{
-	return @{ NSFontAttributeName:[UIFont systemFontOfSize:fontSize], NSForegroundColorAttributeName: UIColor.labelColor };
-}
-
-- (NSDictionary<MarkdownStyleKey, NSDictionary<NSAttributedStringKey, id> *> *)styleAttributes
-{
-	return @{
-		MarkdownStyleEmphasisSingle: @{
-				NSFontAttributeName: [UIFont italicSystemFontOfSize:fontSize],
-				NSForegroundColorAttributeName: [UIColor colorNamed:@"appTint"]
-		},
-		MarkdownStyleEmphasisDouble: @{
-				NSFontAttributeName: [UIFont boldSystemFontOfSize:fontSize],
-				NSForegroundColorAttributeName: [UIColor colorNamed:@"appTint"]
-		},
-		MarkdownStyleEmphasisBoth: @{
-				NSFontAttributeName: [UIFont boldSystemFontOfSize:fontSize],
-				NSForegroundColorAttributeName: [UIColor colorNamed:@"appTint"]
-		},
-	};
-}
-*/
-
 @end

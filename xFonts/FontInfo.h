@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface FontInfo : NSObject
 
 @property (class, nonatomic, readonly) NSURL *storageURL;
+@property (class, nonatomic, readonly) NSURL *inboxURL;
 
 - (instancetype)initWithFileURL:(NSURL *)fileURL;
 
