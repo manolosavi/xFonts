@@ -77,21 +77,6 @@
 	return self.fileURL.lastPathComponent;
 }
 
-//- (BOOL)isRegistered
-//{
-//	BOOL result = NO;
-//	
-//	[self unregisterFont];
-//	CGFontRef fontRef = CGFontCreateWithFontName((CFStringRef)self.postScriptName);
-//	if (fontRef) {
-//		result = YES;
-//		CFRelease(fontRef);
-//	}
-//	[self registerFont];
-//	
-//	return result;
-//}
-
 #pragma mark -
 
 - (void)refresh

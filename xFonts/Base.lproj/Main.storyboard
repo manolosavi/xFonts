@@ -676,7 +676,7 @@ Gedeon Maheux</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconfactory_logo" translatesAutoresizingMaskIntoConstraints="NO" id="OEy-Nw-MIH">
-                                <rect key="frame" x="175" y="463.5" width="64" height="64"/>
+                                <rect key="frame" x="191" y="495.5" width="32" height="32"/>
                                 <color key="tintColor" name="infoHighightSecondary"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="design by the iconfactory" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UMc-xU-7A4">
@@ -686,7 +686,7 @@ Gedeon Maheux</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="POK-iA-bdr">
-                                <rect key="frame" x="125" y="463.5" width="164" height="89"/>
+                                <rect key="frame" x="125" y="495.5" width="164" height="57"/>
                                 <connections>
                                     <action selector="openIconfactory:" destination="512-d6-5g3" eventType="touchUpInside" id="4BP-z7-39j"/>
                                 </connections>

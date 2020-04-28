@@ -204,54 +204,57 @@
 {
 	BOOL result = NO;
 	
-	NSError *error = nil;
-	NSArray<NSURL *> *URLs = [NSFileManager.defaultManager contentsOfDirectoryAtURL:FontInfo.inboxURL includingPropertiesForKeys:nil options:(NSDirectoryEnumerationSkipsSubdirectoryDescendants) error:&error];
-	if (! URLs) {
-		ReleaseLog(@"%s error = %@", __PRETTY_FUNCTION__, error);
-	}
-	else {
-		if (URLs.count > 0) {
-			NSMutableArray *importableFonts = [NSMutableArray array];
-			
-			for (NSURL *URL in URLs) {
-				NSString *fileName = URL.lastPathComponent;
-				NSString *fileExtension = fileName.pathExtension;
+	BOOL isDirectory = NO;
+	if ([NSFileManager.defaultManager fileExistsAtPath:FontInfo.inboxURL.path isDirectory:&isDirectory] && isDirectory) {
+		NSError *error = nil;
+		NSArray<NSURL *> *URLs = [NSFileManager.defaultManager contentsOfDirectoryAtURL:FontInfo.inboxURL includingPropertiesForKeys:nil options:(NSDirectoryEnumerationSkipsSubdirectoryDescendants) error:&error];
+		if (! URLs) {
+			ReleaseLog(@"%s contents error = %@", __PRETTY_FUNCTION__, error);
+		}
+		else {
+			if (URLs.count > 0) {
+				NSMutableArray *importableFonts = [NSMutableArray array];
 				
-				BOOL validFont = NO;
-				if ([fileExtension.lowercaseString isEqual:@"otf"]) {
-					validFont = YES;
-				}
-				else if ([fileExtension.lowercaseString isEqual:@"ttf"]) {
-					validFont = YES;
-				}
-				
-				if (validFont) {
-					FontInfo *importFontInfo = [[FontInfo alloc] initWithFileURL:URL];
+				for (NSURL *URL in URLs) {
+					NSString *fileName = URL.lastPathComponent;
+					NSString *fileExtension = fileName.pathExtension;
 					
-					BOOL importable = YES;
-					for (FontInfo *fontInfo in self.fonts) {
-						if ([importFontInfo.postScriptName isEqual:fontInfo.postScriptName] || [importFontInfo.fileName isEqual:fontInfo.fileName]) {
-							[importFontInfo removeFile];
-							importable = NO;
-							break;
+					BOOL validFont = NO;
+					if ([fileExtension.lowercaseString isEqual:@"otf"]) {
+						validFont = YES;
+					}
+					else if ([fileExtension.lowercaseString isEqual:@"ttf"]) {
+						validFont = YES;
+					}
+					
+					if (validFont) {
+						FontInfo *importFontInfo = [[FontInfo alloc] initWithFileURL:URL];
+						
+						BOOL importable = YES;
+						for (FontInfo *fontInfo in self.fonts) {
+							if ([importFontInfo.postScriptName isEqual:fontInfo.postScriptName] || [importFontInfo.fileName isEqual:fontInfo.fileName]) {
+								[importFontInfo removeFile];
+								importable = NO;
+								break;
+							}
+						}
+						if (importable) {
+							[importableFonts addObject:importFontInfo];
 						}
 					}
-					if (importable) {
-						[importableFonts addObject:importFontInfo];
-					}
 				}
-			}
-			
-			if (importableFonts.count > 0) {
-				for (FontInfo *importableFont in importableFonts) {
-					NSURL *destinationURL = [FontInfo.storageURL URLByAppendingPathComponent:importableFont.fileName];
-					NSError *error;
-					BOOL success = [NSFileManager.defaultManager moveItemAtURL:importableFont.fileURL toURL:destinationURL error:&error];
-					if (! success) {
-						ReleaseLog(@"%s error = %@", __PRETTY_FUNCTION__, error);
-					}
-					else {
-						result = YES;
+				
+				if (importableFonts.count > 0) {
+					for (FontInfo *importableFont in importableFonts) {
+						NSURL *destinationURL = [FontInfo.storageURL URLByAppendingPathComponent:importableFont.fileName];
+						NSError *error;
+						BOOL success = [NSFileManager.defaultManager moveItemAtURL:importableFont.fileURL toURL:destinationURL error:&error];
+						if (! success) {
+							ReleaseLog(@"%s move error = %@", __PRETTY_FUNCTION__, error);
+						}
+						else {
+							result = YES;
+						}
 					}
 				}
 			}
