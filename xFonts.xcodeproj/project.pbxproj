@@ -97,6 +97,7 @@
 		44C1221F244A8F3F00DD9481 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		44C12220244A8F3F00DD9481 /* NavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
 		44DDE6322457D40100AD7F8F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "xFonts/Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
+		44DDE6342458CFB200AD7F8F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		44F6282B244B7EE300C8BBD7 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		44F6282C244B7EE300C8BBD7 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		9309F2FA1E4917B1002F2AB7 /* DDData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDData.h; sourceTree = "<group>"; };
@@ -341,6 +342,7 @@
 		93AE4C5F1E42C44B00D19E41 = {
 			isa = PBXGroup;
 			children = (
+				44DDE6342458CFB200AD7F8F /* README.md */,
 				93AE4C6A1E42C44B00D19E41 /* xFonts */,
 				93AE4C691E42C44B00D19E41 /* Products */,
 			);
