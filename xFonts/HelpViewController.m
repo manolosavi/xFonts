@@ -70,9 +70,11 @@
 
 	UIFont *baseFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
 
-#if 1
-	UIFont *emphasisSingleFont = [UIFont italicSystemFontOfSize:baseFont.pointSize];
-	UIFont *emphasisDoubleFont = [UIFont boldSystemFontOfSize:baseFont.pointSize];
+	UIFont *emphasisBaseFont = [UIFont systemFontOfSize:baseFont.pointSize weight:UIFontWeightMedium];
+	UIFontDescriptor *emphasisSingleFontDescriptor = [emphasisBaseFont.fontDescriptor fontDescriptorWithSymbolicTraits:(UIFontDescriptorTraitItalic | UIFontDescriptorTraitBold)];
+	
+	UIFont *emphasisSingleFont = [UIFont fontWithDescriptor:emphasisSingleFontDescriptor size:baseFont.pointSize];
+	UIFont *emphasisDoubleFont = emphasisBaseFont;
 	UIFont *emphasisBothFont = [UIFont systemFontOfSize:baseFont.pointSize weight:UIFontWeightHeavy];
 	
 	NSDictionary<MarkdownStyleKey, NSDictionary<NSAttributedStringKey, id> *> *styleAttributes = @{
@@ -89,26 +91,6 @@
 				NSForegroundColorAttributeName: highlightColor
 		},
 	};
-#else
-	UIFontDescriptor *italicFontDescriptor = [baseFont.fontDescriptor fontDescriptorWithSymbolicTraits:(UIFontDescriptorTraitItalic)];
-	UIFontDescriptor *boldFontDescriptor = [baseFont.fontDescriptor fontDescriptorWithSymbolicTraits:(UIFontDescriptorTraitBold)];
-	UIFontDescriptor *boldItalicFontDescriptor = [baseFont.fontDescriptor fontDescriptorWithSymbolicTraits:(UIFontDescriptorTraitBold | UIFontDescriptorTraitItalic)];
-	
-	NSDictionary<MarkdownStyleKey, NSDictionary<NSAttributedStringKey, id> *> *styleAttributes = @{
-		MarkdownStyleEmphasisSingle: @{
-				NSFontAttributeName: [UIFont fontWithDescriptor:italicFontDescriptor size:baseFont.pointSize],
-				NSForegroundColorAttributeName: emphasisColor
-		},
-		MarkdownStyleEmphasisDouble: @{
-				NSFontAttributeName: [UIFont fontWithDescriptor:boldFontDescriptor size:baseFont.pointSize],
-				NSForegroundColorAttributeName: emphasisColor
-		},
-		MarkdownStyleEmphasisBoth: @{
-				NSFontAttributeName: [UIFont fontWithDescriptor:boldItalicFontDescriptor size:baseFont.pointSize],
-				NSForegroundColorAttributeName: highlightColor
-		},
-	};
-#endif
 	
 	NSDictionary<NSAttributedStringKey,id> *attributes = @{ NSFontAttributeName: baseFont, NSForegroundColorAttributeName: bodyTextColor };
 

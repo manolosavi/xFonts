@@ -34,6 +34,8 @@
 {
 	[super viewDidLoad];
 
+	DebugLog(@"%s font storage path = '%@'", __PRETTY_FUNCTION__, FontInfo.storageURL.path);
+	
 	NSNotificationCenter *notificationCenter = NSNotificationCenter.defaultCenter;
 	[notificationCenter addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 	[notificationCenter addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
@@ -49,14 +51,17 @@
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
-
-#if 1
+	
 	if (self.fonts.count == 0) {
 		[self showHelpOverlay];
 	}
-#else
-	#warning TURN OFF OVERLAY OVERRIDE
-	[self showHelpOverlay];
+#ifdef DEBUG
+	#if 0 // turn this on to always show the help overlay while testing
+	#warning OVERLAY OVERRIDE IS ENABLED
+	if (self.fonts.count != 0) {
+		[self showHelpOverlay];
+	}
+	#endif
 #endif
 }
 
@@ -93,7 +98,7 @@
 			NSString *message = [NSString stringWithFormat:@"The mobile configuration profile could not be created.\n\nThe error was '%@'", error.localizedDescription];
 			UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Install Error" message:message preferredStyle:UIAlertControllerStyleAlert];
 			alertController.view.tintColor = self.view.tintColor;
-			[alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:nil]];
+			[alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
 			
 			[self presentViewController:alertController animated:YES completion:nil];
 		}

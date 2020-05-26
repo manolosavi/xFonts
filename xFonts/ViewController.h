@@ -9,17 +9,8 @@
 @import UIKit;
 @import CoreText;
 
-//#import "PresentationBlurAnimator.h"
-//#import "DismissBlurAnimator.h"
-
 #import "FontInfo.h"
 
 @interface ViewController : UITableViewController
-//
-//@property (nonatomic, weak) IBOutlet UITableView *tableView;
-//@property (nonatomic, weak) IBOutlet UIBarButtonItem *installButton;
-//@property (nonatomic, weak) IBOutlet UIBarButtonItem *addButton;
-//
-//@property (nonatomic, strong) NSArray<FontInfo *> *fonts;
 
 @end
