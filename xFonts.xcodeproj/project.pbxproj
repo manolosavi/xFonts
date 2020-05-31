@@ -96,6 +96,16 @@
 		44A20B032447DC4100BF15DA /* FontInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FontInfo.m; sourceTree = "<group>"; };
 		44C1221F244A8F3F00DD9481 /* NavigationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NavigationController.h; sourceTree = "<group>"; };
 		44C12220244A8F3F00DD9481 /* NavigationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NavigationController.m; sourceTree = "<group>"; };
+		44D14CC224843725007E8BD9 /* Metadata.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Metadata.txt; sourceTree = "<group>"; };
+		44D14CC524843C89007E8BD9 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
+		44D14CC624843C89007E8BD9 /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
+		44D14CC724843C89007E8BD9 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
+		44D14CC924843C89007E8BD9 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
+		44D14CCA24843C89007E8BD9 /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
+		44D14CCB24843C89007E8BD9 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
+		44D14CCD24843C89007E8BD9 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
+		44D14CCE24843C89007E8BD9 /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
+		44D14CCF24843C89007E8BD9 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		44DDE6322457D40100AD7F8F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "xFonts/Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		44DDE6342458CFB200AD7F8F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		44F6282B244B7EE300C8BBD7 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
@@ -194,6 +204,46 @@
 				443576DD2450AFA200669EEB /* NSAttributedString+Markdown.m */,
 			);
 			path = MarkdownAttributedString;
+			sourceTree = "<group>";
+		};
+		44D14CC324843C89007E8BD9 /* Metadata */ = {
+			isa = PBXGroup;
+			children = (
+				44D14CC424843C89007E8BD9 /* Screenshot-6.5 */,
+				44D14CC824843C89007E8BD9 /* Screenshot-5.5 */,
+				44D14CCC24843C89007E8BD9 /* Screenshot-12.9 */,
+			);
+			path = Metadata;
+			sourceTree = "<group>";
+		};
+		44D14CC424843C89007E8BD9 /* Screenshot-6.5 */ = {
+			isa = PBXGroup;
+			children = (
+				44D14CC724843C89007E8BD9 /* 1.png */,
+				44D14CC524843C89007E8BD9 /* 2.png */,
+				44D14CC624843C89007E8BD9 /* 3.png */,
+			);
+			path = "Screenshot-6.5";
+			sourceTree = "<group>";
+		};
+		44D14CC824843C89007E8BD9 /* Screenshot-5.5 */ = {
+			isa = PBXGroup;
+			children = (
+				44D14CCB24843C89007E8BD9 /* 1.png */,
+				44D14CC924843C89007E8BD9 /* 2.png */,
+				44D14CCA24843C89007E8BD9 /* 3.png */,
+			);
+			path = "Screenshot-5.5";
+			sourceTree = "<group>";
+		};
+		44D14CCC24843C89007E8BD9 /* Screenshot-12.9 */ = {
+			isa = PBXGroup;
+			children = (
+				44D14CCF24843C89007E8BD9 /* 1.png */,
+				44D14CCD24843C89007E8BD9 /* 2.png */,
+				44D14CCE24843C89007E8BD9 /* 3.png */,
+			);
+			path = "Screenshot-12.9";
 			sourceTree = "<group>";
 		};
 		9309F2F61E4917B1002F2AB7 /* RoutingHTTPServer */ = {
@@ -342,6 +392,8 @@
 		93AE4C5F1E42C44B00D19E41 = {
 			isa = PBXGroup;
 			children = (
+				44D14CC224843725007E8BD9 /* Metadata.txt */,
+				44D14CC324843C89007E8BD9 /* Metadata */,
 				44DDE6342458CFB200AD7F8F /* README.md */,
 				93AE4C6A1E42C44B00D19E41 /* xFonts */,
 				93AE4C691E42C44B00D19E41 /* Products */,
