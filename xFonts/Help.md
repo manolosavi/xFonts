@@ -1,14 +1,14 @@
 
 **_Welcome to $(PRODUCT_NAME)_**
 
-If you've used fonts on macOS, you'll be familiar with Font Book and other tools that let you manage your typeface collection. In a similar vein, $(PRODUCT_NAME) is an app that lets you manage your fonts on iOS. You can import your favorite fonts from iCloud Drive or Dropbox, preview the fonts and their metadata, then create an installer for the Settings app. After installation, your fonts can be used by any application.
+If you’ve used fonts on macOS, you’ll be familiar with Font Book and other tools that let you manage your typeface collection. In a similar vein, $(PRODUCT_NAME) is an app that lets you manage your fonts on iOS. You can import your favorite fonts from iCloud Drive or Dropbox, preview the fonts and their metadata, then create an installer for the Settings app. After installation, your fonts can be used by any application.
 
 The process on iOS is more complicated than putting font files in folder, so if you get stuck, come back to this page for help.
 
 
 **_Overview_**
 
-The overall approach is to copy font files from either iCloud Drive or Dropbox onto your device using the **Import** button. Once they’re stored locally, you’ll use **Install** to create a mobile device configuration profile. Since you don't have direct access to the folder where fonts are stored, the _Settings_ app uses the configuration profile to add fonts in a way that makes them available to all apps.
+The overall approach is to copy font files from either iCloud Drive or Dropbox onto your device using the **Import** button. Once they’re stored locally, you’ll use **Install** to create a mobile device configuration profile. Since you don’t have direct access to the folder where fonts are stored, the _Settings_ app uses the configuration profile to add fonts in a way that makes them available to all apps.
 
 The fonts you add to $(PRODUCT_NAME) can also be previewed by tapping on the name. When you add a new font to the list, it will be highlighted and you will be prompted to create a new installer: the new faces won’t be available to the system until they are registered with _Settings_.
 
@@ -34,7 +34,7 @@ You should be careful about downloading configuration profiles. You’re giving 
 
 This is the first instance where you need to trust $(PRODUCT_NAME). You should only tap _Allow_ if you have confidence in both the contents and source of the configuration profile.
 
-To establish this trust, the source code of this app is [available for review](https://github.com/manolosavi/xFonts). $(PRODUCT_NAME) is backed by a company that‘s treated customers with respect for [over 20 years](https://iconfactory.com/20years). The [Iconfactory](https://iconfactory.com) contributed their expertise to the xFonts open source project because its inner workings were completely transparent. If this doesn't give you enough peace of mind, you can build and run the app yourself using Xcode.
+To establish this trust, the source code of this app is [available for review](https://github.com/manolosavi/xFonts). $(PRODUCT_NAME) is backed by a company that’s treated customers with respect for [over 20 years](https://iconfactory.com/20years). The [Iconfactory](https://iconfactory.com) contributed their expertise to the xFonts open source project because its inner workings were completely transparent. If this doesn’t give you enough peace of mind, you can build and run the app yourself using Xcode.
 
 If you do decide to tap _Allow_ you’ll see a dialog that tells you to review the profile in _Settings_ and no other information. Tap _Close_ and you’re ready for the next phase of installation.
 
@@ -43,7 +43,7 @@ If you do decide to tap _Allow_ you’ll see a dialog that tells you to review t
 
 Open the _Settings_ app and you’ll see a _Profile Downloaded_ button above the Airplane Mode switch. (If not, navigate to _General_ > _Profiles_ > _Downloaded Profile_ > _$(PRODUCT_NAME) Installation_.) After tapping the button, the first thing you’ll see is “Not Signed” highlighted in red.
 
-This is another instance where you need to trust the source of the profile and its contents. Since the profile was generated on your device, there’s no risk that it was modified in transit. This also means there's no way to sign a profile locally without exposing a secret: the private key would have to be in the app’s source code or resources.
+This is another instance where you need to trust the source of the profile and its contents. Since the profile was generated on your device, there’s no risk that it was modified in transit. This also means there’s no way to sign a profile locally without exposing a secret: the private key would have to be in the app’s source code or resources.
 
 If you tap on _More Details_ you’ll be able to verify that only fonts are included in the profile. The integrity of those fonts can only be determined by reviewing source code or trusting the developer providing the app. Tap the _back button_ and then tap on _Install_ in the upper-right corner.
 
@@ -58,4 +58,4 @@ iOS takes some time to get things sorted out so you may not see the fonts immedi
 
 Remember that you’ll need to go through the whole installation process again if you add any new type to $(PRODUCT_NAME). Your original profile is replaced after a download, but you still need to authorize the fonts with a passcode.
 
-If you'd like this process to be easier, [please give Apple some feedback](https://www.apple.com/feedback/iphone.html).
+If you’d like this process to be easier, [please give Apple some feedback](https://www.apple.com/feedback/iphone.html).
