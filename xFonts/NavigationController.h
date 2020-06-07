@@ -1,8 +1,8 @@
 //
-//  HelpViewController.h
+//  NavigationController.h
 //  xFonts
 //
-//  Created by Craig Hockenberry on 4/22/20.
+//  Created by Craig Hockenberry on 4/17/20.
 //  Copyright © 2020 manolo. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HelpViewController : UIViewController
+@interface NavigationController : UINavigationController
 
 @end
 

@@ -1,5 +1,5 @@
 //
-//  HelpViewController.h
+//  HeaderView.h
 //  xFonts
 //
 //  Created by Craig Hockenberry on 4/22/20.
@@ -10,7 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface HelpViewController : UIViewController
+@interface HeaderView : UIView
+
+- (void)setFontAddedCount:(NSInteger)addedCount installCount:(NSInteger)installCount;
 
 @end
 

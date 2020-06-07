@@ -5,54 +5,116 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 		
 	<style type="text/css">
+	* {
+		border: 0px;
+		margin: 0px;
+		padding: 0px;
+		text-decoration: none;
+		color: red;
+		font: 18px -apple-system, Helvetica Neue;
+		box-sizing: border-box;
+	}
+	
+	h1 {
+		font-size: 20px;
+		font-weight: 700;
+		margin: 20px auto;
+		margin-top: 40px;
+		text-align: center;
+	}
+	
+	p {
+		font-weight: 400;
+		margin: 10px auto;
+		max-width: 500px;
+	}
+	
+	a {
+		color: red;
+		font-weight: 600;
+	}
+
+	a.button {
+		color: white;
+		background-color: red;
+		display: block;
+		padding: 10px;
+		margin: 20px auto;
+		border-radius: 4px;
+		text-align: center;
+		font-weight: 600;
+		max-width: 250px;
+	}
+	
+
+	strong {
+		font-weight: 600;
+	}
+	
+	em {
+		font-weight: 600;
+		font-style: italic;
+	}
+	
+	body {
+		padding: 0 20px;
+		background-color: clear;
+	}
+		
+	@media (prefers-color-scheme: light) {
 		* {
-			border: 0px;
-			margin: 0px;
-			padding: 0px;
-			text-decoration: none;
-			color: #000;
-			font: 18px -apple-system, Helvetica Neue;
-			box-sizing: border-box;
+			color: #8a8a8a;
 		}
-		
-		h1 {
-			font-size: 26px;
-			font-weight: 800;
-			margin: 30px auto;
-		}
-		
-		h2, h2 a {
-			font-variant: small-caps;
-			font-size: 20px;
-			font-weight: 700;
-		}
-		
-		p {
-			padding-bottom: 10px;
-			font-weight: 400;
-		}
-		
-		a {
-			color: #6B47B3;
-			text-decoration: underline;
-		}
-		
 		body {
-			padding: 0 20px;
-			background: #f0f1f2;
+			background-color: white;
 		}
-		
-		h1, p {
-			max-width: 960px;
+		h1 {
+			color: black;
 		}
+		a {
+			color: #775BBA;
+		}
+		a.button {
+			color: white;
+			background-color: #775BBA;
+		}
+		strong, em {
+			color: rgba(0, 0, 0, 60);
+		}
+	}
+	
+	@media (prefers-color-scheme: dark) {
+		* {
+			color: #8d8d8d;
+		}
+		body {
+			background-color: black;
+		}
+		h1 {
+			color: white;
+		}
+		a {
+			color: #A086DD;
+		}
+		a.button {
+			color: white;
+			background-color: #A086DD;
+		}
+		strong, em {
+			color: rgba(255, 255, 255, 80);
+		}
+	}
+
 	</style>
 	
-	<title>xFonts - Install Profile</title>
+	<title>Install</title>
 </head>
-<body>
-	<h1>xFonts - Install Profile</h1>
+<body bgcolor="clear">
+	<h1>Fonts Ready to Download</h1>
 	
-	<p>After installing the profile, all the fonts you selected will be available for you to use in apps like Pages, Numbers, Keynote, and more.</p>
-	<h2>Tap <a href="/xFonts.mobileconfig">here</a> to install your fonts.</h2>
+	<p>A configuration profile with your fonts is ready to download into Settings. Tap the button below to begin, then tap <strong>Allow</strong> when prompted.</p>
+	<a class="button" href="/xFonts.mobileconfig">Download Fonts</a>
+	<p>When you see the confirmation alert on this page, open the <em>Settings</em> app and navigate to <strong>General</strong> > <strong>Profile</strong> to install the <em>$(PRODUCT_NAME) Installation</em> profile.</p>
+	<p>After Settings are updated, the fonts will appear in other apps like Pages, Keynote, Numbers, and <a href="https://tot.rocks">Tot</a>.</p>
 </body>
 </html>

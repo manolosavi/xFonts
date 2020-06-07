@@ -6,341 +6,517 @@
 //  Copyright © 2017 manolo. All rights reserved.
 //
 
+#import <SafariServices/SafariServices.h>
+
 #import "ViewController.h"
+
+#import "DetailViewController.h"
+#import "TabBarController.h"
+#import "HeaderView.h"
 #import "RoutingHTTPServer.h"
 
-@interface ViewController () {
-	RoutingHTTPServer *http;
-	BOOL fullSelection;
-}
+#import "DebugLog.h"
+
+@interface ViewController () <SFSafariViewControllerDelegate, UIDocumentPickerDelegate>
+
+@property (nonatomic, strong) RoutingHTTPServer *http;
+
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *installButton;
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *addButton;
+
+@property (nonatomic, strong) NSArray<FontInfo *> *fonts;
 
 @end
 
 @implementation ViewController
 
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
 	[super viewDidLoad];
+
+	DebugLog(@"%s font storage path = '%@'", __PRETTY_FUNCTION__, FontInfo.storageURL.path);
 	
-//	Set self as observer for the "reloadFonts" notification to reload the TableView data when the application
-//	comes back to the foreground or is opened via the "Copy to xFonts" option in another app
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadFonts) name:@"reloadFonts" object:nil];
-	
-	
-	_selectedFonts = [NSMutableArray array];
-	fullSelection = true;
-	
-	[_selectButton setPossibleTitles:[NSSet setWithObjects: @"None", @"All", nil]];
-	
-	_noFontsView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"pattern"]];
-	
-	[self startHTTPServer];
+	NSNotificationCenter *notificationCenter = NSNotificationCenter.defaultCenter;
+	[notificationCenter addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+	[notificationCenter addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+
 	[self loadFonts];
-}
-
-/**
- Ennumerates through all files in the Documents directory to look for fonts to show on the TableView.
- */
-- (void)loadFonts {
-	NSString *file;
-	NSMutableArray *tempFonts = [NSMutableArray array];
-	NSDirectoryEnumerator *dirEnum = [[NSFileManager defaultManager] enumeratorAtPath:[NSHomeDirectory() stringByAppendingPathComponent:@"Documents"]];
-	while ((file = [dirEnum nextObject])) {
-		if ([[file pathExtension] isEqualToString:@"otf"] || [[file pathExtension] isEqualToString:@"ttf"]) {
-			NSString *fontName = [[file lastPathComponent] stringByReplacingOccurrencesOfString:@".otf" withString:@""];
-			[fontName stringByReplacingOccurrencesOfString:@".ttf" withString:@""];
-			
-//			Registers the font for use, this way we can show each row with its respective font as a preview.
-			NSData *fontData = [[NSData alloc] initWithContentsOfURL:[self urlForFile:file]];
-			CFErrorRef error;
-			CGDataProviderRef provider = CGDataProviderCreateWithCFData((CFDataRef)fontData);
-			CGFontRef font = CGFontCreateWithDataProvider(provider);
-			if (!CTFontManagerRegisterGraphicsFont(font, &error)) {
-				CFStringRef errorDescription = CFErrorCopyDescription(error);
-				if (CFErrorGetCode(error) != 105) {
-					NSLog(@"Failed to load font: %@", errorDescription);
-				}
-				CFRelease(errorDescription);
-			} else {
-				fontName = (NSString *)CFBridgingRelease(CGFontCopyPostScriptName(font));
-			}
-			CFRelease(font);
-			CFRelease(provider);
-			
-			[tempFonts addObject:[@{@"file":file, @"name":fontName} mutableCopy]];
-		}
-		[_selectedFonts addObject:@1];
+	if ([self importFonts]) {
+		[self loadFonts];
 	}
-	_allFonts = tempFonts;
 	
-	[_tableView reloadData];
+	[self updateNavigation];
 }
 
-- (void)didReceiveMemoryWarning {
+- (void)viewDidAppear:(BOOL)animated
+{
+	[super viewDidAppear:animated];
+	
+	if (self.fonts.count == 0) {
+		[self showHelpOverlay];
+	}
+#ifdef DEBUG
+	#if 0 // turn this on to always show the help overlay while testing
+	#warning OVERLAY OVERRIDE IS ENABLED
+	if (self.fonts.count != 0) {
+		[self showHelpOverlay];
+	}
+	#endif
+#endif
+}
+
+- (void)didReceiveMemoryWarning
+{
 	[super didReceiveMemoryWarning];
 }
 
-/**
- Called when the TableView reloads, depending on the shouldShow parameter, the noFontsView will be added or removed.
+#pragma mark - Navigation
 
- @param shouldShow true when the TableView is empty
- */
-- (void)showNoFontsView:(BOOL)shouldShow {
-	if (shouldShow) {
-		_tableView.hidden = true;
-		_installButton.enabled = false;
-		_selectButton.enabled = false;
-		[self.view addSubview:_noFontsView];
-		_noFontsView.translatesAutoresizingMaskIntoConstraints = false;
-		
-//		Constraints to make noFontsView the same size as it's superview
-		NSLayoutConstraint *centerX = [NSLayoutConstraint constraintWithItem:_noFontsView attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:_noFontsView.superview attribute:NSLayoutAttributeCenterX multiplier:1 constant:0];
-		NSLayoutConstraint *centerY = [NSLayoutConstraint constraintWithItem:_noFontsView attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:_noFontsView.superview attribute:NSLayoutAttributeCenterY multiplier:1 constant:0];
-		NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:_noFontsView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:_noFontsView.superview attribute:NSLayoutAttributeWidth multiplier:1 constant:0];
-		NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:_noFontsView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:_noFontsView.superview attribute:NSLayoutAttributeHeight multiplier:1 constant:0];
-		[_noFontsView.superview addConstraints:@[centerX, centerY, widthConstraint, heightConstraint]];
-		
-	} else {
-		_tableView.hidden = false;
-		[_noFontsView removeFromSuperview];
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+	if ([segue.destinationViewController isKindOfClass:[DetailViewController class]]) {
+		DetailViewController *viewController = (DetailViewController *)segue.destinationViewController;
+		NSIndexPath *selectedIndexPath = self.tableView.indexPathForSelectedRow;
+		if (selectedIndexPath) {
+			NSInteger selectedIndex = selectedIndexPath.item;
+			if (selectedIndex >= 0 && selectedIndex < self.fonts.count) {
+				FontInfo *fontInfo = self.fonts[selectedIndex];
+				viewController.fontInfo = fontInfo;
+			}
+		}
 	}
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
 }
 
-#pragma mark - UITableView Delegate
+#pragma mark - Actions
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+- (IBAction)installProfile:(id)sender
+{
+	[self saveFontsProfile:^(NSError *error) {
+		if (error) {
+			NSString *message = [NSString stringWithFormat:@"The mobile configuration profile could not be created.\n\nThe error was '%@'", error.localizedDescription];
+			UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Install Error" message:message preferredStyle:UIAlertControllerStyleAlert];
+			alertController.view.tintColor = self.view.tintColor;
+			[alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+			
+			[self presentViewController:alertController animated:YES completion:nil];
+		}
+		else {
+			[self startHTTPServer];
+			
+			NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://localhost:3333/"]];
+
+			SFSafariViewController *viewController = [[SFSafariViewController alloc] initWithURL:URL];
+			viewController.delegate = self;
+			viewController.preferredControlTintColor = self.view.tintColor;
+			viewController.modalPresentationStyle = UIModalPresentationPageSheet;
+			[self presentViewController:viewController animated:YES completion:nil];
+		}
+	}];
+}
+
+- (IBAction)addFonts:(id)sender
+{
+	NSArray<NSString *> *allowedUTIs = @[ @"public.truetype-font" , @"public.opentype-font"];
+	UIDocumentPickerViewController *viewController = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:allowedUTIs inMode:UIDocumentPickerModeImport];
+	viewController.view.tintColor = self.view.tintColor;
+	viewController.allowsMultipleSelection = YES;
+	viewController.delegate = self;
+	[self presentViewController:viewController animated:YES completion:nil];
+}
+
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
 	return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	[self showNoFontsView:_allFonts.count == 0];
-	return _allFonts.count;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+	return self.fonts.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-	NSString *fontURL = _allFonts[indexPath.row][@"file"];
 	
-	cell.textLabel.text = [fontURL lastPathComponent];
+	cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	
-	NSString *fontName = _allFonts[indexPath.row][@"name"];
-	cell.textLabel.font = [UIFont fontWithName:fontName size:16];
+	FontInfo *fontInfo = self.fonts[indexPath.row];
 	
-	cell.textLabel.layer.opacity = [_selectedFonts[indexPath.row] isEqual:@1] ? 1 : 0.1;
+	UIFont *bodyFont = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+
+	cell.textLabel.text = fontInfo.displayName;
+	cell.textLabel.font = [UIFont fontWithName:fontInfo.postScriptName size:bodyFont.pointSize];
+	cell.textLabel.adjustsFontSizeToFitWidth = YES;
+	cell.textLabel.minimumScaleFactor = 0.5;
+
+	if (fontInfo.isRegistered) {
+		cell.imageView.image = [UIImage systemImageNamed:@"checkmark.circle"];
+		cell.imageView.tintColor = [UIColor colorNamed:@"appHeaderBackground"];
+	}
+	else {
+		cell.imageView.image = [UIImage systemImageNamed:@"arrow.down.circle.fill"];
+		cell.imageView.tintColor = [UIColor colorNamed:@"infoBackground"];
+	}
 	
-	UIView *selection = [[UIView alloc] init];
-	selection.backgroundColor = [UIColor colorWithHue:260/360.0 saturation:0.5 brightness:0.8 alpha:1];
+	UIView *selection = [UIView new];
+	selection.backgroundColor = [[UIColor colorNamed:@"infoBackground"] colorWithAlphaComponent:0.5];
 	cell.selectedBackgroundView = selection;
 	
 	return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//	Selects/deselects the tapped row
-	_selectedFonts[indexPath.row] = [_selectedFonts[indexPath.row] isEqual:@1] ? @0 : @1;
-	
-//	Changes the selectButton's title depending on whether or not all rows are selected
-	fullSelection = ![_selectedFonts containsObject:@0];
-	if (fullSelection) {
-		_selectButton.title = @"None";
-	} else {
-		_selectButton.title = @"All";
-	}
-	
-//	Enable the installButton only when there's at least one font selected
-	_installButton.enabled = [_selectedFonts containsObject:@1];
-	
-	[tableView reloadData];
+#pragma mark - UITableViewDelegate
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	return YES;
 }
 
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-	return true;
-}
-
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
 	if (editingStyle == UITableViewCellEditingStyleDelete) {
-		UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"Delete Font" message:@"Are you sure you want to delete this font? This cannot be undone." preferredStyle:UIAlertControllerStyleAlert];
-		alertVC.view.tintColor = self.view.tintColor;
+		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Delete Font" message:@"Are you sure you want to delete this font? There is no undo." preferredStyle:UIAlertControllerStyleAlert];
+		alertController.view.tintColor = self.view.tintColor;
 		
-//		Show alert to warn about the deletion of the font. Delete the font if the user confirms.
+		// Show alert to warn about the deletion of the font. Delete the font if the user confirms.
 		UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
 		UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-			NSDictionary *dict = _allFonts[indexPath.row];
-			if ([self removeFile:dict[@"file"]]) {
-				[_selectedFonts removeObject:dict];
-				
-				NSMutableArray *array = [_allFonts mutableCopy];
-				[array removeObjectAtIndex:indexPath.row];
-				_allFonts = array;
-				
+			FontInfo *fontInfo = self.fonts[indexPath.row];
+			if ([fontInfo removeFile]) {
+				NSMutableArray *newFonts = [self.fonts mutableCopy];
+				[newFonts removeObjectAtIndex:indexPath.row];
+				self.fonts = [newFonts copy];
+
+				[self updateNavigation];
+
 				[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 			}
 		}];
 		
-		[alertVC addAction:cancelAction];
-		[alertVC addAction:deleteAction];
+		[alertController addAction:cancelAction];
+		[alertController addAction:deleteAction];
 		
-		[self presentViewController:alertVC animated:true completion:nil];
+		[self presentViewController:alertController animated:YES completion:nil];
 	}
 }
 
-/**
- Will select all or none of the fonts, depending on how many fonts there were selected already.
- If at least one font wasn't selected, all fonts will be selected. Otherwise no fonts will be selected.
+#pragma mark - Utility
 
- @param sender is selectButton
- */
-- (IBAction)invertSelection:(id)sender {
-	for (int i=0; i<_selectedFonts.count; i++) {
-		_selectedFonts[i] = fullSelection ? @0 : @1;
+- (BOOL)importFonts
+{
+	BOOL result = NO;
+	
+	BOOL isDirectory = NO;
+	if ([NSFileManager.defaultManager fileExistsAtPath:FontInfo.inboxURL.path isDirectory:&isDirectory] && isDirectory) {
+		NSError *error = nil;
+		NSArray<NSURL *> *URLs = [NSFileManager.defaultManager contentsOfDirectoryAtURL:FontInfo.inboxURL includingPropertiesForKeys:nil options:(NSDirectoryEnumerationSkipsSubdirectoryDescendants) error:&error];
+		if (! URLs) {
+			ReleaseLog(@"%s contents error = %@", __PRETTY_FUNCTION__, error);
+		}
+		else {
+			if (URLs.count > 0) {
+				NSMutableArray *importableFonts = [NSMutableArray array];
+				
+				for (NSURL *URL in URLs) {
+					NSString *fileName = URL.lastPathComponent;
+					NSString *fileExtension = fileName.pathExtension;
+					
+					BOOL validFont = NO;
+					if ([fileExtension.lowercaseString isEqual:@"otf"]) {
+						validFont = YES;
+					}
+					else if ([fileExtension.lowercaseString isEqual:@"ttf"]) {
+						validFont = YES;
+					}
+					
+					if (validFont) {
+						FontInfo *importFontInfo = [[FontInfo alloc] initWithFileURL:URL];
+						
+						BOOL importable = YES;
+						for (FontInfo *fontInfo in self.fonts) {
+							if ([importFontInfo.postScriptName isEqual:fontInfo.postScriptName] || [importFontInfo.fileName isEqual:fontInfo.fileName]) {
+								[importFontInfo removeFile];
+								importable = NO;
+								break;
+							}
+						}
+						if (importable) {
+							[importableFonts addObject:importFontInfo];
+						}
+					}
+				}
+				
+				if (importableFonts.count > 0) {
+					for (FontInfo *importableFont in importableFonts) {
+						NSURL *destinationURL = [FontInfo.storageURL URLByAppendingPathComponent:importableFont.fileName];
+						NSError *error;
+						BOOL success = [NSFileManager.defaultManager moveItemAtURL:importableFont.fileURL toURL:destinationURL error:&error];
+						if (! success) {
+							ReleaseLog(@"%s move error = %@", __PRETTY_FUNCTION__, error);
+						}
+						else {
+							result = YES;
+						}
+					}
+				}
+			}
+		}
 	}
 	
-	fullSelection = !fullSelection;
-	if (fullSelection) {
-		_selectButton.title = @"None";
-	} else {
-		_selectButton.title = @"All";
-	}
-	_installButton.enabled = fullSelection;
-	[_tableView reloadData];
+	return result;
 }
+
+- (void)loadFonts
+{
+	NSError *error = nil;
+	NSArray<NSURL *> *URLs = [NSFileManager.defaultManager contentsOfDirectoryAtURL:FontInfo.storageURL includingPropertiesForKeys:nil options:(NSDirectoryEnumerationSkipsSubdirectoryDescendants) error:&error];
+	if (! URLs) {
+		ReleaseLog(@"%s error = %@", __PRETTY_FUNCTION__, error);
+	}
+	else {
+		// NOTE: This causes all current FontInfo instances to be deallocated and become unregistered. The
+		// new instances created below will re-register the fonts during initialization.
+		self.fonts = nil;
+		
+		NSMutableArray *loadedFonts = [NSMutableArray array];
+
+		for (NSURL *URL in URLs) {
+			NSString *fileName = URL.lastPathComponent;
+			NSString *fileExtension = fileName.pathExtension;
+			
+			BOOL validFont = NO;
+			if ([fileExtension.lowercaseString isEqual:@"otf"]) {
+				validFont = YES;
+			}
+			else if ([fileExtension.lowercaseString isEqual:@"ttf"]) {
+				validFont = YES;
+			}
+			
+			if (validFont) {
+				FontInfo *fontInfo = [[FontInfo alloc] initWithFileURL:URL];
+				[loadedFonts addObject:fontInfo];
+			}
+		}
+		
+		[loadedFonts sortUsingComparator:^NSComparisonResult(FontInfo *firstFontInfo, FontInfo *secondFontInfo) {
+			return [firstFontInfo.displayName compare:secondFontInfo.displayName];
+		}];
+		
+		self.fonts = [loadedFonts copy];
+		
+		[self.tableView reloadData];
+	}
+}
+
+- (void)updateNavigation
+{
+	NSInteger addedCount = self.fonts.count;
+	NSInteger installCount = 0;
+	for (FontInfo *fontInfo in self.fonts) {
+		if (! fontInfo.isRegistered) {
+			installCount += 1;
+		}
+	}
+
+	NSAssert([self.tableView.tableHeaderView isKindOfClass:[HeaderView class]], @"HeaderView not configured");
+	HeaderView *headerView = (HeaderView *)self.tableView.tableHeaderView;
+	[headerView setFontAddedCount:addedCount installCount:installCount];
+	
+	// NOTE: It would be nice to enable or disable the install button, but we can't really know what happens after a font is deleted.
+	// We could track the start of the install, but there's no indication that the process completed successfully. Moving the font to
+	// a temporary holding area and checking if it's registered at next launch might work, but this adds a lot of complexity and
+	// given the disjointed nature of the install process, I'd say that's unlikely.
+	//
+	//self.installButton.enabled = (installCount > 0);
+}
+
+#pragma mark -
 
 /**
  Starts the HTTP Server and sets the response to the root directory to allow the install of profiles.
  */
-- (void)startHTTPServer {
-	http = [[RoutingHTTPServer alloc] init];
-	[http setPort:3333];
-	[http setDefaultHeader:@"Content-Type" value:@"application/x-apple-aspen-config"];
-	[http setDocumentRoot:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true) objectAtIndex:0]];
+- (void)startHTTPServer
+{
+	self.http = [RoutingHTTPServer new];
+	[self.http setPort:3333];
+	[self.http setDefaultHeader:@"Content-Type" value:@"application/x-apple-aspen-config"];
+	[self.http setDocumentRoot:[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]];
 	
-	[http handleMethod:@"GET" withPath:@"/" block:^(RouteRequest *request, RouteResponse *response) {
-//		This is what the server will respond with when going to the root directory.
+	[self.http handleMethod:@"GET" withPath:@"/" block:^(RouteRequest *request, RouteResponse *response) {
+		// This is what the server will respond with when going to the root directory.
 		[response setHeader:@"Content-Type" value:@"text/html"];
 		
-//		Get the html file from the main bundle, send it as the response string.
-		NSString *path = [[NSBundle mainBundle] pathForResource:@"index" ofType:@"html"];
+		// Get the html file from the main bundle, send it as the response string.
+		NSString *path = [NSBundle.mainBundle pathForResource:@"index" ofType:@"html"];
 		NSString *html = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];
+		NSString *productName = [NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+
+		html = [html stringByReplacingOccurrencesOfString:@"$(PRODUCT_NAME)" withString:productName];
 		
 		[response respondWithString:html];
 	}];
 	
-	[http start:nil];
+	[self.http start:nil];
 }
 
-- (IBAction)openInstallProfilePage:(id)sender {
-	[self saveFontsProfile:^{
-		NSURL *URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://localhost:3333/"]];
-		[[UIApplication sharedApplication] openURL:URL options:@{} completionHandler:nil];
-	}];
+- (void)stopHTTPServer
+{
+	[self.http stop];
 }
+
+#pragma mark -
+
+static NSString *const profilePayloadTemplate =
+	@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+	"<!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\">"
+	"<plist version=\"1.0\">"
+	"<dict>"
+		"<key>PayloadType</key>"
+		"<string>Configuration</string>"
+		"<key>PayloadVersion</key>"
+		"<integer>1</integer>"
+		"<key>PayloadDisplayName</key>"
+		"<string>%@ Installation</string>"
+		"<key>PayloadDescription</key>"
+		"<string>This profile installs the fonts managed by %@.</string>"
+		"<key>PayloadIdentifier</key>"
+		"<string>com.iconfactory.xfonts</string>"
+		"<key>PayloadUUID</key>"
+		"<string>%@</string>"
+		"<key>PayloadContent</key>"
+		"<array>"
+			"%@"
+		"</array>"
+	"</dict>"
+	"</plist>";
+
+static NSString *const fontPayloadTemplate =
+	@"<dict>"
+		"<key>PayloadType</key>"
+		"<string>com.apple.font</string>"
+		"<key>PayloadVersion</key>"
+		"<integer>1</integer>"
+		"<key>PayloadIdentifier</key>"
+		"<string>com.iconfactory.xfonts.%@</string>"
+		"<key>PayloadUUID</key>"
+		"<string>%@</string>"
+		"<key>Name</key>"
+		"<string>%@</string>"
+		"<key>Font</key>"
+		"<data>%@</data>"
+	"</dict>";
 
 /**
  Goes through the list of fonts and adds all the selected ones to the profile, then saves the completed profile to the Documents directory.
 
  @param completion this block is called when the profile has completed saving to disk
  */
-- (void)saveFontsProfile:(void(^)(void))completion {
-	NSInteger count = 0;
-	NSString *fonts = @"";
-	for (int i=0; i<_allFonts.count; i++) {
-		if ([_selectedFonts[i] isEqual:@0]) {
-//			Skip fonts that aren't selected
-			continue;
-		}
-		NSDictionary *dict = _allFonts[i];
-		NSURL *url = [self urlForFile:dict[@"file"]];
+- (void)saveFontsProfile:(void(^)(NSError *error))completion
+{
+	NSString *productName = [NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+
+	NSString *fontsPayload = @"";
+	for (FontInfo *fontInfo in self.fonts) {
+		NSString *fontEncoded = [[[NSData alloc] initWithContentsOfURL:fontInfo.fileURL] base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
 		
-		NSString *name = [dict[@"name"] stringByReplacingOccurrencesOfString:@".otf" withString:@""];
-		name = [name stringByReplacingOccurrencesOfString:@".ttf" withString:@""];
+		NSString *fontPayload = [NSString stringWithFormat:fontPayloadTemplate, fontInfo.postScriptName, NSUUID.UUID.UUIDString, fontInfo.displayName, fontEncoded];
 		
-		NSString *font = [[[NSData alloc] initWithContentsOfURL:url] base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-			
-		fonts = [fonts stringByAppendingString:[NSString stringWithFormat:@"<dict><key>PayloadType</key><string>com.apple.font</string><key>PayloadVersion</key><integer>1</integer><key>PayloadIdentifier</key><string>%@</string><key>PayloadUUID</key><string>%@</string><key>Name</key><string>%@</string><key>Font</key><data>%@</data></dict>", name, [[NSUUID UUID] UUIDString], name, font]];
-		
-		count++;
+		fontsPayload = [fontsPayload stringByAppendingString:fontPayload];
 	}
-	NSString *title = [NSString stringWithFormat:@"%ld font%@", (long)count, (count>1?@"s":@"")];
 	
-	NSString *profile = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?><!DOCTYPE plist PUBLIC \"-//Apple//DTD PLIST 1.0//EN\" \"http://www.apple.com/DTDs/PropertyList-1.0.dtd\"><plist version=\"1.0\"><dict><key>PayloadType</key><string>Configuration</string><key>PayloadVersion</key><integer>1</integer><key>PayloadDisplayName</key><string>xFonts (%@)</string><key>PayloadIdentifier</key><string>xFonts %@</string><key>PayloadUUID</key><string>%@</string><key>PayloadContent</key><array>%@</array></dict></plist>", title, NSUUID.UUID.UUIDString, NSUUID.UUID.UUIDString, fonts];
-	
-	[self saveString:profile toFile:@"/xFonts.mobileconfig"];
-	completion();
-}
+	NSString *profile = [NSString stringWithFormat:profilePayloadTemplate, productName, productName, NSUUID.UUID.UUIDString, fontsPayload];
 
-/**
- Returns an NSURL [in Documents directory] for the file passed on the parameter.
-
- @param fileName whose NSURL you need
- @return NSURL to the file
- */
-- (NSURL*)urlForFile:(NSString*)fileName {
-	NSURL *directory = [[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask].firstObject;
-	return [directory URLByAppendingPathComponent:fileName];
-}
-
-/**
- Returns an NSString with the path [in Documents directory] for the file passed on the parameter.
-
- @param fileName whose path you need
- @return path to the file
- */
-- (NSString*)pathForFile:(NSString*)fileName {
-	NSString *filePath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true).firstObject;
-	return [filePath stringByAppendingString:fileName];
-}
-
-/**
- Saves the string "str" to disk on the "fileName" path.
-
- @param str file to save as a string
- @param fileName path to where the file should be saved
- */
-- (void)saveString:(NSString*)str toFile:(NSString*)fileName {
-	NSString *fileAtPath = [self pathForFile:fileName];
-	if (![[NSFileManager defaultManager] fileExistsAtPath:fileAtPath]) {
-		[[NSFileManager defaultManager] createFileAtPath:fileAtPath contents:nil attributes:nil];
-	}
-	[[str dataUsingEncoding:NSUTF8StringEncoding] writeToFile:fileAtPath atomically:true];
-}
-
-/**
- Removes the file at the "fileName" path.
-
- @param fileName path to file you want to delete
- @return true if the file was deleted, false if it couldn't be deleted
- */
-- (BOOL)removeFile:(NSString*)fileName {
-	if (![[fileName substringWithRange:NSMakeRange(0, 1)] isEqualToString:@"/"]) {
-		fileName = [@"/" stringByAppendingString:fileName];
-	}
-	NSString *fileAtPath = [self pathForFile:fileName];
+	NSURL *URL = [FontInfo.storageURL URLByAppendingPathComponent:@"xFonts.mobileconfig"];
+	// URL = [NSURL fileURLWithPath:@"/"]; // to generate an error during write
 	
 	NSError *error;
-	if (![[NSFileManager defaultManager] removeItemAtPath:fileAtPath error:&error]) {
-		NSLog(@"Could not delete file: %@", [error localizedDescription]);
-		return false;
+	if (! [profile writeToURL:URL atomically:YES encoding:NSUTF8StringEncoding error:&error]) {
+		ReleaseLog(@"%s error = %@", __PRETTY_FUNCTION__, error);
 	}
-	return true;
+	else {
+		error = nil;
+	}
+	
+	completion(error);
 }
 
-#pragma mark - Navigation
+#pragma mark -
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-	if ([segue.identifier isEqualToString:@"HelpSegue"]) {
-		UIViewController *vc = segue.destinationViewController;
-//		Set the transitioning delegate to allow for the custom animators
-		vc.transitioningDelegate = self;
+- (void)showHelpOverlay
+{
+	NSAssert([self.tabBarController isKindOfClass:[TabBarController class]], @"TabBarController not configured");
+	TabBarController *tabBarController = (TabBarController *)self.tabBarController;
+	[tabBarController showHelpOverlay];
+}
+
+#pragma mark - Notifications
+
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+	DebugLog(@"%s shutting down server...", __PRETTY_FUNCTION__);
+	[self dismissViewControllerAnimated:YES completion:^{
+		[self stopHTTPServer];
+	}];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
+	if ([self importFonts]) {
+		DebugLog(@"%s reloading font info...", __PRETTY_FUNCTION__);
+		[self loadFonts];
+	}
+	else {
+		DebugLog(@"%s refreshing font info...", __PRETTY_FUNCTION__);
+		for (FontInfo *fontInfo in self.fonts) {
+			[fontInfo refresh];
+		}
+		[self.tableView reloadData];
 	}
 }
 
-#pragma mark - Custom Blur Transition
+#pragma mark - UIDocumentPickerDelegate
 
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
-	return [PresentationBlurAnimator new];
+- (void)documentPicker:(UIDocumentPickerViewController *)controller didPickDocumentsAtURLs:(NSArray <NSURL *>*)URLs
+{
+	DebugLog(@"%s urls = %@", __PRETTY_FUNCTION__, URLs);
+	// NOTE: This is called after the selected files are downloaded and the picker view is dismissed.
+	
+	for (NSURL *sourceURL in URLs) {
+		BOOL accessingResource = [sourceURL startAccessingSecurityScopedResource];
+		NSString *fileName = sourceURL.lastPathComponent;
+		NSURL *destinationURL = [FontInfo.storageURL URLByAppendingPathComponent:fileName];
+		NSFileManager *fileManager = NSFileManager.defaultManager;
+		NSError *error;
+		if (! [fileManager fileExistsAtPath:destinationURL.path]) {
+			if (! [fileManager copyItemAtURL:sourceURL toURL:destinationURL error:&error]) {
+				ReleaseLog(@"%s error = %@", __PRETTY_FUNCTION__, error);
+			}
+		}
+		if (accessingResource) {
+			[sourceURL stopAccessingSecurityScopedResource];
+		}
+	}
+	
+	[self loadFonts];
+	[self updateNavigation];
 }
 
-- (id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed {
-	return [DismissBlurAnimator new];
+- (void)documentPickerWasCancelled:(UIDocumentPickerViewController *)controller
+{
+	DebugLog(@"%s called", __PRETTY_FUNCTION__);
+	// NOTE: Called if the user dismisses the document picker without selecting a document (using the Cancel button).
+}
+
+#pragma mark - SFSafariViewControllerDelegate
+
+- (void)safariViewControllerDidFinish:(SFSafariViewController *)controller
+{
+	[self dismissViewControllerAnimated:YES completion:^{
+		[self stopHTTPServer];
+	}];
 }
 
 @end
