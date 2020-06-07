@@ -24,6 +24,14 @@ Fontcase is completely open source, so your privacy is insured. The app only add
 
 Enjoy!
 
+What's New:
+
+• xFonts is now Fontcase - new branding to avoid confusion with another font app
+• Now supports installing fonts from iCloud Drive and other Files storage locations like Dropbox
+• An imported font can be previewed with its metadata
+• Extensive help explainging the font installation process
+• Support for Light and Dark Mode in iOS
+• Adaptive layout that works well on all devices including iPad Pros to iPhone SE
 
 Screenshots:
 
