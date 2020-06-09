@@ -1,14 +1,14 @@
 App Name: Fontcase - Manage Your Type
 
-Privacy Policy URL: htts://iconfactory.com/privacy
+Privacy Policy URL: https://iconfactory.com/privacy
 
-Keywords: font,install,custom,type,xfonts,xfont,icloud,dropbox
+Keywords: font,fonts,install,custom,type,xfonts,xfont,icloud,dropbox,personalize
 
 Support URL: https://support.iconfactory.com
 
 Marketing URL: https://iconfactoryapps.com
 
-Copyright: © 2009-2020 Manuel Sañudo
+Copyright: © 2009-2020 Manolo Sañudo
 
 Description:
 
@@ -29,7 +29,7 @@ What's New:
 • xFonts is now Fontcase - new branding to avoid confusion with another font app
 • Now supports installing fonts from iCloud Drive and other Files storage locations like Dropbox
 • An imported font can be previewed with its metadata
-• Extensive help explainging the font installation process
+• Extensive help explaining the font installation process
 • Support for Light and Dark Mode in iOS
 • Adaptive layout that works well on all devices including iPad Pros to iPhone SE
 

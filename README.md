@@ -8,6 +8,6 @@ xFonts is an app that lets you install custom fonts on iOS and iPadOS.
 
 xFonts is completely open source, so your privacy is insured. The app only adds fonts to your settings and does not modify them at all in the process. For more information on why this is important, see the app's Help screen.
 
-If you don't want to build this app yourself, it's available as [Fontcase on the App Store](https://apps.apple.com/us/app/fontcase/id1508822100?ls=1&mt=12&uo=4&pt=8934&at=10l4G7&ct=GITHUB_SITE).
+If you don't want to build this app yourself, it's available as [Fontcase on the App Store](https://apps.apple.com/us/app/id1205074470?ls=1&mt=12&uo=4&pt=8934&at=10l4G7&ct=GITHUB_SITE).
 
 Enjoy!
