@@ -20,7 +20,7 @@ Fontcase is an app that lets you install custom fonts on iOS and iPadOS.
 
 3) When you're done collecting, install your fonts in Settings and they'll be available in other apps, including iWork, to make your documents look better than ever.
 
-Fontcase is completely open source, so your privacy is insured. The app only adds fonts to your settings and does not modify them at all in the process. For more information on why this is important, see the app's Help tab.
+Fontcase is completely open source, so your privacy is ensured. The app only adds fonts to your settings and does not modify them at all in the process. For more information on why this is important, see the app's Help tab.
 
 Enjoy!
 
