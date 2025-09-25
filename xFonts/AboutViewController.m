@@ -11,6 +11,7 @@
 @interface AboutViewController ()
 
 @property (nonatomic, weak) IBOutlet UILabel *versionLabel;
+@property (nonatomic, weak) IBOutlet UIView *tabBarBackgroundView;
 
 @end
 
@@ -23,6 +24,12 @@
 	NSString *productVersion = [NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 	NSString *productBuild = [NSBundle.mainBundle objectForInfoDictionaryKey:@"CFBundleVersion"];
 	self.versionLabel.text = [NSString stringWithFormat:@"VERSION %@ (%@)", productVersion, productBuild];
+	
+	if (@available(iOS 26.0, *)) { // only need to add a bg color before iOS 26
+		[self.tabBarBackgroundView setHidden:YES];
+	} else {
+		[self.tabBarBackgroundView setHidden:NO];
+	}
 }
 
 - (IBAction)openIconfactory:(id)sender

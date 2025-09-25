@@ -727,6 +727,13 @@ Gedeon Maheux</string>
                                 <color key="textColor" name="infoHighightSecondary"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Wdv-hT-hBa">
+                                <rect key="frame" x="0.0" y="779" width="414" height="200"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="0Hk-W9-yzp"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Kwx-xM-UQ5"/>
                         <color key="backgroundColor" name="infoBackground"/>
@@ -735,6 +742,7 @@ Gedeon Maheux</string>
                             <constraint firstItem="rF5-M2-9bK" firstAttribute="centerX" secondItem="Kwx-xM-UQ5" secondAttribute="centerX" id="9yH-RJ-0Go"/>
                             <constraint firstItem="aV2-e9-TtV" firstAttribute="centerX" secondItem="Kwx-xM-UQ5" secondAttribute="centerX" id="BwE-vC-i0A"/>
                             <constraint firstItem="rF5-M2-9bK" firstAttribute="top" secondItem="EaN-Ap-foU" secondAttribute="bottom" constant="8" id="Bze-3X-SAM"/>
+                            <constraint firstItem="Kwx-xM-UQ5" firstAttribute="trailing" secondItem="Wdv-hT-hBa" secondAttribute="trailing" id="CG2-Qu-Yu5"/>
                             <constraint firstItem="rF5-M2-9bK" firstAttribute="centerY" secondItem="Kwx-xM-UQ5" secondAttribute="centerY" multiplier="0.75" priority="750" id="DTe-gZ-284"/>
                             <constraint firstItem="POK-iA-bdr" firstAttribute="top" secondItem="OEy-Nw-MIH" secondAttribute="top" id="Fdg-yK-Hgh"/>
                             <constraint firstItem="aV2-e9-TtV" firstAttribute="top" secondItem="UMc-xU-7A4" secondAttribute="bottom" constant="40" id="Fya-2a-l10"/>
@@ -744,8 +752,10 @@ Gedeon Maheux</string>
                             <constraint firstItem="UMc-xU-7A4" firstAttribute="centerX" secondItem="aV2-e9-TtV" secondAttribute="centerX" id="aRA-dZ-uii"/>
                             <constraint firstItem="OEy-Nw-MIH" firstAttribute="centerX" secondItem="UMc-xU-7A4" secondAttribute="centerX" id="coJ-CE-6Vo"/>
                             <constraint firstItem="EaN-Ap-foU" firstAttribute="centerX" secondItem="Kwx-xM-UQ5" secondAttribute="centerX" id="dqf-6U-hfZ"/>
+                            <constraint firstItem="Wdv-hT-hBa" firstAttribute="top" secondItem="Kwx-xM-UQ5" secondAttribute="bottom" id="fEr-nv-Dp9"/>
                             <constraint firstItem="POK-iA-bdr" firstAttribute="trailing" secondItem="UMc-xU-7A4" secondAttribute="trailing" id="j3V-Ko-gz6"/>
                             <constraint firstItem="POK-iA-bdr" firstAttribute="bottom" secondItem="UMc-xU-7A4" secondAttribute="bottom" id="rAF-DG-arj"/>
+                            <constraint firstItem="Wdv-hT-hBa" firstAttribute="leading" secondItem="Kwx-xM-UQ5" secondAttribute="leading" id="sBT-Ch-GDO"/>
                             <constraint firstItem="Kwx-xM-UQ5" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="aV2-e9-TtV" secondAttribute="bottom" constant="10" id="sfj-6L-WPm"/>
                             <constraint firstItem="EaN-Ap-foU" firstAttribute="top" secondItem="ssB-O3-fKC" secondAttribute="bottom" constant="20" id="tJa-Bs-nTf"/>
                             <constraint firstItem="UMc-xU-7A4" firstAttribute="top" secondItem="OEy-Nw-MIH" secondAttribute="bottom" constant="8" id="wYv-xT-iza"/>
@@ -753,6 +763,7 @@ Gedeon Maheux</string>
                     </view>
                     <navigationItem key="navigationItem" title="About" id="1LR-fx-030"/>
                     <connections>
+                        <outlet property="tabBarBackgroundView" destination="Wdv-hT-hBa" id="bYX-nI-n2c"/>
                         <outlet property="versionLabel" destination="aV2-e9-TtV" id="ixu-En-Gqj"/>
                     </connections>
                 </viewController>
@@ -871,7 +882,7 @@ Gedeon Maheux</string>
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

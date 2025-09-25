@@ -36,6 +36,11 @@
 
 	DebugLog(@"%s font storage path = '%@'", __PRETTY_FUNCTION__, FontInfo.storageURL.path);
 	
+	if (@available(iOS 26.0, *)) { /* only need to change the color before iOS 26 */ } else {
+		[self.installButton setTintColor:[UIColor colorNamed:@"appHeaderText"]];
+		[self.addButton setTintColor:[UIColor colorNamed:@"appHeaderText"]];
+	}
+	
 	NSNotificationCenter *notificationCenter = NSNotificationCenter.defaultCenter;
 	[notificationCenter addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 	[notificationCenter addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
