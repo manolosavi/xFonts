@@ -591,7 +591,7 @@ static void removeEscapesInAttributedString(NSMutableAttributedString *result, N
 
 #pragma mark -
 
-NS_INLINE NSRange emptyRange()
+NS_INLINE NSRange emptyRange(void)
 {
 	return NSMakeRange(NSNotFound, 0);
 }

@@ -63,6 +63,7 @@
 		9309F3791E4917B2002F2AB7 /* RoutingConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 9309F34E1E4917B2002F2AB7 /* RoutingConnection.m */; };
 		9309F37A1E4917B2002F2AB7 /* RoutingHTTPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9309F3501E4917B2002F2AB7 /* RoutingHTTPServer.m */; };
 		93320FD61E4EACCC0045C38C /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = 93320FD51E4EACCB0045C38C /* index.html */; };
+		937C0F252E7F9BF0000832F6 /* HelpOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 937C0F242E7F9BF0000832F6 /* HelpOverlayViewController.m */; };
 		93AE4C6D1E42C44B00D19E41 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93AE4C6C1E42C44B00D19E41 /* main.m */; };
 		93AE4C701E42C44B00D19E41 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93AE4C6F1E42C44B00D19E41 /* AppDelegate.m */; };
 		93AE4C731E42C44B00D19E41 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93AE4C721E42C44B00D19E41 /* ViewController.m */; };
@@ -108,6 +109,7 @@
 		44D14CCF24843C89007E8BD9 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		44DDE6322457D40100AD7F8F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = "xFonts/Base.lproj/Launch Screen.storyboard"; sourceTree = "<group>"; };
 		44DDE6342458CFB200AD7F8F /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		44E3DD482E87464000CF9A7F /* xFonts.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = xFonts.entitlements; sourceTree = "<group>"; };
 		44F6282B244B7EE300C8BBD7 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		44F6282C244B7EE300C8BBD7 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
 		9309F2FA1E4917B1002F2AB7 /* DDData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDData.h; sourceTree = "<group>"; };
@@ -175,6 +177,8 @@
 		9309F34F1E4917B2002F2AB7 /* RoutingHTTPServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RoutingHTTPServer.h; sourceTree = "<group>"; };
 		9309F3501E4917B2002F2AB7 /* RoutingHTTPServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RoutingHTTPServer.m; sourceTree = "<group>"; };
 		93320FD51E4EACCB0045C38C /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		937C0F232E7F9BF0000832F6 /* HelpOverlayViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpOverlayViewController.h; sourceTree = "<group>"; };
+		937C0F242E7F9BF0000832F6 /* HelpOverlayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HelpOverlayViewController.m; sourceTree = "<group>"; };
 		93AE4C681E42C44B00D19E41 /* Fontcase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Fontcase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93AE4C6C1E42C44B00D19E41 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		93AE4C6E1E42C44B00D19E41 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -412,6 +416,7 @@
 		93AE4C6A1E42C44B00D19E41 /* xFonts */ = {
 			isa = PBXGroup;
 			children = (
+				44E3DD482E87464000CF9A7F /* xFonts.entitlements */,
 				9309F2F61E4917B1002F2AB7 /* RoutingHTTPServer */,
 				443576DB2450AF5800669EEB /* MarkdownAttributedString */,
 				93AE4C6E1E42C44B00D19E41 /* AppDelegate.h */,
@@ -430,6 +435,8 @@
 				443576C7244CDC3800669EEB /* AboutViewController.m */,
 				443576D32450AE4200669EEB /* HelpViewController.h */,
 				443576D42450AE4200669EEB /* HelpViewController.m */,
+				937C0F232E7F9BF0000832F6 /* HelpOverlayViewController.h */,
+				937C0F242E7F9BF0000832F6 /* HelpOverlayViewController.m */,
 				449C16812450B1D90070226F /* Help.md */,
 				44A20B022447DC4100BF15DA /* FontInfo.h */,
 				44A20B032447DC4100BF15DA /* FontInfo.m */,
@@ -489,7 +496,7 @@
 					93AE4C671E42C44B00D19E41 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = CLD83938CC;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -590,6 +597,7 @@
 				9309F37A1E4917B2002F2AB7 /* RoutingHTTPServer.m in Sources */,
 				93AE4C701E42C44B00D19E41 /* AppDelegate.m in Sources */,
 				9309F3761E4917B2002F2AB7 /* Route.m in Sources */,
+				937C0F252E7F9BF0000832F6 /* HelpOverlayViewController.m in Sources */,
 				9309F3711E4917B2002F2AB7 /* DispatchQueueLogFormatter.m in Sources */,
 				44C12221244A8F3F00DD9481 /* NavigationController.m in Sources */,
 				9309F35E1E4917B2002F2AB7 /* HTTPErrorResponse.m in Sources */,
@@ -646,6 +654,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -654,6 +663,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -770,8 +780,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = xFonts/xFonts.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CLD83938CC;
 				INFOPLIST_FILE = xFonts/Info.plist;
@@ -780,7 +791,7 @@
 				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.manolosavi.xFonts;
 				PRODUCT_NAME = Fontcase;
-				PROVISIONING_PROFILE_SPECIFIER = "xFonts App Store";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -789,8 +800,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_ENTITLEMENTS = xFonts/xFonts.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = CLD83938CC;
 				INFOPLIST_FILE = xFonts/Info.plist;
@@ -799,7 +811,7 @@
 				MARKETING_VERSION = 2.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.manolosavi.xFonts;
 				PRODUCT_NAME = Fontcase;
-				PROVISIONING_PROFILE_SPECIFIER = "xFonts App Store";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

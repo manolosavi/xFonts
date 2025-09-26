@@ -30,7 +30,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, readonly, nullable) NSString *familyName;
 @property (nonatomic, readonly) BOOL isMonospaced;
 
-@property (nonatomic, readonly) BOOL isRegistered;
+@property (nonatomic, readonly) BOOL isInstalled;
 @property (nonatomic, readonly) NSInteger numberOfGlyphs;
 
 - (void)refresh; // reload cached properties (everything derived from fileURL)

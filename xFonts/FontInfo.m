@@ -25,7 +25,7 @@
 @property (nonatomic, strong) NSString *familyName;
 @property (nonatomic, assign) BOOL isMonospaced;
 
-@property (nonatomic, assign) BOOL isRegistered;
+@property (nonatomic, assign) BOOL isInstalled;
 @property (nonatomic, assign) NSInteger numberOfGlyphs;
 
 @end
@@ -51,19 +51,10 @@
 		
 		DebugLog(@"%s fileName = %@", __PRETTY_FUNCTION__, self.fileName);
 
-		[self unregisterFont];
 		[self extractPropertiesFromFileURL];
-		[self registerFont];
 	}
 	
 	return self;
-}
-
-- (void)dealloc
-{
-	DebugLog(@"%s fileName = %@", __PRETTY_FUNCTION__, self.fileName);
-	
-	[self unregisterFont];
 }
 
 - (NSUInteger)hash
@@ -82,9 +73,7 @@
 
 - (void)refresh
 {
-	[self unregisterFont];
 	[self extractPropertiesFromFileURL];
-	[self registerFont];
 }
 
 - (BOOL)removeFile
@@ -102,30 +91,6 @@
 
 #pragma mark - Utility
 
-- (void)registerFont
-{
-	CFErrorRef errorRef;
-	if (! CTFontManagerRegisterFontsForURL((CFURLRef)self.fileURL, kCTFontManagerScopeProcess, &errorRef)) {
-		if (CFErrorGetCode(errorRef) != kCTFontManagerErrorAlreadyRegistered) { // error 105
-			CFStringRef errorDescription = CFErrorCopyDescription(errorRef);
-			ReleaseLog(@"%s Failed to register font %@ = %@", __PRETTY_FUNCTION__, self.postScriptName, errorDescription);
-			CFRelease(errorDescription);
-		}
-	}
-}
-
-- (void)unregisterFont
-{
-	CFErrorRef errorRef;
-	if (! CTFontManagerUnregisterFontsForURL((CFURLRef)self.fileURL, kCTFontManagerScopeProcess, &errorRef)) {
-		if (CFErrorGetCode(errorRef) != kCTFontManagerErrorNotRegistered) { // error 201
-			CFStringRef errorDescription = CFErrorCopyDescription(errorRef);
-			ReleaseLog(@"%s Failed to unregister font %@ = %@", __PRETTY_FUNCTION__, self.postScriptName, errorDescription);
-			CFRelease(errorDescription);
-		}
-	}
-}
-
 - (void)extractPropertiesFromFileURL
 {
 	NSData *fontData = [[NSData alloc] initWithContentsOfURL:self.fileURL];
@@ -138,6 +103,7 @@
 				
 				self.postScriptName = CFBridgingRelease(CGFontCopyPostScriptName(fontRef));
 				self.displayName = CFBridgingRelease(CGFontCopyFullName(fontRef));
+				self.isInstalled = NO;
 
 				// https://stackoverflow.com/questions/53359789/get-meta-info-from-uifont-or-cgfont-ios-swift
 				CTFontRef textFontRef = CTFontCreateWithGraphicsFont(fontRef, 0, NULL, NULL);
@@ -152,6 +118,14 @@
 					CTFontSymbolicTraits symbolicTraits = CTFontGetSymbolicTraits(textFontRef);
 					self.isMonospaced = (symbolicTraits & kCTFontTraitMonoSpace) != 0;
 
+					CFStringRef postScriptNameStringRef = CGFontCopyPostScriptName(fontRef);
+					CGFontRef existingFontRef = CGFontCreateWithFontName(postScriptNameStringRef);
+					if (existingFontRef != NULL) {
+						CGFontRelease(existingFontRef);
+						self.isInstalled = YES;
+					}
+					DebugLog(@"%s font %@ installed: %@", __PRETTY_FUNCTION__, self.postScriptName, self.isInstalled ? @"YES" : @"NO");
+
 					CFRelease(textFontRef);
 					CFRelease(fontRef);
 				}
@@ -159,9 +133,6 @@
 					ReleaseLog(@"%s no fontRef", __PRETTY_FUNCTION__);
 				}
 				
-				NSArray *availablePostsScriptNames = CFBridgingRelease(CTFontManagerCopyAvailablePostScriptNames());
-				self.isRegistered = [availablePostsScriptNames containsObject:self.postScriptName];
-
 				CFRelease(providerRef);
 			}
 			else {

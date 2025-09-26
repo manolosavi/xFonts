@@ -152,7 +152,7 @@
 	cell.textLabel.adjustsFontSizeToFitWidth = YES;
 	cell.textLabel.minimumScaleFactor = 0.5;
 
-	if (fontInfo.isRegistered) {
+	if (fontInfo.isInstalled) {
 		cell.imageView.image = [UIImage systemImageNamed:@"checkmark.circle"];
 		cell.imageView.tintColor = [UIColor colorNamed:@"appHeaderBackground"];
 	}
@@ -233,6 +233,19 @@
 					}
 					
 					if (validFont) {
+						CGDataProviderRef fontDataProviderRef = CGDataProviderCreateWithURL((CFURLRef)URL);
+						CGFontRef fontRef = CGFontCreateWithDataProvider(fontDataProviderRef);
+						if (fontRef != NULL) {
+							CGFontRelease(fontRef);
+						}
+						else {
+							DebugLog(@"%s can't load font at %@", __PRETTY_FUNCTION__, URL.absoluteString);
+							[NSFileManager.defaultManager removeItemAtURL:URL error:nil];
+							validFont = NO;
+						}
+					}
+					
+					if (validFont) {
 						FontInfo *importFontInfo = [[FontInfo alloc] initWithFileURL:URL];
 						
 						BOOL importable = YES;
@@ -294,6 +307,19 @@
 			else if ([fileExtension.lowercaseString isEqual:@"ttf"]) {
 				validFont = YES;
 			}
+
+			if (validFont) {
+				CGDataProviderRef fontDataProviderRef = CGDataProviderCreateWithURL((CFURLRef)URL);
+				CGFontRef fontRef = CGFontCreateWithDataProvider(fontDataProviderRef);
+				if (fontRef != NULL) {
+					CGFontRelease(fontRef);
+				}
+				else {
+					DebugLog(@"%s can't load font at %@", __PRETTY_FUNCTION__, URL.absoluteString);
+					[NSFileManager.defaultManager removeItemAtURL:URL error:nil];
+					validFont = NO;
+				}
+			}
 			
 			if (validFont) {
 				FontInfo *fontInfo = [[FontInfo alloc] initWithFileURL:URL];
@@ -316,7 +342,7 @@
 	NSInteger addedCount = self.fonts.count;
 	NSInteger installCount = 0;
 	for (FontInfo *fontInfo in self.fonts) {
-		if (! fontInfo.isRegistered) {
+		if (! fontInfo.isInstalled) {
 			installCount += 1;
 		}
 	}
@@ -432,8 +458,11 @@ static NSString *const fontPayloadTemplate =
 	NSURL *URL = [FontInfo.storageURL URLByAppendingPathComponent:@"xFonts.mobileconfig"];
 	// URL = [NSURL fileURLWithPath:@"/"]; // to generate an error during write
 	
+	// NOTE: Previously, atomically was set to YES. This writes the data to an auxillary file and copies it ensure data integrity.
+	// It's possible the web server may not recognize that file getting replaced and could be a cause for some of the
+	// profile installation problems - basically a data race condition.
 	NSError *error;
-	if (! [profile writeToURL:URL atomically:YES encoding:NSUTF8StringEncoding error:&error]) {
+	if (! [profile writeToURL:URL atomically:NO encoding:NSUTF8StringEncoding error:&error]) {
 		ReleaseLog(@"%s error = %@", __PRETTY_FUNCTION__, error);
 	}
 	else {
@@ -474,6 +503,7 @@ static NSString *const fontPayloadTemplate =
 			[fontInfo refresh];
 		}
 		[self.tableView reloadData];
+		[self updateNavigation];
 	}
 }
 
@@ -484,6 +514,9 @@ static NSString *const fontPayloadTemplate =
 	DebugLog(@"%s urls = %@", __PRETTY_FUNCTION__, URLs);
 	// NOTE: This is called after the selected files are downloaded and the picker view is dismissed.
 	
+	NSMutableArray<NSString *> *errorFonts = [NSMutableArray array];
+	NSMutableArray<NSString *> *warningFonts = [NSMutableArray array];
+
 	for (NSURL *sourceURL in URLs) {
 		BOOL accessingResource = [sourceURL startAccessingSecurityScopedResource];
 		NSString *fileName = sourceURL.lastPathComponent;
@@ -491,10 +524,35 @@ static NSString *const fontPayloadTemplate =
 		NSFileManager *fileManager = NSFileManager.defaultManager;
 		NSError *error;
 		if (! [fileManager fileExistsAtPath:destinationURL.path]) {
-			if (! [fileManager copyItemAtURL:sourceURL toURL:destinationURL error:&error]) {
-				ReleaseLog(@"%s error = %@", __PRETTY_FUNCTION__, error);
+			BOOL validFont = NO;
+			
+			CGDataProviderRef fontDataProviderRef = CGDataProviderCreateWithURL((CFURLRef)sourceURL);
+			CGFontRef fontRef = CGFontCreateWithDataProvider(fontDataProviderRef);
+			if (fontRef != NULL) {
+				CFStringRef postScriptNameStringRef = CGFontCopyPostScriptName(fontRef);
+				CGFontRef existingFontRef = CGFontCreateWithFontName(postScriptNameStringRef);
+				if (existingFontRef != NULL) {
+					[warningFonts addObject:sourceURL.lastPathComponent];
+					CGFontRelease(existingFontRef);
+				}
+				validFont = YES;
+				CGFontRelease(fontRef);
+			}
+			else {
+				DebugLog(@"%s can't load font at %@", __PRETTY_FUNCTION__, sourceURL.absoluteString);
+				[errorFonts addObject:sourceURL.lastPathComponent];
+			}
+
+			if (validFont) {
+				if (! [fileManager copyItemAtURL:sourceURL toURL:destinationURL error:&error]) {
+					ReleaseLog(@"%s error = %@", __PRETTY_FUNCTION__, error);
+				}
 			}
 		}
+		else {
+			[warningFonts addObject:sourceURL.lastPathComponent];
+		}
+		
 		if (accessingResource) {
 			[sourceURL stopAccessingSecurityScopedResource];
 		}
@@ -502,6 +560,24 @@ static NSString *const fontPayloadTemplate =
 	
 	[self loadFonts];
 	[self updateNavigation];
+	
+	if (errorFonts.count != 0 || warningFonts.count != 0) {
+		NSString *message = @"There were issues with some of the fonts.";
+		if (warningFonts.count != 0) {
+			NSString *warningMessage = [NSString stringWithFormat:@"\n\nThese fonts have already been imported: %@", [warningFonts componentsJoinedByString:@", "]];
+			message = [message stringByAppendingString:warningMessage];
+		}
+		if (errorFonts.count != 0) {
+			NSString *errorMessage = [NSString stringWithFormat:@"\n\nThese fonts couldn't be read or imported: %@", [errorFonts componentsJoinedByString:@", "]];
+			message = [message stringByAppendingString:errorMessage];
+		}
+		
+		UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Import Problems" message:message preferredStyle:UIAlertControllerStyleAlert];
+		alertController.view.tintColor = self.view.tintColor;
+		[alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+		
+		[self presentViewController:alertController animated:YES completion:nil];
+	}
 }
 
 - (void)documentPickerWasCancelled:(UIDocumentPickerViewController *)controller
@@ -516,6 +592,8 @@ static NSString *const fontPayloadTemplate =
 {
 	[self dismissViewControllerAnimated:YES completion:^{
 		[self stopHTTPServer];
+		
+		[UIApplication.sharedApplication openURL:[NSURL URLWithString:@"app-prefs://prefs:root=Settings"] options:@{} completionHandler: nil];
 	}];
 }
 

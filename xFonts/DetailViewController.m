@@ -37,20 +37,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
 	
 	[self updateView];
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - Utility
 
@@ -84,12 +73,20 @@
 		self.descriptionView.hidden = YES;
 	}
 		
-	UIFont *font = [UIFont fontWithName:self.fontInfo.postScriptName size:32.0];
-	self.sampleTextView.font = font;
-	
+	if (self.fontInfo.isInstalled) {
+		UIFont *font = [UIFont fontWithName:self.fontInfo.postScriptName size:32.0];
+		self.sampleTextView.font = font;
+		self.sampleTextView.textColor = UIColor.labelColor;
+		self.sampleTextView.text = @"ABCDEFGHIJKLM\nNOPQRSTUVWXYZ\nabcdefghijklm\nnopqrstuvwxyz\n0123456789-+=\n!@#$%&*{(’”?;\n\nHamburgfonstiv\n\nHow razorback-jumping frogs can level six piqued gymnasts!";
+	}
+	else {
+		self.sampleTextView.font = [UIFont systemFontOfSize:32.0];
+		self.sampleTextView.textColor = UIColor.secondaryLabelColor;
+		self.sampleTextView.text = @"\nA sample will be displayed here when the font is installed.\n";
+	}
 	self.sampleBackgroundView.layer.cornerRadius = 4.0;
 	
-	self.installWarningView.hidden = self.fontInfo.isRegistered;
+	self.installWarningView.hidden = self.fontInfo.isInstalled;
 	self.installWarningView.layer.cornerRadius = 4.0;
 }
 
